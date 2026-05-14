@@ -1,0 +1,98 @@
+/* Annie Cakes Admin Styles — Gold & Chocolate Theme */
+
+.ac-admin-page {
+    max-width: 900px;
+}
+
+.ac-admin-header {
+    background: linear-gradient(135deg, #3C1518, #5C3D2E);
+    color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.ac-admin-header h1 {
+    color: #d4af37;
+    margin: 0 0 5px;
+}
+
+.ac-admin-header p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+.ac-admin-setup {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.ac-setup-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #E8DDD4;
+    border-top: 3px solid #d4af37;
+}
+
+.ac-setup-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #3C1518;
+}
+
+.ac-setup-card p {
+    color: #6B4C3B;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.ac-setup-card .button-primary {
+    background: #d4af37;
+    border-color: #b8962e;
+    color: #3C1518;
+    font-weight: 600;
+}
+
+.ac-setup-card .button-primary:hover {
+    background: #b8962e;
+    border-color: #9d7f26;
+}
+
+.ac-import-status {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.ac-import-status.success {
+    display: block;
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.ac-import-status.error {
+    display: block;
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.ac-import-status.loading {
+    display: block;
+    background: #FFF8F0;
+    color: #3C1518;
+    border: 1px solid #E8DDD4;
+}
+
+@media (max-width: 960px) {
+    .ac-admin-setup {
+        grid-template-columns: 1fr;
+    }
+}
