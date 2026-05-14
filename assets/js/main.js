@@ -513,6 +513,11 @@
             });
         });
 
+        /* --- AOS Init --- */
+        if (typeof AOS !== 'undefined') {
+            AOS.init({ duration: 800, once: true, offset: 80 });
+        }
+
         /* --- Swiper Initialization --- */
         if (typeof Swiper !== 'undefined') {
             /* Hero Slider */

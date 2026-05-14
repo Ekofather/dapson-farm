@@ -30,6 +30,16 @@ if ( ! defined( 'ABSPATH' ) ) {
         <p><?php esc_html_e( 'Annie Cakes & Gift', 'annie-cakes' ); ?></p>
     </div>
 </div>
+<script>
+(function(){
+    function hidePreloader(){
+        var p=document.getElementById('ac-preloader');
+        if(p){p.classList.add('loaded');setTimeout(function(){p.style.display='none';},600);}
+    }
+    window.addEventListener('load',hidePreloader);
+    setTimeout(hidePreloader,4000);
+})();
+</script>
 
 <!-- Top Bar -->
 <div class="ac-topbar">

@@ -150,13 +150,13 @@ function annie_cakes_scripts() {
     // Theme Scripts
     wp_enqueue_script( 'annie-main', ANNIE_CAKES_URI . '/assets/js/main.js', array( 'jquery', 'aos-js', 'swiper-js' ), ANNIE_CAKES_VERSION, true );
 
-    wp_localize_script( 'annie-main', 'annieCakes', array(
-        'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
-        'nonce'      => wp_create_nonce( 'annie_cakes_nonce' ),
-        'cartUrl'    => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : '',
-        'checkoutUrl'=> function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : '',
-        'currency'   => function_exists( 'get_woocommerce_currency_symbol' ) ? get_woocommerce_currency_symbol() : '$',
-        'i18n'       => array(
+    wp_localize_script( 'annie-main', 'annie_cakes_data', array(
+        'ajax_url'    => admin_url( 'admin-ajax.php' ),
+        'nonce'       => wp_create_nonce( 'annie_cakes_nonce' ),
+        'cart_url'    => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : '',
+        'checkout_url'=> function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : '',
+        'currency'    => function_exists( 'get_woocommerce_currency_symbol' ) ? get_woocommerce_currency_symbol() : '$',
+        'i18n'        => array(
             'addedToCart'  => esc_html__( 'Added to cart!', 'annie-cakes' ),
             'addedToWish'  => esc_html__( 'Added to wishlist!', 'annie-cakes' ),
             'removedWish'  => esc_html__( 'Removed from wishlist.', 'annie-cakes' ),

@@ -171,6 +171,15 @@ h4 { font-size: 1.25rem; }
     pointer-events: none;
 }
 
+@keyframes ac-preloader-timeout {
+    0%, 99% { opacity: 1; }
+    100% { opacity: 0; pointer-events: none; visibility: hidden; }
+}
+
+.ac-preloader {
+    animation: ac-preloader-timeout 5s forwards;
+}
+
 .ac-preloader-inner {
     text-align: center;
 }
