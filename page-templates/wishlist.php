@@ -8,16 +8,18 @@
 get_header();
 ?>
 
-<section class="ac-page-header">
+<div class="ac-page-header">
     <div class="ac-container">
-        <h1><i class="fas fa-heart"></i> <?php esc_html_e( 'My Wishlist', 'annie-cakes' ); ?></h1>
-        <nav class="ac-breadcrumb">
+        <span class="ac-section-badge"><?php esc_html_e( 'My Favourites', 'annie-cakes' ); ?></span>
+        <h1><i class="fas fa-heart" style="color:var(--ac-gold);"></i> <?php esc_html_e( 'My Wishlist', 'annie-cakes' ); ?></h1>
+        <p><?php esc_html_e( 'Your saved items — ready to order when you are.', 'annie-cakes' ); ?></p>
+        <div class="ac-breadcrumb">
             <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'annie-cakes' ); ?></a>
-            <span>/</span>
+            <span class="separator">/</span>
             <span><?php esc_html_e( 'Wishlist', 'annie-cakes' ); ?></span>
-        </nav>
+        </div>
     </div>
-</section>
+</div>
 
 <section class="ac-section ac-wishlist-section">
     <div class="ac-container">
@@ -32,7 +34,7 @@ get_header();
                     }
                     setup_postdata( $product->get_id() );
                     ?>
-                    <div class="ac-wishlist-item" data-product-id="<?php echo esc_attr( $product_id ); ?>">
+                    <div class="ac-wishlist-item" data-product-id="<?php echo esc_attr( $product_id ); ?>" data-aos="fade-up">
                         <div class="ac-wishlist-item-img">
                             <a href="<?php echo esc_url( $product->get_permalink() ); ?>">
                                 <?php echo wp_kses_post( $product->get_image( 'annie-product-card' ) ); ?>
@@ -59,12 +61,12 @@ get_header();
                 endforeach;
             else :
                 ?>
-                <div class="ac-wishlist-empty">
-                    <i class="far fa-heart"></i>
-                    <h2><?php esc_html_e( 'Your wishlist is empty', 'annie-cakes' ); ?></h2>
-                    <p><?php esc_html_e( 'Browse our products and add your favourites!', 'annie-cakes' ); ?></p>
-                    <a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>" class="ac-btn ac-btn-primary ac-btn-lg">
-                        <?php esc_html_e( 'Start Shopping', 'annie-cakes' ); ?>
+                <div class="ac-wishlist-empty" data-aos="fade-up">
+                    <i class="far fa-heart" style="font-size:4rem;color:var(--ac-gold);opacity:0.4;margin-bottom:20px;"></i>
+                    <h2><?php esc_html_e( 'Your Wishlist is Empty', 'annie-cakes' ); ?></h2>
+                    <p style="color:var(--ac-text-light);max-width:400px;margin:10px auto 30px;"><?php esc_html_e( 'You haven\'t saved any items yet. Browse our collection of premium cakes and gifts, and tap the heart icon to add your favourites here.', 'annie-cakes' ); ?></p>
+                    <a href="<?php echo esc_url( function_exists( 'wc_get_page_id' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' ) ); ?>" class="ac-btn ac-btn-primary ac-btn-lg">
+                        <i class="fas fa-shopping-bag"></i> <?php esc_html_e( 'Start Shopping', 'annie-cakes' ); ?>
                     </a>
                 </div>
             <?php endif; ?>
@@ -72,5 +74,35 @@ get_header();
     </div>
 </section>
 
-<?php
-get_footer();
+<!-- Suggested Products -->
+<section class="ac-section" style="background:var(--ac-bg-alt);">
+    <div class="ac-container">
+        <div class="ac-section-header" data-aos="fade-up">
+            <h2><?php esc_html_e( 'You Might Also Like', 'annie-cakes' ); ?></h2>
+            <p><?php esc_html_e( 'Popular products our customers love.', 'annie-cakes' ); ?></p>
+        </div>
+        <div class="ac-products-grid">
+            <?php
+            if ( class_exists( 'WooCommerce' ) ) {
+                $popular = new WP_Query( array(
+                    'post_type'      => 'product',
+                    'posts_per_page' => 4,
+                    'meta_key'       => 'total_sales',
+                    'orderby'        => 'meta_value_num',
+                    'order'          => 'DESC',
+                    'post__not_in'   => $wishlist ?: array(),
+                ) );
+                if ( $popular->have_posts() ) {
+                    while ( $popular->have_posts() ) {
+                        $popular->the_post();
+                        get_template_part( 'template-parts/product-card' );
+                    }
+                    wp_reset_postdata();
+                }
+            }
+            ?>
+        </div>
+    </div>
+</section>
+
+<?php get_footer(); ?>
