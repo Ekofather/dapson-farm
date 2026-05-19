@@ -29,12 +29,7 @@ get_header();
             <div class="bio-sidebar" data-aos="fade-right">
                 <div class="bio-portrait">
                     <div class="portrait-frame">
-                        <div class="image-placeholder large">
-                            <div class="placeholder-content">
-                                <i class="fas fa-user-tie"></i>
-                                <span>Demola Bakare, FSI</span>
-                            </div>
-                        </div>
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/demola-bakare-office.jpg' ); ?>" alt="Demola Bakare, FSI — Director, Public Enlightenment & Education Department, ICPC Nigeria" loading="lazy">
                     </div>
                 </div>
                 <div class="bio-quick-facts">

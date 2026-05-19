@@ -71,12 +71,7 @@ get_header();
         <div class="about-preview-grid">
             <div class="about-preview-image" data-aos="fade-right" data-aos-duration="1000">
                 <div class="image-frame">
-                    <div class="image-placeholder">
-                        <div class="placeholder-content">
-                            <i class="fas fa-user-tie"></i>
-                            <span>Demola Bakare, FSI</span>
-                        </div>
-                    </div>
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/demola-bakare-speaking.jpg' ); ?>" alt="Demola Bakare, FSI — Keynote Address" loading="lazy">
                     <div class="image-accent"></div>
                 </div>
                 <div class="experience-badge">

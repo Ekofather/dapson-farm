@@ -87,25 +87,26 @@ get_header();
                 endforeach;
                 wp_reset_postdata();
             else :
+                $theme_img_url = get_template_directory_uri() . '/assets/images/gallery/';
                 $placeholder_gallery = array(
-                    array( 'title' => 'NAOSNP Award Ceremony', 'cat' => 'awards' ),
-                    array( 'title' => 'SAEMA Award Reception', 'cat' => 'awards' ),
-                    array( 'title' => 'Ethics Training Workshop', 'cat' => 'training' ),
-                    array( 'title' => 'ICPC Student Educational Visit', 'cat' => 'events' ),
-                    array( 'title' => 'Media Engagement Session', 'cat' => 'media' ),
-                    array( 'title' => 'Governance Strategy Meeting', 'cat' => 'meetings' ),
-                    array( 'title' => 'Public Enlightenment Campaign', 'cat' => 'events' ),
-                    array( 'title' => 'Leadership Conference', 'cat' => 'events' ),
-                    array( 'title' => 'Anti-Corruption Training', 'cat' => 'training' ),
+                    array( 'title' => 'Keynote Address at NAOSNP Media Workshop', 'cat' => 'events', 'img' => 'demola-bakare-speaking.jpg', 'desc' => 'Mr. Demola Bakare, FSI, delivering keynote address at NAOSNP capacity-building workshop, Lagos Chamber of Commerce, October 2025.' ),
+                    array( 'title' => 'At the ICPC Public Enlightenment Office', 'cat' => 'media', 'img' => 'demola-bakare-office.jpg', 'desc' => 'Mr. Demola Bakare, FSI, at his office as Director, Public Enlightenment & Education Department, ICPC Headquarters, Abuja.' ),
+                    array( 'title' => 'SAEMA Diligent Investigation Award Ceremony', 'cat' => 'awards', 'img' => 'saema-award-ceremony.jpg', 'desc' => 'Mr. Demola Bakare, FSI, representing ICPC at the SAEMA Awards at NDLEA Headquarters, accepting the Diligent Investigation Award, November 2025.' ),
+                    array( 'title' => 'Anti-Corruption Champion Award 2024', 'cat' => 'awards', 'img' => 'anti-corruption-champion-award.jpg', 'desc' => 'Mr. Demola Bakare accepting the Anti-Corruption Champion of the Year 2024 award from Top 10 Magazine on behalf of ICPC Chairman, Abuja.' ),
+                    array( 'title' => 'CEPTI Phase 6 & EICS World Press Conference', 'cat' => 'media', 'img' => 'cepti-eics-press-conference.png', 'desc' => 'Mr. Demola Bakare, FSI, presenting CEPTI Phase 6 and EICS reports at the ICPC World Press Conference, December 2024.' ),
+                    array( 'title' => 'ICPC-UBEC Partnership Meeting', 'cat' => 'meetings', 'img' => 'icpc-ubec-partnership.png', 'desc' => 'ICPC and UBEC leadership meeting to strengthen transparency and accountability in Nigeria\'s basic education sector, October 2025.' ),
+                    array( 'title' => 'Students Anti-Corruption Vanguard Inauguration', 'cat' => 'events', 'img' => 'sav-inauguration.jpg', 'desc' => 'Mr. Demola Bakare, FSI, at the inauguration of Students Anti-Corruption Vanguards at Nile University, Federal Polytechnic Nasarawa, and FCT College of Nursing, November 2024.' ),
+                    array( 'title' => 'Secondary School Anti-Corruption Educational Visit', 'cat' => 'events', 'img' => 'icpc-secondary-school-visit.jpg', 'desc' => 'ICPC hosting secondary school students at headquarters for anti-corruption educational visit, May 2025.' ),
+                    array( 'title' => 'ACTU Desk Officers Workshop', 'cat' => 'training', 'img' => 'actu-workshop.jpg', 'desc' => 'ACTU desk officers capacity-building workshop organised by ICPC in partnership with RoLAC, Abuja, November 2024.' ),
+                    array( 'title' => 'Students Anti-Corruption Awareness Campaign', 'cat' => 'training', 'img' => 'students-anti-corruption-visit.png', 'desc' => 'ICPC Public Enlightenment Department engaging students on anti-corruption values and the National Ethics and Integrity Policy, October 2025.' ),
                 );
                 foreach ( $placeholder_gallery as $index => $gal ) :
             ?>
                 <div class="gallery-item <?php echo esc_attr( $gal['cat'] ); ?>" data-aos="fade-up" data-aos-delay="<?php echo esc_attr( ( $index % 3 ) * 100 ); ?>">
-                    <div class="gallery-placeholder">
-                        <i class="fas fa-image"></i>
-                    </div>
+                    <img src="<?php echo esc_url( $theme_img_url . $gal['img'] ); ?>" alt="<?php echo esc_attr( $gal['title'] ); ?>" loading="lazy">
                     <div class="gallery-overlay">
                         <h4><?php echo esc_html( $gal['title'] ); ?></h4>
+                        <p><?php echo esc_html( $gal['desc'] ); ?></p>
                     </div>
                 </div>
             <?php endforeach;

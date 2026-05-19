@@ -746,6 +746,17 @@ h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
 
 .image-frame {
   position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.image-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  aspect-ratio: 3/4;
 }
 
 .image-placeholder {
@@ -1450,6 +1461,17 @@ h4 { font-size: clamp(1.1rem, 2vw, 1.4rem); }
 
 .portrait-frame {
   position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.portrait-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+  aspect-ratio: 3/4;
 }
 
 .bio-quick-facts {
