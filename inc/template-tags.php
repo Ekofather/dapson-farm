@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Tags
+ * Template Tags & Helper Functions
  *
- * @package AnnieCakes
+ * @package DemolaBakare
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,86 +10,114 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Fallback menu
+ * Calculate reading time for a post
  */
-function annie_cakes_fallback_menu() {
-    echo '<ul class="ac-nav-menu">';
-    echo '<li><a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Home', 'annie-cakes' ) . '</a></li>';
-    if ( class_exists( 'WooCommerce' ) ) {
-        echo '<li><a href="' . esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ) . '">' . esc_html__( 'Shop', 'annie-cakes' ) . '</a></li>';
+function demola_reading_time( $post_id = null ) {
+    if ( ! $post_id ) {
+        $post_id = get_the_ID();
     }
-    echo '<li><a href="' . esc_url( home_url( '/custom-orders/' ) ) . '">' . esc_html__( 'Custom Orders', 'annie-cakes' ) . '</a></li>';
-    echo '<li><a href="' . esc_url( home_url( '/about-us/' ) ) . '">' . esc_html__( 'About', 'annie-cakes' ) . '</a></li>';
-    echo '<li><a href="' . esc_url( home_url( '/contact/' ) ) . '">' . esc_html__( 'Contact', 'annie-cakes' ) . '</a></li>';
-    echo '</ul>';
+    $content    = get_post_field( 'post_content', $post_id );
+    $word_count = str_word_count( wp_strip_all_tags( $content ) );
+    $time       = max( 1, ceil( $word_count / 250 ) );
+    return $time;
 }
 
 /**
- * Breadcrumb
+ * Get social sharing URLs
  */
-function annie_cakes_breadcrumb() {
-    if ( is_front_page() ) {
-        return;
+function demola_get_share_urls( $post_id = null ) {
+    if ( ! $post_id ) {
+        $post_id = get_the_ID();
     }
+    $url   = rawurlencode( get_permalink( $post_id ) );
+    $title = rawurlencode( get_the_title( $post_id ) );
 
-    echo '<nav class="ac-breadcrumb">';
-    echo '<a href="' . esc_url( home_url( '/' ) ) . '">' . esc_html__( 'Home', 'annie-cakes' ) . '</a>';
-
-    if ( is_category() || is_single() ) {
-        echo '<span>/</span>';
-        the_category( ' / ' );
-        if ( is_single() ) {
-            echo '<span>/</span><span>';
-            the_title();
-            echo '</span>';
-        }
-    } elseif ( is_page() ) {
-        echo '<span>/</span><span>';
-        the_title();
-        echo '</span>';
-    } elseif ( is_search() ) {
-        echo '<span>/</span><span>' . esc_html__( 'Search Results', 'annie-cakes' ) . '</span>';
-    } elseif ( is_archive() ) {
-        echo '<span>/</span><span>';
-        the_archive_title();
-        echo '</span>';
-    }
-
-    echo '</nav>';
-}
-
-/**
- * Posted on
- */
-function annie_cakes_posted_on() {
-    $time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
-    printf( $time_string, esc_attr( get_the_date( DATE_W3C ) ), esc_html( get_the_date() ) );
-}
-
-/**
- * Posted by
- */
-function annie_cakes_posted_by() {
-    printf(
-        '<span class="byline"><i class="fas fa-user"></i> %s</span>',
-        '<a href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a>'
+    return array(
+        'twitter'  => 'https://twitter.com/intent/tweet?url=' . $url . '&text=' . $title,
+        'linkedin' => 'https://www.linkedin.com/sharing/share-offsite/?url=' . $url,
+        'facebook' => 'https://www.facebook.com/sharer/sharer.php?u=' . $url,
+        'whatsapp' => 'https://wa.me/?text=' . $title . '%20' . $url,
     );
 }
 
 /**
- * Get sale badge percentage
+ * Breadcrumbs
  */
-function annie_cakes_sale_percentage( $product ) {
-    if ( ! $product->is_on_sale() ) {
-        return '';
+function demola_breadcrumbs() {
+    if ( is_front_page() ) {
+        return;
     }
 
-    if ( $product->is_type( 'simple' ) ) {
-        $regular = (float) $product->get_regular_price();
-        $sale    = (float) $product->get_sale_price();
-        if ( $regular > 0 ) {
-            return round( ( ( $regular - $sale ) / $regular ) * 100 );
+    echo '<nav class="breadcrumbs" aria-label="Breadcrumb">';
+    echo '<div class="container">';
+    echo '<a href="' . esc_url( home_url( '/' ) ) . '">Home</a>';
+
+    if ( is_page() ) {
+        $ancestors = get_post_ancestors( get_the_ID() );
+        if ( $ancestors ) {
+            $ancestors = array_reverse( $ancestors );
+            foreach ( $ancestors as $ancestor ) {
+                echo ' <span class="sep">/</span> ';
+                echo '<a href="' . esc_url( get_permalink( $ancestor ) ) . '">' . esc_html( get_the_title( $ancestor ) ) . '</a>';
+            }
         }
+        echo ' <span class="sep">/</span> ';
+        echo '<span class="current">' . esc_html( get_the_title() ) . '</span>';
+    } elseif ( is_single() ) {
+        $categories = get_the_category();
+        if ( $categories ) {
+            echo ' <span class="sep">/</span> ';
+            echo '<a href="' . esc_url( get_category_link( $categories[0]->term_id ) ) . '">' . esc_html( $categories[0]->name ) . '</a>';
+        }
+        echo ' <span class="sep">/</span> ';
+        echo '<span class="current">' . esc_html( get_the_title() ) . '</span>';
+    } elseif ( is_category() ) {
+        echo ' <span class="sep">/</span> ';
+        echo '<span class="current">' . esc_html( single_cat_title( '', false ) ) . '</span>';
+    } elseif ( is_search() ) {
+        echo ' <span class="sep">/</span> ';
+        echo '<span class="current">Search Results</span>';
+    } elseif ( is_404() ) {
+        echo ' <span class="sep">/</span> ';
+        echo '<span class="current">Page Not Found</span>';
+    } elseif ( is_archive() ) {
+        echo ' <span class="sep">/</span> ';
+        echo '<span class="current">' . esc_html( get_the_archive_title() ) . '</span>';
     }
-    return '';
+
+    echo '</div>';
+    echo '</nav>';
+}
+
+/**
+ * Post pagination
+ */
+function demola_pagination() {
+    the_posts_pagination( array(
+        'mid_size'  => 2,
+        'prev_text' => '<i class="fas fa-chevron-left"></i> Previous',
+        'next_text' => 'Next <i class="fas fa-chevron-right"></i>',
+        'class'     => 'demola-pagination',
+    ) );
+}
+
+/**
+ * Posted on helper
+ */
+function demola_posted_on() {
+    printf(
+        '<span class="posted-on"><i class="far fa-calendar-alt"></i> <time datetime="%1$s">%2$s</time></span>',
+        esc_attr( get_the_date( DATE_W3C ) ),
+        esc_html( get_the_date() )
+    );
+}
+
+/**
+ * Posted by helper
+ */
+function demola_posted_by() {
+    printf(
+        '<span class="byline"><i class="far fa-user"></i> %s</span>',
+        esc_html( get_the_author() )
+    );
 }

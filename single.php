@@ -2,96 +2,121 @@
 /**
  * Single Post Template
  *
- * @package AnnieCakes
+ * @package DemolaBakare
  */
 
 get_header();
 ?>
 
-<section class="ac-page-header">
-    <div class="ac-container">
-        <h1><?php the_title(); ?></h1>
-        <nav class="ac-breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'annie-cakes' ); ?></a>
-            <span>/</span>
-            <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>"><?php esc_html_e( 'Blog', 'annie-cakes' ); ?></a>
-            <span>/</span>
-            <span><?php the_title(); ?></span>
-        </nav>
-    </div>
-</section>
+<?php demola_breadcrumbs(); ?>
 
-<section class="ac-single-post-section">
-    <div class="ac-container">
-        <div class="ac-blog-layout">
-            <article <?php post_class( 'ac-single-post' ); ?>>
-                <?php if ( has_post_thumbnail() ) : ?>
-                    <div class="ac-single-post-img" data-aos="fade-up">
-                        <?php the_post_thumbnail( 'large' ); ?>
+<section class="section section-single-post">
+    <div class="container">
+        <div class="blog-layout">
+            <article id="post-<?php the_ID(); ?>" <?php post_class( 'single-article' ); ?>>
+                <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+
+                    <header class="article-header" data-aos="fade-up">
+                        <div class="article-category">
+                            <?php
+                            $categories = get_the_category();
+                            if ( $categories ) {
+                                foreach ( $categories as $cat ) {
+                                    printf( '<a href="%s">%s</a>', esc_url( get_category_link( $cat->term_id ) ), esc_html( $cat->name ) );
+                                }
+                            }
+                            ?>
+                        </div>
+                        <h1><?php the_title(); ?></h1>
+                        <div class="article-meta">
+                            <?php demola_posted_on(); ?>
+                            <?php demola_posted_by(); ?>
+                            <span><i class="far fa-clock"></i> <?php echo esc_html( demola_reading_time() ); ?> min read</span>
+                        </div>
+                    </header>
+
+                    <?php if ( has_post_thumbnail() ) : ?>
+                        <div class="article-featured-image" data-aos="fade-up">
+                            <?php the_post_thumbnail( 'demola-hero' ); ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="article-content" data-aos="fade-up">
+                        <?php the_content(); ?>
                     </div>
-                <?php endif; ?>
 
-                <div class="ac-single-post-meta">
-                    <span><i class="fas fa-calendar"></i> <?php echo esc_html( get_the_date() ); ?></span>
-                    <span><i class="fas fa-user"></i> <?php the_author(); ?></span>
-                    <span><i class="fas fa-folder"></i> <?php the_category( ', ' ); ?></span>
-                    <span><i class="fas fa-comments"></i> <?php comments_number(); ?></span>
-                </div>
+                    <?php if ( has_tag() ) : ?>
+                        <div class="article-tags">
+                            <span class="tags-label"><i class="fas fa-tags"></i> Tags:</span>
+                            <?php the_tags( '', '', '' ); ?>
+                        </div>
+                    <?php endif; ?>
 
-                <div class="ac-single-post-content">
-                    <?php the_content(); ?>
-                </div>
-
-                <?php if ( has_tag() ) : ?>
-                    <div class="ac-single-post-tags">
-                        <i class="fas fa-tags"></i> <?php the_tags( '', ', ' ); ?>
+                    <!-- Share -->
+                    <div class="article-share">
+                        <span class="share-label">Share this article:</span>
+                        <?php $share_urls = demola_get_share_urls(); ?>
+                        <div class="share-buttons">
+                            <a href="<?php echo esc_url( $share_urls['twitter'] ); ?>" target="_blank" rel="noopener noreferrer" class="share-btn twitter" aria-label="Share on Twitter"><i class="fab fa-x-twitter"></i></a>
+                            <a href="<?php echo esc_url( $share_urls['linkedin'] ); ?>" target="_blank" rel="noopener noreferrer" class="share-btn linkedin" aria-label="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="<?php echo esc_url( $share_urls['facebook'] ); ?>" target="_blank" rel="noopener noreferrer" class="share-btn facebook" aria-label="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+                            <a href="<?php echo esc_url( $share_urls['whatsapp'] ); ?>" target="_blank" rel="noopener noreferrer" class="share-btn whatsapp" aria-label="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        </div>
                     </div>
-                <?php endif; ?>
 
-                <div class="ac-single-post-share">
-                    <h4><?php esc_html_e( 'Share This Post', 'annie-cakes' ); ?></h4>
-                    <div class="ac-share-buttons">
-                        <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo esc_url( get_permalink() ); ?>" target="_blank" rel="noopener" class="ac-share-fb"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com/intent/tweet?url=<?php echo esc_url( get_permalink() ); ?>&text=<?php echo esc_attr( get_the_title() ); ?>" target="_blank" rel="noopener" class="ac-share-tw"><i class="fab fa-twitter"></i></a>
-                        <a href="https://wa.me/?text=<?php echo esc_url( get_permalink() ); ?>" target="_blank" rel="noopener" class="ac-share-wa"><i class="fab fa-whatsapp"></i></a>
-                        <a href="https://www.pinterest.com/pin/create/button/?url=<?php echo esc_url( get_permalink() ); ?>" target="_blank" rel="noopener" class="ac-share-pin"><i class="fab fa-pinterest-p"></i></a>
+                    <!-- Author Bio -->
+                    <div class="article-author-bio">
+                        <div class="author-avatar">
+                            <?php echo get_avatar( get_the_author_meta( 'ID' ), 100 ); ?>
+                        </div>
+                        <div class="author-details">
+                            <h4><?php the_author(); ?></h4>
+                            <p><?php echo esc_html( get_the_author_meta( 'description' ) ?: 'Anti-Corruption Advocate, Governance Strategist & Ethics Trainer.' ); ?></p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="ac-post-navigation">
+                    <!-- Post Navigation -->
+                    <nav class="post-navigation">
+                        <div class="nav-previous">
+                            <?php
+                            $prev_post = get_previous_post();
+                            if ( $prev_post ) :
+                            ?>
+                                <a href="<?php echo esc_url( get_permalink( $prev_post->ID ) ); ?>">
+                                    <span class="nav-label"><i class="fas fa-arrow-left"></i> Previous Article</span>
+                                    <span class="nav-title"><?php echo esc_html( $prev_post->post_title ); ?></span>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                        <div class="nav-next">
+                            <?php
+                            $next_post = get_next_post();
+                            if ( $next_post ) :
+                            ?>
+                                <a href="<?php echo esc_url( get_permalink( $next_post->ID ) ); ?>">
+                                    <span class="nav-label">Next Article <i class="fas fa-arrow-right"></i></span>
+                                    <span class="nav-title"><?php echo esc_html( $next_post->post_title ); ?></span>
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </nav>
+
                     <?php
-                    $prev = get_previous_post();
-                    $next = get_next_post();
+                    if ( comments_open() || get_comments_number() ) :
+                        comments_template();
+                    endif;
                     ?>
-                    <?php if ( $prev ) : ?>
-                        <a href="<?php echo esc_url( get_permalink( $prev ) ); ?>" class="ac-post-nav-prev">
-                            <i class="fas fa-chevron-left"></i>
-                            <span><?php esc_html_e( 'Previous', 'annie-cakes' ); ?></span>
-                            <h4><?php echo esc_html( $prev->post_title ); ?></h4>
-                        </a>
-                    <?php endif; ?>
-                    <?php if ( $next ) : ?>
-                        <a href="<?php echo esc_url( get_permalink( $next ) ); ?>" class="ac-post-nav-next">
-                            <i class="fas fa-chevron-right"></i>
-                            <span><?php esc_html_e( 'Next', 'annie-cakes' ); ?></span>
-                            <h4><?php echo esc_html( $next->post_title ); ?></h4>
-                        </a>
-                    <?php endif; ?>
-                </div>
 
-                <?php if ( comments_open() || get_comments_number() ) : ?>
-                    <div class="ac-comments-section">
-                        <?php comments_template(); ?>
-                    </div>
-                <?php endif; ?>
+                <?php endwhile; endif; ?>
             </article>
 
-            <aside class="ac-blog-sidebar">
-                <?php get_sidebar( 'blog' ); ?>
+            <aside class="blog-sidebar">
+                <?php if ( is_active_sidebar( 'sidebar-blog' ) ) : ?>
+                    <?php dynamic_sidebar( 'sidebar-blog' ); ?>
+                <?php endif; ?>
             </aside>
         </div>
     </div>
 </section>
 
-<?php
-get_footer();
+<?php get_footer(); ?>

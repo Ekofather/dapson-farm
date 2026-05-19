@@ -2,7 +2,7 @@
 /**
  * Comments Template
  *
- * @package AnnieCakes
+ * @package DemolaBakare
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,19 +14,20 @@ if ( post_password_required() ) {
 }
 ?>
 
-<div id="comments" class="ac-comments">
+<div id="comments" class="comments-area">
     <?php if ( have_comments() ) : ?>
-        <h3 class="ac-comments-title">
+        <h2 class="comments-title">
             <?php
-            $count = get_comments_number();
+            $comment_count = get_comments_number();
             printf(
-                esc_html( _n( '%s Comment', '%s Comments', $count, 'annie-cakes' ) ),
-                esc_html( number_format_i18n( $count ) )
+                /* translators: %d: number of comments */
+                esc_html( _n( '%d Comment', '%d Comments', $comment_count, 'demola-bakare' ) ),
+                absint( $comment_count )
             );
             ?>
-        </h3>
+        </h2>
 
-        <ol class="ac-comment-list">
+        <ol class="comment-list">
             <?php
             wp_list_comments( array(
                 'style'       => 'ol',
@@ -42,9 +43,9 @@ if ( post_password_required() ) {
 
     <?php
     comment_form( array(
-        'class_form'    => 'ac-comment-form',
-        'title_reply'   => esc_html__( 'Leave a Reply', 'annie-cakes' ),
-        'submit_button' => '<button type="submit" class="ac-btn ac-btn-primary">%4$s</button>',
+        'class_form'    => 'comment-form demola-comment-form',
+        'title_reply'   => __( 'Leave a Comment', 'demola-bakare' ),
+        'comment_field' => '<div class="form-group"><label for="comment">' . esc_html__( 'Comment', 'demola-bakare' ) . '</label><textarea id="comment" name="comment" rows="6" required></textarea></div>',
     ) );
     ?>
 </div>
