@@ -2,25 +2,28 @@
 /**
  * Custom Post Types & Taxonomies
  *
- * @package AnnieCakes
+ * @package DemolaBakare
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-function annie_cakes_register_post_types() {
+/**
+ * Register Custom Post Types
+ */
+function demola_register_post_types() {
+
     // Testimonials
-    register_post_type( 'ac_testimonial', array(
+    register_post_type( 'testimonial', array(
         'labels' => array(
-            'name'               => __( 'Testimonials', 'annie-cakes' ),
-            'singular_name'      => __( 'Testimonial', 'annie-cakes' ),
-            'add_new'            => __( 'Add Testimonial', 'annie-cakes' ),
-            'add_new_item'       => __( 'Add New Testimonial', 'annie-cakes' ),
-            'edit_item'          => __( 'Edit Testimonial', 'annie-cakes' ),
-            'all_items'          => __( 'All Testimonials', 'annie-cakes' ),
-            'search_items'       => __( 'Search Testimonials', 'annie-cakes' ),
-            'not_found'          => __( 'No testimonials found', 'annie-cakes' ),
+            'name'               => __( 'Testimonials', 'demola-bakare' ),
+            'singular_name'      => __( 'Testimonial', 'demola-bakare' ),
+            'add_new_item'       => __( 'Add New Testimonial', 'demola-bakare' ),
+            'edit_item'          => __( 'Edit Testimonial', 'demola-bakare' ),
+            'all_items'          => __( 'All Testimonials', 'demola-bakare' ),
+            'search_items'       => __( 'Search Testimonials', 'demola-bakare' ),
+            'not_found'          => __( 'No testimonials found.', 'demola-bakare' ),
         ),
         'public'       => true,
         'has_archive'  => false,
@@ -29,90 +32,251 @@ function annie_cakes_register_post_types() {
         'show_in_rest' => true,
     ) );
 
-    // Gallery
-    register_post_type( 'ac_gallery', array(
+    // Speaking Engagements
+    register_post_type( 'engagement', array(
         'labels' => array(
-            'name'               => __( 'Gallery', 'annie-cakes' ),
-            'singular_name'      => __( 'Gallery Item', 'annie-cakes' ),
-            'add_new'            => __( 'Add Gallery Item', 'annie-cakes' ),
-            'add_new_item'       => __( 'Add New Gallery Item', 'annie-cakes' ),
-            'edit_item'          => __( 'Edit Gallery Item', 'annie-cakes' ),
-            'all_items'          => __( 'All Gallery Items', 'annie-cakes' ),
+            'name'               => __( 'Engagements', 'demola-bakare' ),
+            'singular_name'      => __( 'Engagement', 'demola-bakare' ),
+            'add_new_item'       => __( 'Add New Engagement', 'demola-bakare' ),
+            'edit_item'          => __( 'Edit Engagement', 'demola-bakare' ),
+            'all_items'          => __( 'All Engagements', 'demola-bakare' ),
+            'search_items'       => __( 'Search Engagements', 'demola-bakare' ),
+            'not_found'          => __( 'No engagements found.', 'demola-bakare' ),
+        ),
+        'public'       => true,
+        'has_archive'  => true,
+        'menu_icon'    => 'dashicons-microphone',
+        'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
+        'show_in_rest' => true,
+    ) );
+
+    // Publications
+    register_post_type( 'publication', array(
+        'labels' => array(
+            'name'               => __( 'Publications', 'demola-bakare' ),
+            'singular_name'      => __( 'Publication', 'demola-bakare' ),
+            'add_new_item'       => __( 'Add New Publication', 'demola-bakare' ),
+            'edit_item'          => __( 'Edit Publication', 'demola-bakare' ),
+            'all_items'          => __( 'All Publications', 'demola-bakare' ),
+            'search_items'       => __( 'Search Publications', 'demola-bakare' ),
+            'not_found'          => __( 'No publications found.', 'demola-bakare' ),
+        ),
+        'public'       => true,
+        'has_archive'  => true,
+        'menu_icon'    => 'dashicons-media-document',
+        'supports'     => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
+        'show_in_rest' => true,
+    ) );
+
+    // Gallery
+    register_post_type( 'gallery_item', array(
+        'labels' => array(
+            'name'               => __( 'Gallery', 'demola-bakare' ),
+            'singular_name'      => __( 'Gallery Item', 'demola-bakare' ),
+            'add_new_item'       => __( 'Add New Gallery Item', 'demola-bakare' ),
+            'edit_item'          => __( 'Edit Gallery Item', 'demola-bakare' ),
+            'all_items'          => __( 'All Gallery Items', 'demola-bakare' ),
+            'search_items'       => __( 'Search Gallery', 'demola-bakare' ),
+            'not_found'          => __( 'No gallery items found.', 'demola-bakare' ),
         ),
         'public'       => true,
         'has_archive'  => false,
         'menu_icon'    => 'dashicons-format-gallery',
-        'supports'     => array( 'title', 'thumbnail' ),
+        'supports'     => array( 'title', 'thumbnail', 'excerpt' ),
         'show_in_rest' => true,
     ) );
+}
+add_action( 'init', 'demola_register_post_types' );
 
-    // Custom Orders
-    register_post_type( 'ac_custom_order', array(
+/**
+ * Register Custom Taxonomies
+ */
+function demola_register_taxonomies() {
+
+    // Publication Types
+    register_taxonomy( 'publication_type', 'publication', array(
         'labels' => array(
-            'name'               => __( 'Custom Orders', 'annie-cakes' ),
-            'singular_name'      => __( 'Custom Order', 'annie-cakes' ),
-            'all_items'          => __( 'All Custom Orders', 'annie-cakes' ),
-            'edit_item'          => __( 'View Custom Order', 'annie-cakes' ),
-            'search_items'       => __( 'Search Custom Orders', 'annie-cakes' ),
+            'name'          => __( 'Publication Types', 'demola-bakare' ),
+            'singular_name' => __( 'Publication Type', 'demola-bakare' ),
+            'search_items'  => __( 'Search Types', 'demola-bakare' ),
+            'all_items'     => __( 'All Types', 'demola-bakare' ),
+            'edit_item'     => __( 'Edit Type', 'demola-bakare' ),
+            'add_new_item'  => __( 'Add New Type', 'demola-bakare' ),
         ),
-        'public'              => false,
-        'show_ui'             => true,
-        'show_in_menu'        => true,
-        'capability_type'     => 'post',
-        'menu_icon'           => 'dashicons-clipboard',
-        'supports'            => array( 'title' ),
-        'show_in_rest'        => true,
+        'hierarchical' => true,
+        'show_in_rest' => true,
+        'rewrite'      => array( 'slug' => 'publication-type' ),
     ) );
 
     // Gallery Categories
-    register_taxonomy( 'ac_gallery_cat', 'ac_gallery', array(
+    register_taxonomy( 'gallery_category', 'gallery_item', array(
         'labels' => array(
-            'name'          => __( 'Gallery Categories', 'annie-cakes' ),
-            'singular_name' => __( 'Gallery Category', 'annie-cakes' ),
+            'name'          => __( 'Gallery Categories', 'demola-bakare' ),
+            'singular_name' => __( 'Gallery Category', 'demola-bakare' ),
+            'search_items'  => __( 'Search Categories', 'demola-bakare' ),
+            'all_items'     => __( 'All Categories', 'demola-bakare' ),
+            'edit_item'     => __( 'Edit Category', 'demola-bakare' ),
+            'add_new_item'  => __( 'Add New Category', 'demola-bakare' ),
         ),
         'hierarchical' => true,
-        'show_admin_column' => true,
         'show_in_rest' => true,
+        'rewrite'      => array( 'slug' => 'gallery-category' ),
+    ) );
+
+    // Engagement Types
+    register_taxonomy( 'engagement_type', 'engagement', array(
+        'labels' => array(
+            'name'          => __( 'Engagement Types', 'demola-bakare' ),
+            'singular_name' => __( 'Engagement Type', 'demola-bakare' ),
+            'search_items'  => __( 'Search Types', 'demola-bakare' ),
+            'all_items'     => __( 'All Types', 'demola-bakare' ),
+            'edit_item'     => __( 'Edit Type', 'demola-bakare' ),
+            'add_new_item'  => __( 'Add New Type', 'demola-bakare' ),
+        ),
+        'hierarchical' => true,
+        'show_in_rest' => true,
+        'rewrite'      => array( 'slug' => 'engagement-type' ),
     ) );
 }
-add_action( 'init', 'annie_cakes_register_post_types' );
+add_action( 'init', 'demola_register_taxonomies' );
 
 /**
- * Testimonial Meta Box
+ * Add Meta Boxes for CPTs
  */
-function annie_cakes_testimonial_meta_boxes() {
-    add_meta_box( 'ac_testimonial_details', __( 'Testimonial Details', 'annie-cakes' ), 'annie_cakes_testimonial_meta_callback', 'ac_testimonial', 'normal' );
-}
-add_action( 'add_meta_boxes', 'annie_cakes_testimonial_meta_boxes' );
+function demola_add_meta_boxes() {
+    add_meta_box(
+        'testimonial_details',
+        __( 'Testimonial Details', 'demola-bakare' ),
+        'demola_testimonial_meta_box',
+        'testimonial',
+        'normal',
+        'high'
+    );
 
-function annie_cakes_testimonial_meta_callback( $post ) {
-    wp_nonce_field( 'annie_testimonial_meta', 'testimonial_meta_nonce' );
-    $rating = get_post_meta( $post->ID, '_testimonial_rating', true ) ?: 5;
-    $role   = get_post_meta( $post->ID, '_testimonial_role', true );
+    add_meta_box(
+        'engagement_details',
+        __( 'Engagement Details', 'demola-bakare' ),
+        'demola_engagement_meta_box',
+        'engagement',
+        'normal',
+        'high'
+    );
+
+    add_meta_box(
+        'publication_details',
+        __( 'Publication Details', 'demola-bakare' ),
+        'demola_publication_meta_box',
+        'publication',
+        'normal',
+        'high'
+    );
+}
+add_action( 'add_meta_boxes', 'demola_add_meta_boxes' );
+
+/**
+ * Testimonial Meta Box Callback
+ */
+function demola_testimonial_meta_box( $post ) {
+    wp_nonce_field( 'demola_testimonial_meta', 'demola_testimonial_nonce' );
+    $role = get_post_meta( $post->ID, '_testimonial_role', true );
+    $org  = get_post_meta( $post->ID, '_testimonial_organization', true );
     ?>
     <p>
-        <label for="testimonial_rating"><strong><?php esc_html_e( 'Rating (1-5):', 'annie-cakes' ); ?></strong></label><br>
-        <input type="number" id="testimonial_rating" name="testimonial_rating" value="<?php echo esc_attr( $rating ); ?>" min="1" max="5" style="width: 80px;">
+        <label for="testimonial_role"><strong><?php esc_html_e( 'Role/Title:', 'demola-bakare' ); ?></strong></label><br>
+        <input type="text" id="testimonial_role" name="testimonial_role" value="<?php echo esc_attr( $role ); ?>" style="width:100%;">
     </p>
     <p>
-        <label for="testimonial_role"><strong><?php esc_html_e( 'Role / Title:', 'annie-cakes' ); ?></strong></label><br>
-        <input type="text" id="testimonial_role" name="testimonial_role" value="<?php echo esc_attr( $role ); ?>" style="width: 100%;" placeholder="<?php esc_attr_e( 'e.g., Bride, Corporate Client', 'annie-cakes' ); ?>">
+        <label for="testimonial_organization"><strong><?php esc_html_e( 'Organization:', 'demola-bakare' ); ?></strong></label><br>
+        <input type="text" id="testimonial_organization" name="testimonial_organization" value="<?php echo esc_attr( $org ); ?>" style="width:100%;">
     </p>
     <?php
 }
 
-function annie_cakes_save_testimonial_meta( $post_id ) {
-    if ( ! isset( $_POST['testimonial_meta_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['testimonial_meta_nonce'] ) ), 'annie_testimonial_meta' ) ) {
-        return;
+/**
+ * Engagement Meta Box Callback
+ */
+function demola_engagement_meta_box( $post ) {
+    wp_nonce_field( 'demola_engagement_meta', 'demola_engagement_nonce' );
+    $date     = get_post_meta( $post->ID, '_engagement_date', true );
+    $location = get_post_meta( $post->ID, '_engagement_location', true );
+    $type     = get_post_meta( $post->ID, '_engagement_type', true );
+    ?>
+    <p>
+        <label for="engagement_date"><strong><?php esc_html_e( 'Event Date:', 'demola-bakare' ); ?></strong></label><br>
+        <input type="date" id="engagement_date" name="engagement_date" value="<?php echo esc_attr( $date ); ?>">
+    </p>
+    <p>
+        <label for="engagement_location"><strong><?php esc_html_e( 'Location:', 'demola-bakare' ); ?></strong></label><br>
+        <input type="text" id="engagement_location" name="engagement_location" value="<?php echo esc_attr( $location ); ?>" style="width:100%;">
+    </p>
+    <p>
+        <label for="engagement_type_field"><strong><?php esc_html_e( 'Type:', 'demola-bakare' ); ?></strong></label><br>
+        <select id="engagement_type_field" name="engagement_type_field">
+            <option value="keynote" <?php selected( $type, 'keynote' ); ?>>Keynote Address</option>
+            <option value="panel" <?php selected( $type, 'panel' ); ?>>Panel Discussion</option>
+            <option value="workshop" <?php selected( $type, 'workshop' ); ?>>Workshop/Training</option>
+            <option value="conference" <?php selected( $type, 'conference' ); ?>>Conference</option>
+            <option value="lecture" <?php selected( $type, 'lecture' ); ?>>Guest Lecture</option>
+            <option value="media" <?php selected( $type, 'media' ); ?>>Media Appearance</option>
+        </select>
+    </p>
+    <?php
+}
+
+/**
+ * Publication Meta Box Callback
+ */
+function demola_publication_meta_box( $post ) {
+    wp_nonce_field( 'demola_publication_meta', 'demola_publication_nonce' );
+    $pub_date = get_post_meta( $post->ID, '_publication_date', true );
+    $pub_url  = get_post_meta( $post->ID, '_publication_url', true );
+    ?>
+    <p>
+        <label for="publication_date"><strong><?php esc_html_e( 'Publication Date:', 'demola-bakare' ); ?></strong></label><br>
+        <input type="date" id="publication_date" name="publication_date" value="<?php echo esc_attr( $pub_date ); ?>">
+    </p>
+    <p>
+        <label for="publication_url"><strong><?php esc_html_e( 'External URL:', 'demola-bakare' ); ?></strong></label><br>
+        <input type="url" id="publication_url" name="publication_url" value="<?php echo esc_attr( $pub_url ); ?>" style="width:100%;">
+    </p>
+    <?php
+}
+
+/**
+ * Save Meta Box Data
+ */
+function demola_save_meta_boxes( $post_id ) {
+    // Testimonial
+    if ( isset( $_POST['demola_testimonial_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['demola_testimonial_nonce'] ) ), 'demola_testimonial_meta' ) ) {
+        if ( isset( $_POST['testimonial_role'] ) ) {
+            update_post_meta( $post_id, '_testimonial_role', sanitize_text_field( wp_unslash( $_POST['testimonial_role'] ) ) );
+        }
+        if ( isset( $_POST['testimonial_organization'] ) ) {
+            update_post_meta( $post_id, '_testimonial_organization', sanitize_text_field( wp_unslash( $_POST['testimonial_organization'] ) ) );
+        }
     }
-    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-        return;
+
+    // Engagement
+    if ( isset( $_POST['demola_engagement_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['demola_engagement_nonce'] ) ), 'demola_engagement_meta' ) ) {
+        if ( isset( $_POST['engagement_date'] ) ) {
+            update_post_meta( $post_id, '_engagement_date', sanitize_text_field( wp_unslash( $_POST['engagement_date'] ) ) );
+        }
+        if ( isset( $_POST['engagement_location'] ) ) {
+            update_post_meta( $post_id, '_engagement_location', sanitize_text_field( wp_unslash( $_POST['engagement_location'] ) ) );
+        }
+        if ( isset( $_POST['engagement_type_field'] ) ) {
+            update_post_meta( $post_id, '_engagement_type', sanitize_text_field( wp_unslash( $_POST['engagement_type_field'] ) ) );
+        }
     }
-    if ( isset( $_POST['testimonial_rating'] ) ) {
-        update_post_meta( $post_id, '_testimonial_rating', absint( $_POST['testimonial_rating'] ) );
-    }
-    if ( isset( $_POST['testimonial_role'] ) ) {
-        update_post_meta( $post_id, '_testimonial_role', sanitize_text_field( wp_unslash( $_POST['testimonial_role'] ) ) );
+
+    // Publication
+    if ( isset( $_POST['demola_publication_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['demola_publication_nonce'] ) ), 'demola_publication_meta' ) ) {
+        if ( isset( $_POST['publication_date'] ) ) {
+            update_post_meta( $post_id, '_publication_date', sanitize_text_field( wp_unslash( $_POST['publication_date'] ) ) );
+        }
+        if ( isset( $_POST['publication_url'] ) ) {
+            update_post_meta( $post_id, '_publication_url', esc_url_raw( wp_unslash( $_POST['publication_url'] ) ) );
+        }
     }
 }
-add_action( 'save_post_ac_testimonial', 'annie_cakes_save_testimonial_meta' );
+add_action( 'save_post', 'demola_save_meta_boxes' );

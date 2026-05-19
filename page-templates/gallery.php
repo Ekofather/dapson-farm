@@ -1,93 +1,129 @@
 <?php
 /**
- * Template Name: Gallery
+ * Template Name: Gallery Page
  *
- * @package AnnieCakes
+ * @package DemolaBakare
  */
 
 get_header();
 ?>
 
-<div class="ac-page-header">
-    <div class="ac-container">
-        <span class="ac-section-badge"><?php esc_html_e( 'Our Creations', 'annie-cakes' ); ?></span>
-        <h1><?php esc_html_e( 'Cake & Gift Gallery', 'annie-cakes' ); ?></h1>
-        <p><?php esc_html_e( 'A visual feast of our finest cakes, desserts, and luxury gift packages.', 'annie-cakes' ); ?></p>
-        <div class="ac-breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'annie-cakes' ); ?></a>
-            <span class="separator">/</span>
-            <span><?php esc_html_e( 'Gallery', 'annie-cakes' ); ?></span>
+<!-- Page Hero -->
+<section class="page-hero page-hero-gallery">
+    <div class="page-hero-overlay"></div>
+    <div class="container">
+        <div class="page-hero-content" data-aos="fade-up">
+            <span class="page-label">Gallery</span>
+            <h1>Photo <span class="gold">Gallery</span></h1>
+            <p>Moments captured from engagements, events, training sessions, and institutional activities.</p>
         </div>
+    </div>
+</section>
+
+<?php demola_breadcrumbs(); ?>
+
+<!-- Gallery Filter -->
+<section class="section section-gallery">
+    <div class="container">
+        <!-- Gallery Filter Tabs -->
+        <div class="gallery-filters" data-aos="fade-up">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <?php
+            $gallery_cats = get_terms( array(
+                'taxonomy'   => 'gallery_category',
+                'hide_empty' => true,
+            ) );
+            if ( $gallery_cats && ! is_wp_error( $gallery_cats ) ) :
+                foreach ( $gallery_cats as $cat ) :
+            ?>
+                <button class="filter-btn" data-filter="<?php echo esc_attr( $cat->slug ); ?>"><?php echo esc_html( $cat->name ); ?></button>
+            <?php
+                endforeach;
+            else :
+                $default_cats = array( 'Events', 'Training', 'Awards', 'Meetings', 'Media' );
+                foreach ( $default_cats as $cat ) :
+            ?>
+                <button class="filter-btn" data-filter="<?php echo esc_attr( strtolower( $cat ) ); ?>"><?php echo esc_html( $cat ); ?></button>
+            <?php
+                endforeach;
+            endif;
+            ?>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="gallery-grid">
+            <?php
+            $gallery_items = get_posts( array(
+                'post_type'      => 'gallery_item',
+                'posts_per_page' => 24,
+                'orderby'        => 'date',
+                'order'          => 'DESC',
+            ) );
+
+            if ( $gallery_items ) :
+                foreach ( $gallery_items as $item ) :
+                    $cats = get_the_terms( $item->ID, 'gallery_category' );
+                    $cat_classes = '';
+                    if ( $cats && ! is_wp_error( $cats ) ) {
+                        $cat_classes = implode( ' ', wp_list_pluck( $cats, 'slug' ) );
+                    }
+            ?>
+                <div class="gallery-item <?php echo esc_attr( $cat_classes ); ?>" data-aos="fade-up">
+                    <?php if ( has_post_thumbnail( $item->ID ) ) : ?>
+                        <img src="<?php echo esc_url( get_the_post_thumbnail_url( $item->ID, 'demola-gallery' ) ); ?>" alt="<?php echo esc_attr( $item->post_title ); ?>" loading="lazy">
+                    <?php else : ?>
+                        <div class="gallery-placeholder">
+                            <i class="fas fa-image"></i>
+                        </div>
+                    <?php endif; ?>
+                    <div class="gallery-overlay">
+                        <h4><?php echo esc_html( $item->post_title ); ?></h4>
+                        <?php if ( $item->post_excerpt ) : ?>
+                            <p><?php echo esc_html( $item->post_excerpt ); ?></p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php
+                endforeach;
+                wp_reset_postdata();
+            else :
+                $placeholder_gallery = array(
+                    array( 'title' => 'NAOSNP Award Ceremony', 'cat' => 'awards' ),
+                    array( 'title' => 'SAEMA Award Reception', 'cat' => 'awards' ),
+                    array( 'title' => 'Ethics Training Workshop', 'cat' => 'training' ),
+                    array( 'title' => 'ICPC Student Educational Visit', 'cat' => 'events' ),
+                    array( 'title' => 'Media Engagement Session', 'cat' => 'media' ),
+                    array( 'title' => 'Governance Strategy Meeting', 'cat' => 'meetings' ),
+                    array( 'title' => 'Public Enlightenment Campaign', 'cat' => 'events' ),
+                    array( 'title' => 'Leadership Conference', 'cat' => 'events' ),
+                    array( 'title' => 'Anti-Corruption Training', 'cat' => 'training' ),
+                );
+                foreach ( $placeholder_gallery as $index => $gal ) :
+            ?>
+                <div class="gallery-item <?php echo esc_attr( $gal['cat'] ); ?>" data-aos="fade-up" data-aos-delay="<?php echo esc_attr( ( $index % 3 ) * 100 ); ?>">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="gallery-overlay">
+                        <h4><?php echo esc_html( $gal['title'] ); ?></h4>
+                    </div>
+                </div>
+            <?php endforeach;
+            endif;
+            ?>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" style="display:none;">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <button class="lightbox-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+    <button class="lightbox-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+    <div class="lightbox-content">
+        <img src="" alt="" id="lightbox-img">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 </div>
-
-<section class="ac-section">
-    <div class="ac-container">
-        <div class="ac-gallery-filters" data-aos="fade-up">
-            <button class="ac-filter-btn active" data-filter="all"><?php esc_html_e( 'All', 'annie-cakes' ); ?></button>
-            <button class="ac-filter-btn" data-filter="birthday"><?php esc_html_e( 'Birthday Cakes', 'annie-cakes' ); ?></button>
-            <button class="ac-filter-btn" data-filter="wedding"><?php esc_html_e( 'Wedding Cakes', 'annie-cakes' ); ?></button>
-            <button class="ac-filter-btn" data-filter="cupcakes"><?php esc_html_e( 'Cupcakes', 'annie-cakes' ); ?></button>
-            <button class="ac-filter-btn" data-filter="gifts"><?php esc_html_e( 'Gift Hampers', 'annie-cakes' ); ?></button>
-            <button class="ac-filter-btn" data-filter="custom"><?php esc_html_e( 'Custom Designs', 'annie-cakes' ); ?></button>
-            <button class="ac-filter-btn" data-filter="pastries"><?php esc_html_e( 'Pastries', 'annie-cakes' ); ?></button>
-        </div>
-
-        <div class="ac-gallery-grid">
-            <?php
-            $gallery_items = array(
-                array( 'cat' => 'birthday', 'title' => 'Chocolate Drip Birthday Cake', 'icon' => 'birthday-cake' ),
-                array( 'cat' => 'wedding', 'title' => 'Elegant 5-Tier Wedding Cake', 'icon' => 'ring' ),
-                array( 'cat' => 'cupcakes', 'title' => 'Dozen Red Velvet Cupcakes', 'icon' => 'cookie' ),
-                array( 'cat' => 'gifts', 'title' => 'Luxury Valentine Hamper', 'icon' => 'gift' ),
-                array( 'cat' => 'custom', 'title' => 'Custom Cartoon Character Cake', 'icon' => 'magic' ),
-                array( 'cat' => 'birthday', 'title' => 'Gold Fondant Birthday Cake', 'icon' => 'birthday-cake' ),
-                array( 'cat' => 'wedding', 'title' => 'Floral Cascade Wedding Cake', 'icon' => 'ring' ),
-                array( 'cat' => 'pastries', 'title' => 'Assorted Danish Pastries', 'icon' => 'bread-slice' ),
-                array( 'cat' => 'gifts', 'title' => 'Christmas Gift Box', 'icon' => 'gift' ),
-                array( 'cat' => 'custom', 'title' => 'Corporate Logo Cake', 'icon' => 'magic' ),
-                array( 'cat' => 'cupcakes', 'title' => 'Chocolate Ganache Cupcakes', 'icon' => 'cookie' ),
-                array( 'cat' => 'birthday', 'title' => 'Rainbow Layer Cake', 'icon' => 'birthday-cake' ),
-                array( 'cat' => 'wedding', 'title' => 'Minimalist White Wedding Cake', 'icon' => 'ring' ),
-                array( 'cat' => 'pastries', 'title' => 'Artisan Croissants', 'icon' => 'bread-slice' ),
-                array( 'cat' => 'gifts', 'title' => 'Baby Shower Gift Set', 'icon' => 'gift' ),
-                array( 'cat' => 'custom', 'title' => 'Graduation Cap Cake', 'icon' => 'magic' ),
-            );
-
-            $gallery_posts = get_posts( array( 'post_type' => 'attachment', 'post_mime_type' => 'image', 'posts_per_page' => 16, 'post_status' => 'inherit' ) );
-
-            foreach ( $gallery_items as $gi => $item ) :
-                $img_url = isset( $gallery_posts[ $gi ] ) ? wp_get_attachment_url( $gallery_posts[ $gi ]->ID ) : '';
-            ?>
-            <div class="ac-gallery-item" data-category="<?php echo esc_attr( $item['cat'] ); ?>" data-aos="zoom-in" data-aos-delay="<?php echo esc_attr( ( $gi % 4 ) * 80 ); ?>">
-                <?php if ( $img_url ) : ?>
-                    <img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $item['title'] ); ?>" loading="lazy">
-                <?php else : ?>
-                    <div style="width:100%;height:100%;background:linear-gradient(<?php echo esc_attr( 120 + $gi * 15 ); ?>deg,#3C1518,#5C3D2E,#8B5E3C);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;">
-                        <i class="fas fa-<?php echo esc_attr( $item['icon'] ); ?>" style="font-size:2.5rem;color:#d4af37;opacity:0.4;"></i>
-                        <span style="color:#d4af37;opacity:0.6;font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;"><?php echo esc_html( $item['title'] ); ?></span>
-                    </div>
-                <?php endif; ?>
-            </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
-
-<!-- CTA -->
-<section class="ac-section" style="background:var(--ac-bg-alt);">
-    <div class="ac-container" style="text-align:center;" data-aos="fade-up">
-        <h2><?php esc_html_e( 'Love What You See?', 'annie-cakes' ); ?></h2>
-        <p style="max-width:600px;margin:15px auto 30px;color:var(--ac-text-light);"><?php esc_html_e( 'Order any of these designs or share your own inspiration. We\'ll bring your vision to life.', 'annie-cakes' ); ?></p>
-        <div style="display:flex;gap:15px;justify-content:center;flex-wrap:wrap;">
-            <a href="<?php echo esc_url( home_url( '/custom-orders/' ) ); ?>" class="ac-btn ac-btn-primary ac-btn-lg">
-                <i class="fas fa-paint-brush"></i> <?php esc_html_e( 'Order Custom Cake', 'annie-cakes' ); ?>
-            </a>
-            <a href="<?php echo esc_url( function_exists( 'wc_get_page_id' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' ) ); ?>" class="ac-btn ac-btn-outline ac-btn-lg">
-                <i class="fas fa-shopping-bag"></i> <?php esc_html_e( 'Shop Ready-Made', 'annie-cakes' ); ?>
-            </a>
-        </div>
-    </div>
-</section>
 
 <?php get_footer(); ?>

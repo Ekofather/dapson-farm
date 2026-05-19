@@ -2,159 +2,157 @@
 /**
  * Theme Customizer Settings
  *
- * @package AnnieCakes
+ * @package DemolaBakare
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-function annie_cakes_customize_register( $wp_customize ) {
-    // Annie Cakes Panel
-    $wp_customize->add_panel( 'annie_cakes_panel', array(
-        'title'    => __( 'Annie Cakes Settings', 'annie-cakes' ),
+/**
+ * Register Customizer Settings
+ */
+function demola_customize_register( $wp_customize ) {
+
+    // ─── Panel: Theme Settings ───
+    $wp_customize->add_panel( 'demola_settings', array(
+        'title'    => __( 'Demola Bakare Settings', 'demola-bakare' ),
         'priority' => 30,
     ) );
 
-    // General Settings
-    $wp_customize->add_section( 'annie_general', array(
-        'title' => __( 'General Settings', 'annie-cakes' ),
-        'panel' => 'annie_cakes_panel',
+    // ─── Section: General Info ───
+    $wp_customize->add_section( 'demola_general', array(
+        'title' => __( 'General Information', 'demola-bakare' ),
+        'panel' => 'demola_settings',
     ) );
 
     $general_fields = array(
-        'annie_phone'   => array( 'label' => __( 'Phone Number', 'annie-cakes' ), 'default' => '+234 800 000 0000' ),
-        'annie_email'   => array( 'label' => __( 'Email Address', 'annie-cakes' ), 'default' => 'hello@anniecakesandgift.com' ),
-        'annie_address' => array( 'label' => __( 'Address', 'annie-cakes' ), 'default' => '123 Bakery Street, Lagos, Nigeria' ),
-        'annie_hours'   => array( 'label' => __( 'Working Hours', 'annie-cakes' ), 'default' => 'Mon - Sat: 8AM - 8PM' ),
-        'annie_whatsapp' => array( 'label' => __( 'WhatsApp Number (without +)', 'annie-cakes' ), 'default' => '2348000000000' ),
+        'demola_email'         => array( 'Email Address', 'info@demolabakare.com' ),
+        'demola_phone'         => array( 'Phone Number', '+234 XXX XXX XXXX' ),
+        'demola_address'       => array( 'Office Address', 'Abuja, Nigeria' ),
+        'demola_whatsapp'      => array( 'WhatsApp Number', '' ),
+        'demola_logo_name'     => array( 'Logo Name Text', 'Demola Bakare' ),
+        'demola_logo_subtitle' => array( 'Logo Subtitle', 'FSI' ),
     );
 
     foreach ( $general_fields as $id => $field ) {
         $wp_customize->add_setting( $id, array(
-            'default'           => $field['default'],
+            'default'           => $field[1],
             'sanitize_callback' => 'sanitize_text_field',
+            'transport'         => 'refresh',
         ) );
         $wp_customize->add_control( $id, array(
-            'label'   => $field['label'],
-            'section' => 'annie_general',
+            'label'   => $field[0],
+            'section' => 'demola_general',
             'type'    => 'text',
         ) );
     }
 
-    // Social Media
-    $wp_customize->add_section( 'annie_social', array(
-        'title' => __( 'Social Media', 'annie-cakes' ),
-        'panel' => 'annie_cakes_panel',
+    // ─── Section: Social Media ───
+    $wp_customize->add_section( 'demola_social', array(
+        'title' => __( 'Social Media Links', 'demola-bakare' ),
+        'panel' => 'demola_settings',
     ) );
 
-    $social = array( 'facebook', 'instagram', 'twitter', 'tiktok', 'youtube' );
-    foreach ( $social as $platform ) {
-        $wp_customize->add_setting( 'annie_' . $platform, array(
+    $social_fields = array(
+        'demola_twitter'  => 'Twitter/X URL',
+        'demola_linkedin' => 'LinkedIn URL',
+        'demola_facebook' => 'Facebook URL',
+        'demola_youtube'  => 'YouTube URL',
+        'demola_instagram' => 'Instagram URL',
+    );
+
+    foreach ( $social_fields as $id => $label ) {
+        $wp_customize->add_setting( $id, array(
             'default'           => '',
             'sanitize_callback' => 'esc_url_raw',
         ) );
-        $wp_customize->add_control( 'annie_' . $platform, array(
-            'label'   => ucfirst( $platform ) . ' URL',
-            'section' => 'annie_social',
+        $wp_customize->add_control( $id, array(
+            'label'   => $label,
+            'section' => 'demola_social',
             'type'    => 'url',
         ) );
     }
 
-    // Hero Settings
-    $wp_customize->add_section( 'annie_hero', array(
-        'title' => __( 'Hero Section', 'annie-cakes' ),
-        'panel' => 'annie_cakes_panel',
+    // ─── Section: Hero Section ───
+    $wp_customize->add_section( 'demola_hero', array(
+        'title' => __( 'Hero Section', 'demola-bakare' ),
+        'panel' => 'demola_settings',
     ) );
 
-    for ( $i = 1; $i <= 3; $i++ ) {
-        $wp_customize->add_setting( 'annie_hero_bg_' . $i, array(
-            'default'           => '',
-            'sanitize_callback' => 'esc_url_raw',
-        ) );
-        $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'annie_hero_bg_' . $i, array(
-            'label'   => sprintf( __( 'Hero Slide %d Background', 'annie-cakes' ), $i ),
-            'section' => 'annie_hero',
-        ) ) );
+    $wp_customize->add_setting( 'demola_hero_bg', array(
+        'sanitize_callback' => 'absint',
+    ) );
+    $wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'demola_hero_bg', array(
+        'label'     => __( 'Hero Background Image', 'demola-bakare' ),
+        'section'   => 'demola_hero',
+        'mime_type' => 'image',
+    ) ) );
 
-        $wp_customize->add_setting( 'annie_hero_title_' . $i, array(
-            'default'           => '',
-            'sanitize_callback' => 'sanitize_text_field',
-        ) );
-        $wp_customize->add_control( 'annie_hero_title_' . $i, array(
-            'label'   => sprintf( __( 'Hero Slide %d Title', 'annie-cakes' ), $i ),
-            'section' => 'annie_hero',
-            'type'    => 'text',
-        ) );
+    $hero_text_fields = array(
+        'demola_hero_subtitle' => array(
+            'Hero Subtitle',
+            'Pioneer Officer of ICPC Nigeria | Director, Public Enlightenment & Education | Ethics Trainer | Governance & Policy Consultant | Civic Transformation Strategist',
+            'textarea',
+        ),
+        'demola_hero_quote' => array(
+            'Hero Quote',
+            'Credibility, not speed, remains the true currency of leadership. Every institution must be built on a foundation of integrity and pursued with meticulous expertise.',
+            'textarea',
+        ),
+    );
 
-        $wp_customize->add_setting( 'annie_hero_subtitle_' . $i, array(
-            'default'           => '',
+    foreach ( $hero_text_fields as $id => $field ) {
+        $wp_customize->add_setting( $id, array(
+            'default'           => $field[1],
             'sanitize_callback' => 'sanitize_textarea_field',
         ) );
-        $wp_customize->add_control( 'annie_hero_subtitle_' . $i, array(
-            'label'   => sprintf( __( 'Hero Slide %d Subtitle', 'annie-cakes' ), $i ),
-            'section' => 'annie_hero',
-            'type'    => 'textarea',
+        $wp_customize->add_control( $id, array(
+            'label'   => $field[0],
+            'section' => 'demola_hero',
+            'type'    => $field[2],
         ) );
     }
 
-    // Sale Settings
-    $wp_customize->add_section( 'annie_sale', array(
-        'title' => __( 'Sale / Promotion', 'annie-cakes' ),
-        'panel' => 'annie_cakes_panel',
+    // ─── Section: About ───
+    $wp_customize->add_section( 'demola_about', array(
+        'title' => __( 'About Section', 'demola-bakare' ),
+        'panel' => 'demola_settings',
     ) );
 
-    $wp_customize->add_setting( 'annie_sale_title', array( 'default' => 'Sweet Deals Up To 40% Off!', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'annie_sale_title', array( 'label' => __( 'Sale Banner Title', 'annie-cakes' ), 'section' => 'annie_sale' ) );
-
-    $wp_customize->add_setting( 'annie_sale_subtitle', array( 'default' => '', 'sanitize_callback' => 'sanitize_textarea_field' ) );
-    $wp_customize->add_control( 'annie_sale_subtitle', array( 'label' => __( 'Sale Banner Subtitle', 'annie-cakes' ), 'section' => 'annie_sale', 'type' => 'textarea' ) );
-
-    $wp_customize->add_setting( 'annie_sale_date', array( 'default' => '', 'sanitize_callback' => 'sanitize_text_field' ) );
-    $wp_customize->add_control( 'annie_sale_date', array( 'label' => __( 'Sale End Date (YYYY-MM-DD)', 'annie-cakes' ), 'section' => 'annie_sale' ) );
-
-    // Footer Settings
-    $wp_customize->add_section( 'annie_footer', array(
-        'title' => __( 'Footer', 'annie-cakes' ),
-        'panel' => 'annie_cakes_panel',
+    $wp_customize->add_setting( 'demola_about_image', array(
+        'sanitize_callback' => 'absint',
     ) );
+    $wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, 'demola_about_image', array(
+        'label'     => __( 'About Portrait Image', 'demola-bakare' ),
+        'section'   => 'demola_about',
+        'mime_type' => 'image',
+    ) ) );
 
-    $wp_customize->add_setting( 'annie_footer_about', array(
-        'default'           => 'Crafting sweet memories with premium cakes and thoughtful gifts.',
+    $wp_customize->add_setting( 'demola_about_intro', array(
+        'default'           => 'Demola Bakare, FSI, is a nationally respected anti-corruption advocate, governance strategist, and ethics trainer with over 25 years of distinguished service in Nigeria\'s fight against corruption. As a pioneer officer and Director of Public Enlightenment and Education at the Independent Corrupt Practices and Other Related Offences Commission (ICPC), he has been at the forefront of shaping Nigeria\'s anti-corruption landscape.',
         'sanitize_callback' => 'sanitize_textarea_field',
     ) );
-    $wp_customize->add_control( 'annie_footer_about', array(
-        'label'   => __( 'Footer About Text', 'annie-cakes' ),
-        'section' => 'annie_footer',
+    $wp_customize->add_control( 'demola_about_intro', array(
+        'label'   => 'About Introduction Text',
+        'section' => 'demola_about',
         'type'    => 'textarea',
     ) );
 
-    // Map Settings
-    $wp_customize->add_setting( 'annie_map_embed', array( 'default' => '', 'sanitize_callback' => 'annie_cakes_sanitize_iframe' ) );
-    $wp_customize->add_control( 'annie_map_embed', array( 'label' => __( 'Google Map Embed Code', 'annie-cakes' ), 'section' => 'annie_general', 'type' => 'textarea' ) );
+    // ─── Section: Footer ───
+    $wp_customize->add_section( 'demola_footer', array(
+        'title' => __( 'Footer Settings', 'demola-bakare' ),
+        'panel' => 'demola_settings',
+    ) );
 
-    // Video Settings
-    $wp_customize->add_setting( 'annie_video_url', array( 'default' => '', 'sanitize_callback' => 'esc_url_raw' ) );
-    $wp_customize->add_control( 'annie_video_url', array( 'label' => __( 'Video URL (YouTube)', 'annie-cakes' ), 'section' => 'annie_hero', 'type' => 'url' ) );
-
-    $wp_customize->add_setting( 'annie_video_poster', array( 'default' => '', 'sanitize_callback' => 'esc_url_raw' ) );
-    $wp_customize->add_control( new WP_Customize_Image_Control( $wp_customize, 'annie_video_poster', array(
-        'label'   => __( 'Video Poster Image', 'annie-cakes' ),
-        'section' => 'annie_hero',
-    ) ) );
-}
-add_action( 'customize_register', 'annie_cakes_customize_register' );
-
-function annie_cakes_sanitize_iframe( $value ) {
-    return wp_kses( $value, array(
-        'iframe' => array(
-            'src'             => true,
-            'width'           => true,
-            'height'          => true,
-            'style'           => true,
-            'frameborder'     => true,
-            'allowfullscreen' => true,
-            'loading'         => true,
-        ),
+    $wp_customize->add_setting( 'demola_footer_about', array(
+        'default'           => 'Anti-Corruption Advocate, Governance Strategist, Ethics Trainer & Pioneer Officer of ICPC Nigeria. Over 25 years championing transparency, accountability, and ethical leadership.',
+        'sanitize_callback' => 'sanitize_textarea_field',
+    ) );
+    $wp_customize->add_control( 'demola_footer_about', array(
+        'label'   => 'Footer About Text',
+        'section' => 'demola_footer',
+        'type'    => 'textarea',
     ) );
 }
+add_action( 'customize_register', 'demola_customize_register' );

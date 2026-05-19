@@ -2,18 +2,22 @@
 /**
  * No Content Template Part
  *
- * @package AnnieCakes
+ * @package DemolaBakare
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 ?>
-<div class="ac-no-content">
-    <div class="ac-no-content-icon">
-        <i class="fas fa-search"></i>
-    </div>
-    <h2><?php esc_html_e( 'Nothing Found', 'annie-cakes' ); ?></h2>
-    <p><?php esc_html_e( 'Sorry, but nothing matched your search terms. Please try again with different keywords.', 'annie-cakes' ); ?></p>
-    <?php get_search_form(); ?>
+
+<div class="no-posts">
+    <i class="fas fa-search"></i>
+    <?php if ( is_search() ) : ?>
+        <h2><?php esc_html_e( 'No Results Found', 'demola-bakare' ); ?></h2>
+        <p><?php esc_html_e( 'Sorry, nothing matched your search terms. Please try different keywords.', 'demola-bakare' ); ?></p>
+    <?php else : ?>
+        <h2><?php esc_html_e( 'Nothing Found', 'demola-bakare' ); ?></h2>
+        <p><?php esc_html_e( 'It seems we can\'t find what you\'re looking for.', 'demola-bakare' ); ?></p>
+    <?php endif; ?>
+    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="btn btn-primary"><?php esc_html_e( 'Return Home', 'demola-bakare' ); ?></a>
 </div>

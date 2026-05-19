@@ -1,22 +1,34 @@
-# Annie Cakes & Gift - WordPress WooCommerce Theme
+# Demola Bakare, FSI — Premium Portfolio & Institutional Website
 
-A premium, modern, fully responsive WordPress WooCommerce theme for a luxury bakery and gift brand.
+A premium, modern, fully editable WordPress portfolio and institutional website for **Demola Bakare, FSI** — a nationally respected Nigerian anti-corruption advocate, pioneer officer of ICPC Nigeria, governance strategist, ethics trainer, public enlightenment expert, and institutional reform advocate.
+
+Also serves as the digital platform for his NGO/consultancy institution:
+
+## **Moral Rearmament Initiative for Ethical Leadership & Governance (MRI-ELG)**
+*"Advancing Integrity, Accountability and Development-Minded Citizenship"*
+
+---
 
 ## Features
 
-- **Premium Design**: Pink & gold luxury aesthetic with glassmorphism, smooth animations, and modern typography (Playfair Display + Poppins)
-- **WooCommerce Integration**: Full shop functionality with custom product cards, AJAX cart, quick view, and wishlist
-- **Custom Order System**: Advanced cake/gift order request form with image upload, quote system, and admin notifications
-- **Order Tracking**: 5-step tracking system (Pending → Processing → Baking → Out for Delivery → Delivered)
-- **Dark Mode**: Toggle between light and dark themes with persistent storage
-- **Loyalty System**: Points-based rewards with referral program
-- **Responsive**: Mobile-first design optimized for all devices
-- **20+ Page Templates**: Home, Shop, Custom Orders, About, Gallery, Testimonials, FAQ, Contact, and more
+- **Presidential-Level Branding**: Deep navy, rich gold, and burgundy color scheme with premium typography (Playfair Display + Inter)
+- **Think Tank Sophistication**: Documentary-style storytelling with institutional credibility
+- **9 Page Templates**: Home, About, MRI-ELG, Services, Speaking, Media, Gallery, Blog, Contact
+- **4 Custom Post Types**: Testimonials, Engagements, Publications, Gallery Items
+- **3 Custom Taxonomies**: Publication Types, Gallery Categories, Engagement Types
+- **Full WordPress Customizer Integration**: All text, images, and settings editable via WP Admin
+- **One-Click Demo Setup**: Admin panel for creating pages, menus, and setting the homepage
+- **AJAX Contact Form**: Built-in contact form with email notifications
+- **Newsletter System**: Built-in email subscription collection
+- **Responsive Design**: Mobile-first, optimized for all devices
+- **AOS Animations**: Smooth scroll-triggered animations throughout
+- **Gallery with Lightbox**: Filterable photo gallery with fullscreen lightbox
+- **Blog/Insights**: Full blogging system with sidebar, categories, sharing
+- **SEO-Ready**: Semantic HTML, breadcrumbs, proper heading hierarchy
 
 ## Requirements
 
 - WordPress 6.0+
-- WooCommerce 8.0+
 - PHP 7.4+
 
 ## Installation
@@ -25,116 +37,97 @@ A premium, modern, fully responsive WordPress WooCommerce theme for a luxury bak
 2. Go to **WordPress Admin → Appearance → Themes → Add New → Upload Theme**
 3. Upload the zip file and click **Install Now**
 4. Activate the theme
-5. Install and activate **WooCommerce** if not already installed
-6. Go to **Appearance → Annie Cakes Setup** to import demo content:
-   - Click **Import Products** to add 15 sample products
-   - Click **Create Pages** to create all required pages with templates
-   - Click **Import Testimonials** to add sample testimonials
-7. Go to **Settings → Reading** and set the homepage to display a static page, selecting the front page
-8. Configure theme settings in **Appearance → Customize → Annie Cakes Settings**
+5. Go to **Appearance → Theme Setup** to:
+   - Click **Create Pages** to create all 9 pages with correct templates
+   - Click **Create Menus** to set up navigation
+   - Click **Set Homepage** to configure the front page
+6. Go to **Appearance → Customize → Demola Bakare Settings** to edit:
+   - General Information (email, phone, address)
+   - Social Media Links
+   - Hero Section content
+   - About Section content
+   - Footer Settings
 
 ## Theme Structure
 
 ```
-annie-cakes-theme/
+demola-bakare-theme/
 ├── assets/
 │   ├── css/
-│   │   ├── main.css          # Core styles
-│   │   ├── woocommerce.css   # WooCommerce overrides
-│   │   ├── responsive.css    # Responsive breakpoints
-│   │   └── admin.css         # Admin dashboard styles
-│   └── js/
-│       ├── main.js           # Frontend interactions
-│       └── admin.js          # Admin scripts
+│   │   └── main.css              # Core styles (2800+ lines)
+│   ├── js/
+│   │   └── main.js               # Frontend interactions
+│   └── images/                    # Theme images
 ├── inc/
-│   ├── customizer.php        # Theme Customizer options
-│   ├── template-tags.php     # Helper template functions
-│   ├── custom-post-types.php # Testimonials, Gallery, Custom Orders
-│   ├── woocommerce-functions.php # WooCommerce customizations
-│   ├── ajax-handlers.php     # AJAX endpoints
-│   ├── wishlist.php          # Wishlist system
-│   ├── order-tracking.php    # Order tracking system
-│   ├── custom-orders.php     # Custom order form handling
-│   ├── loyalty-system.php    # Loyalty points & referral
-│   └── demo-content.php      # Demo import functionality
+│   ├── customizer.php            # WordPress Customizer settings
+│   ├── custom-post-types.php     # CPTs, taxonomies, meta boxes
+│   ├── template-tags.php         # Helper functions
+│   └── demo-content.php          # Demo import functionality
 ├── page-templates/
-│   ├── about.php
-│   ├── gallery.php
-│   ├── testimonials.php
-│   ├── faq.php
-│   ├── contact.php
-│   ├── custom-orders.php
-│   ├── hot-sales.php
-│   ├── order-tracking.php
-│   └── wishlist.php
+│   ├── about.php                 # About/Biography page
+│   ├── mri-elg.php               # MRI-ELG institutional page
+│   ├── services.php              # Consultancy services page
+│   ├── speaking.php              # Speaking engagements page
+│   ├── media.php                 # Media & publications page
+│   ├── gallery.php               # Photo gallery page
+│   └── contact.php               # Contact page
 ├── template-parts/
-│   ├── product-card.php      # Reusable product card
-│   └── content-none.php      # No content fallback
-├── woocommerce/
-│   ├── archive-product.php   # Shop page
-│   ├── single-product.php    # Product detail
-│   └── content-single-product.php
-├── front-page.php            # Homepage
-├── header.php
-├── footer.php
-├── functions.php
-├── style.css
+│   └── content-none.php          # No content fallback
+├── front-page.php                # Homepage
+├── header.php                    # Site header & navigation
+├── footer.php                    # Site footer
+├── functions.php                 # Theme setup & functionality
+├── index.php                     # Blog archive
+├── single.php                    # Single post
+├── archive.php                   # Archive template
+├── page.php                      # Default page
+├── search.php                    # Search results
+├── 404.php                       # Error page
+├── sidebar.php                   # Blog sidebar
+├── comments.php                  # Comments template
+├── style.css                     # Theme declaration
 └── README.md
 ```
 
-## Customizer Options
+## Pages
 
-Navigate to **Appearance → Customize → Annie Cakes Settings** to configure:
+| Page | Template | Description |
+|------|----------|-------------|
+| Home | front-page.php | Hero, about preview, expertise pillars, MRI-ELG preview, timeline, testimonials, insights, partners |
+| About | about.php | Full biography, awards, philosophy, core values |
+| MRI-ELG | mri-elg.php | Mission/vision, programs, values, institutional details |
+| Services | services.php | 6 service areas, process, client types |
+| Speaking | speaking.php | Speaking topics, past engagements, booking CTA |
+| Media | media.php | Publications, media appearances, press coverage |
+| Gallery | gallery.php | Filterable gallery with lightbox |
+| Insights | index.php | Blog with sidebar |
+| Contact | contact.php | AJAX form, contact info, social links |
 
-- **General**: Phone, email, address, WhatsApp number, working hours
-- **Social Media**: Facebook, Instagram, Twitter, TikTok, YouTube URLs
-- **Hero Section**: 3 slides with background images, titles, subtitles
-- **Sale/Promotion**: Sale banner title, subtitle, countdown end date
-- **Footer**: About text, map embed code
-- **Video**: YouTube URL and poster image
+## Customization
 
-## Payment Integration
+All content is fully editable through:
+1. **WordPress Customizer** (Appearance → Customize → Demola Bakare Settings)
+2. **Page Editor** (each page template renders content that can be modified)
+3. **Custom Post Types** (Testimonials, Engagements, Publications, Gallery)
+4. **WordPress Menus** (Appearance → Menus)
+5. **Widgets** (Appearance → Widgets for sidebar and footer)
 
-The theme is designed to work with WooCommerce payment gateways. Install the following plugins for Nigerian payment support:
+## Color Palette
 
-- **Flutterwave**: Install "Rave Payment Forms" plugin
-- **Paystack**: Install "Paystack WooCommerce Payment Gateway" plugin
-- **Bank Transfer**: Built into WooCommerce (enable in WooCommerce → Settings → Payments)
-- **Cash on Delivery**: Built into WooCommerce
-
-## Custom Order Workflow
-
-1. Customer fills out the custom order form with details and inspiration image
-2. Admin receives email notification and dashboard notification
-3. Admin reviews the order in **Custom Orders** menu in WordPress admin
-4. Admin updates the status (Pending → Quoted → Accepted → Declined)
-5. Customer can also contact via WhatsApp for real-time communication
-
-## Order Tracking Statuses
-
-| Status | Description |
-|--------|-------------|
-| Pending | Order received, awaiting confirmation |
-| Processing | Order confirmed and being prepared |
-| Baking | Your cake is in the oven! |
-| Out for Delivery | Order is on its way |
-| Delivered | Order has been delivered |
-
-## Browser Support
-
-- Chrome 80+
-- Firefox 80+
-- Safari 14+
-- Edge 80+
-- Mobile browsers (iOS Safari, Chrome for Android)
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Deep Navy | #0B1D3A | Primary, headers, navigation |
+| Rich Gold | #C9A84C | Accents, CTAs, highlights |
+| Deep Burgundy | #6B1D2A | Secondary accent, footer CTA |
+| Off-White | #F8F5F0 | Body background |
+| Cream | #F0EBE3 | Section backgrounds |
 
 ## Credits
 
-- Fonts: [Google Fonts](https://fonts.google.com/) (Playfair Display, Poppins)
-- Icons: [Font Awesome 6](https://fontawesome.com/)
-- Animations: [AOS - Animate on Scroll](https://michalsnik.github.io/aos/)
-- Slider: [Swiper](https://swiperjs.com/)
+- **Fonts**: [Playfair Display](https://fonts.google.com/specimen/Playfair+Display), [Inter](https://fonts.google.com/specimen/Inter), [Cormorant Garamond](https://fonts.google.com/specimen/Cormorant+Garamond) via Google Fonts
+- **Icons**: [Font Awesome 6](https://fontawesome.com/)
+- **Animations**: [AOS - Animate On Scroll](https://michalsnik.github.io/aos/)
 
 ## License
 
-This theme is licensed under the GPL v2 or later.
+GNU General Public License v2 or later

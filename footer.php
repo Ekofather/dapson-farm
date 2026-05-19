@@ -1,8 +1,8 @@
 <?php
 /**
- * Theme Footer
+ * Footer Template
  *
- * @package AnnieCakes
+ * @package DemolaBakare
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,158 +11,135 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 </main>
 
-<!-- Newsletter Section -->
-<section class="ac-newsletter">
-    <div class="ac-container">
-        <div class="ac-newsletter-inner" data-aos="fade-up">
-            <div class="ac-newsletter-content">
-                <h2><?php esc_html_e( 'Stay Sweet!', 'annie-cakes' ); ?></h2>
-                <p><?php esc_html_e( 'Subscribe for exclusive offers, new arrivals, and birthday surprises.', 'annie-cakes' ); ?></p>
-            </div>
-            <form class="ac-newsletter-form" id="ac-newsletter-form">
-                <?php wp_nonce_field( 'annie_newsletter', 'newsletter_nonce' ); ?>
-                <input type="email" name="email" placeholder="<?php esc_attr_e( 'Enter your email address', 'annie-cakes' ); ?>" required>
-                <button type="submit" class="ac-btn ac-btn-primary">
-                    <span><?php esc_html_e( 'Subscribe', 'annie-cakes' ); ?></span>
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </form>
-        </div>
-    </div>
-</section>
-
 <!-- Footer -->
-<footer class="ac-footer">
-    <div class="ac-footer-top">
-        <div class="ac-container">
-            <div class="ac-footer-grid">
-                <div class="ac-footer-col">
-                    <div class="ac-footer-brand">
-                        <?php if ( has_custom_logo() ) : ?>
-                            <?php the_custom_logo(); ?>
-                        <?php else : ?>
-                            <h3 class="ac-footer-logo"><?php bloginfo( 'name' ); ?></h3>
-                        <?php endif; ?>
-                        <p><?php echo esc_html( get_theme_mod( 'annie_footer_about', 'Crafting sweet memories with premium cakes and thoughtful gifts. Every creation is made with love and the finest ingredients.' ) ); ?></p>
-                    </div>
-                    <div class="ac-footer-social">
-                        <?php if ( get_theme_mod( 'annie_facebook' ) ) : ?>
-                            <a href="<?php echo esc_url( get_theme_mod( 'annie_facebook' ) ); ?>" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
-                        <?php endif; ?>
-                        <?php if ( get_theme_mod( 'annie_instagram' ) ) : ?>
-                            <a href="<?php echo esc_url( get_theme_mod( 'annie_instagram' ) ); ?>" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-                        <?php endif; ?>
-                        <?php if ( get_theme_mod( 'annie_twitter' ) ) : ?>
-                            <a href="<?php echo esc_url( get_theme_mod( 'annie_twitter' ) ); ?>" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
-                        <?php endif; ?>
-                        <?php if ( get_theme_mod( 'annie_tiktok' ) ) : ?>
-                            <a href="<?php echo esc_url( get_theme_mod( 'annie_tiktok' ) ); ?>" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
-                        <?php endif; ?>
-                        <?php if ( get_theme_mod( 'annie_youtube' ) ) : ?>
-                            <a href="<?php echo esc_url( get_theme_mod( 'annie_youtube' ) ); ?>" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <div class="ac-footer-col">
-                    <h4><?php esc_html_e( 'Quick Links', 'annie-cakes' ); ?></h4>
-                    <ul class="ac-footer-links">
-                        <li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'annie-cakes' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( get_permalink( wc_get_page_id( 'shop' ) ) ); ?>"><?php esc_html_e( 'Shop', 'annie-cakes' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/about-us/' ) ); ?>"><?php esc_html_e( 'About Us', 'annie-cakes' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/gallery/' ) ); ?>"><?php esc_html_e( 'Gallery', 'annie-cakes' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>"><?php esc_html_e( 'Blog', 'annie-cakes' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'Contact', 'annie-cakes' ); ?></a></li>
-                    </ul>
-                </div>
-
-                <div class="ac-footer-col">
-                    <h4><?php esc_html_e( 'Customer Service', 'annie-cakes' ); ?></h4>
-                    <ul class="ac-footer-links">
-                        <li><a href="<?php echo esc_url( wc_get_page_permalink( 'myaccount' ) ); ?>"><?php esc_html_e( 'My Account', 'annie-cakes' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/order-tracking/' ) ); ?>"><?php esc_html_e( 'Track Order', 'annie-cakes' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/wishlist/' ) ); ?>"><?php esc_html_e( 'Wishlist', 'annie-cakes' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/custom-orders/' ) ); ?>"><?php esc_html_e( 'Custom Orders', 'annie-cakes' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/faq/' ) ); ?>"><?php esc_html_e( 'FAQs', 'annie-cakes' ); ?></a></li>
-                        <li><a href="<?php echo esc_url( home_url( '/testimonials/' ) ); ?>"><?php esc_html_e( 'Testimonials', 'annie-cakes' ); ?></a></li>
-                    </ul>
-                </div>
-
-                <div class="ac-footer-col">
-                    <h4><?php esc_html_e( 'Contact Info', 'annie-cakes' ); ?></h4>
-                    <ul class="ac-footer-contact">
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span><?php echo esc_html( get_theme_mod( 'annie_address', '123 Bakery Street, Lagos, Nigeria' ) ); ?></span>
-                        </li>
-                        <li>
-                            <i class="fas fa-phone"></i>
-                            <a href="tel:<?php echo esc_attr( get_theme_mod( 'annie_phone', '+2348000000000' ) ); ?>"><?php echo esc_html( get_theme_mod( 'annie_phone', '+234 800 000 0000' ) ); ?></a>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <a href="mailto:<?php echo esc_attr( get_theme_mod( 'annie_email', 'hello@anniecakesandgift.com' ) ); ?>"><?php echo esc_html( get_theme_mod( 'annie_email', 'hello@anniecakesandgift.com' ) ); ?></a>
-                        </li>
-                        <li>
-                            <i class="fas fa-clock"></i>
-                            <span><?php echo esc_html( get_theme_mod( 'annie_hours', 'Mon - Sat: 8AM - 8PM' ) ); ?></span>
-                        </li>
-                    </ul>
-                    <div class="ac-footer-payment">
-                        <h5><?php esc_html_e( 'We Accept', 'annie-cakes' ); ?></h5>
-                        <div class="ac-payment-icons">
-                            <i class="fab fa-cc-visa" title="Visa"></i>
-                            <i class="fab fa-cc-mastercard" title="Mastercard"></i>
-                            <i class="fas fa-money-bill-wave" title="Bank Transfer"></i>
-                            <i class="fas fa-truck" title="Cash on Delivery"></i>
-                        </div>
-                    </div>
+<footer class="site-footer">
+    <!-- Footer CTA -->
+    <div class="footer-cta">
+        <div class="container">
+            <div class="cta-content" data-aos="fade-up">
+                <h2>Ready to Advance Integrity in Governance?</h2>
+                <p>Partner with Demola Bakare, FSI for consultancy, training, speaking engagements, or institutional collaboration.</p>
+                <div class="cta-actions">
+                    <a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ?: '#' ); ?>" class="btn btn-gold">Start a Conversation</a>
+                    <a href="<?php echo esc_url( get_permalink( get_page_by_path( 'services' ) ) ?: '#' ); ?>" class="btn btn-outline-light">View Services</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="ac-footer-bottom">
-        <div class="ac-container">
-            <div class="ac-footer-bottom-inner">
-                <p>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. <?php esc_html_e( 'All Rights Reserved.', 'annie-cakes' ); ?></p>
-                <?php
-                wp_nav_menu( array(
-                    'theme_location' => 'footer',
-                    'menu_class'     => 'ac-footer-bottom-menu',
-                    'container'      => false,
-                    'depth'          => 1,
-                    'fallback_cb'    => false,
-                ) );
-                ?>
+    <div class="footer-main">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- About Column -->
+                <div class="footer-col footer-about">
+                    <div class="footer-logo">
+                        <span class="logo-name">Demola Bakare</span>
+                        <span class="logo-title">FSI</span>
+                    </div>
+                    <p class="footer-desc"><?php echo esc_html( get_theme_mod( 'demola_footer_about', 'Anti-Corruption Advocate, Governance Strategist, Ethics Trainer & Pioneer Officer of ICPC Nigeria. Over 25 years championing transparency, accountability, and ethical leadership.' ) ); ?></p>
+                    <div class="footer-social">
+                        <?php
+                        $footer_socials = array(
+                            'twitter'  => array( 'url' => get_theme_mod( 'demola_twitter', '#' ), 'icon' => 'fa-x-twitter' ),
+                            'linkedin' => array( 'url' => get_theme_mod( 'demola_linkedin', '#' ), 'icon' => 'fa-linkedin-in' ),
+                            'facebook' => array( 'url' => get_theme_mod( 'demola_facebook', '#' ), 'icon' => 'fa-facebook-f' ),
+                            'youtube'  => array( 'url' => get_theme_mod( 'demola_youtube', '#' ), 'icon' => 'fa-youtube' ),
+                        );
+                        foreach ( $footer_socials as $platform => $data ) :
+                            if ( $data['url'] && '#' !== $data['url'] ) :
+                        ?>
+                            <a href="<?php echo esc_url( $data['url'] ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr( ucfirst( $platform ) ); ?>">
+                                <i class="fab <?php echo esc_attr( $data['icon'] ); ?>"></i>
+                            </a>
+                        <?php
+                            endif;
+                        endforeach;
+                        ?>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <?php
+                    wp_nav_menu( array(
+                        'theme_location' => 'footer',
+                        'menu_class'     => 'footer-links',
+                        'container'      => false,
+                        'depth'          => 1,
+                        'fallback_cb'    => 'demola_footer_fallback_menu',
+                    ) );
+                    ?>
+                </div>
+
+                <!-- MRI-ELG -->
+                <div class="footer-col">
+                    <h4>MRI-ELG</h4>
+                    <ul class="footer-links">
+                        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'mri-elg' ) ) ?: '#' ); ?>">About the Initiative</a></li>
+                        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'services' ) ) ?: '#' ); ?>">Programs & Services</a></li>
+                        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'media' ) ) ?: '#' ); ?>">Research & Publications</a></li>
+                        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'speaking' ) ) ?: '#' ); ?>">Events & Engagements</a></li>
+                        <li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ?: '#' ); ?>">Partner With Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div class="footer-col">
+                    <h4>Stay Informed</h4>
+                    <p>Subscribe to receive insights on governance, ethics, and institutional reform.</p>
+                    <form class="newsletter-form" id="footer-newsletter">
+                        <?php wp_nonce_field( 'demola_nonce', 'newsletter_nonce' ); ?>
+                        <div class="newsletter-input-group">
+                            <input type="email" name="email" placeholder="Your email address" required aria-label="Email address">
+                            <button type="submit" class="btn btn-gold" aria-label="Subscribe">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        <div class="newsletter-response"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="footer-bottom-content">
+                <p>&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> Demola Bakare, FSI. All rights reserved.</p>
+                <p class="footer-tagline">Advancing Integrity, Accountability and Development-Minded Citizenship</p>
             </div>
         </div>
     </div>
 </footer>
 
-<!-- Floating WhatsApp Button -->
-<a href="https://wa.me/<?php echo esc_attr( get_theme_mod( 'annie_whatsapp', '2348000000000' ) ); ?>?text=<?php echo esc_attr( rawurlencode( __( 'Hello! I would like to place an order.', 'annie-cakes' ) ) ); ?>" class="ac-whatsapp-float" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'Chat on WhatsApp', 'annie-cakes' ); ?>">
-    <i class="fab fa-whatsapp"></i>
-    <span class="ac-whatsapp-tooltip"><?php esc_html_e( 'Chat with us!', 'annie-cakes' ); ?></span>
-</a>
-
 <!-- Back to Top -->
-<button id="ac-back-to-top" class="ac-back-to-top" aria-label="<?php esc_attr_e( 'Back to top', 'annie-cakes' ); ?>">
+<button id="back-to-top" class="back-to-top" aria-label="Back to top">
     <i class="fas fa-chevron-up"></i>
 </button>
-
-<!-- Quick View Modal -->
-<div class="ac-modal ac-quick-view-modal" id="ac-quick-view-modal">
-    <div class="ac-modal-overlay"></div>
-    <div class="ac-modal-content">
-        <button class="ac-modal-close"><i class="fas fa-times"></i></button>
-        <div class="ac-quick-view-body"></div>
-    </div>
-</div>
-
-<!-- Toast Notifications -->
-<div class="ac-toast-container" id="ac-toast-container"></div>
 
 <?php wp_footer(); ?>
 </body>
 </html>
+
+<?php
+/**
+ * Footer fallback menu
+ */
+function demola_footer_fallback_menu() {
+    $links = array(
+        'about'    => 'About',
+        'mri-elg'  => 'MRI-ELG',
+        'services' => 'Services',
+        'speaking' => 'Speaking',
+        'media'    => 'Media',
+        'blog'     => 'Insights',
+        'contact'  => 'Contact',
+    );
+    echo '<ul class="footer-links">';
+    foreach ( $links as $slug => $label ) {
+        printf( '<li><a href="%s">%s</a></li>', esc_url( home_url( '/' . $slug . '/' ) ), esc_html( $label ) );
+    }
+    echo '</ul>';
+}

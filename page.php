@@ -2,33 +2,25 @@
 /**
  * Default Page Template
  *
- * @package AnnieCakes
+ * @package DemolaBakare
  */
 
 get_header();
 ?>
 
-<section class="ac-page-header">
-    <div class="ac-container">
-        <h1><?php the_title(); ?></h1>
-        <nav class="ac-breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'annie-cakes' ); ?></a>
-            <span>/</span>
-            <span><?php the_title(); ?></span>
-        </nav>
+<?php demola_breadcrumbs(); ?>
+
+<section class="section section-default-page">
+    <div class="container">
+        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+            <article id="page-<?php the_ID(); ?>" <?php post_class(); ?>>
+                <h1 class="page-title"><?php the_title(); ?></h1>
+                <div class="page-content">
+                    <?php the_content(); ?>
+                </div>
+            </article>
+        <?php endwhile; endif; ?>
     </div>
 </section>
 
-<section class="ac-page-content">
-    <div class="ac-container">
-        <?php
-        while ( have_posts() ) :
-            the_post();
-            the_content();
-        endwhile;
-        ?>
-    </div>
-</section>
-
-<?php
-get_footer();
+<?php get_footer(); ?>
