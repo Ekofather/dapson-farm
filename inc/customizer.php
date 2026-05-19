@@ -139,6 +139,33 @@ function demola_customize_register( $wp_customize ) {
         'type'    => 'textarea',
     ) );
 
+    // ─── Section: Gallery ───
+    $wp_customize->add_section( 'demola_gallery', array(
+        'title'       => __( 'Gallery Images', 'demola-bakare' ),
+        'panel'       => 'demola_settings',
+        'description' => __( 'Replace the default gallery images. Upload your own images here — they will override the built-in photos on the Gallery page.', 'demola-bakare' ),
+    ) );
+
+    $gallery_images = array(
+        'demola_gallery_1' => 'Gallery Image 1 (NAOSNP Keynote)',
+        'demola_gallery_2' => 'Gallery Image 2 (Office Portrait)',
+        'demola_gallery_3' => 'Gallery Image 3 (SAEMA Award)',
+        'demola_gallery_4' => 'Gallery Image 4 (Anti-Corruption Champion Award)',
+        'demola_gallery_5' => 'Gallery Image 5 (CEPTI Press Conference)',
+        'demola_gallery_6' => 'Gallery Image 6 (SAV Inauguration)',
+    );
+
+    foreach ( $gallery_images as $id => $label ) {
+        $wp_customize->add_setting( $id, array(
+            'sanitize_callback' => 'absint',
+        ) );
+        $wp_customize->add_control( new WP_Customize_Media_Control( $wp_customize, $id, array(
+            'label'     => __( $label, 'demola-bakare' ),
+            'section'   => 'demola_gallery',
+            'mime_type' => 'image',
+        ) ) );
+    }
+
     // ─── Section: Footer ───
     $wp_customize->add_section( 'demola_footer', array(
         'title' => __( 'Footer Settings', 'demola-bakare' ),

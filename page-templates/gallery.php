@@ -25,31 +25,6 @@ get_header();
 <!-- Gallery Filter -->
 <section class="section section-gallery">
     <div class="container">
-        <!-- Gallery Filter Tabs -->
-        <div class="gallery-filters" data-aos="fade-up">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <?php
-            $gallery_cats = get_terms( array(
-                'taxonomy'   => 'gallery_category',
-                'hide_empty' => true,
-            ) );
-            if ( $gallery_cats && ! is_wp_error( $gallery_cats ) ) :
-                foreach ( $gallery_cats as $cat ) :
-            ?>
-                <button class="filter-btn" data-filter="<?php echo esc_attr( $cat->slug ); ?>"><?php echo esc_html( $cat->name ); ?></button>
-            <?php
-                endforeach;
-            else :
-                $default_cats = array( 'Events', 'Training', 'Awards', 'Meetings', 'Media' );
-                foreach ( $default_cats as $cat ) :
-            ?>
-                <button class="filter-btn" data-filter="<?php echo esc_attr( strtolower( $cat ) ); ?>"><?php echo esc_html( $cat ); ?></button>
-            <?php
-                endforeach;
-            endif;
-            ?>
-        </div>
-
         <!-- Gallery Grid -->
         <div class="gallery-grid" id="gallery-grid">
             <?php
@@ -76,38 +51,30 @@ get_header();
                             <i class="fas fa-image"></i>
                         </div>
                     <?php endif; ?>
-                    <div class="gallery-overlay">
-                        <h4><?php echo esc_html( $item->post_title ); ?></h4>
-                        <?php if ( $item->post_excerpt ) : ?>
-                            <p><?php echo esc_html( $item->post_excerpt ); ?></p>
-                        <?php endif; ?>
-                    </div>
                 </div>
             <?php
                 endforeach;
                 wp_reset_postdata();
             else :
                 $theme_img_url = get_template_directory_uri() . '/assets/images/gallery/';
-                $placeholder_gallery = array(
-                    array( 'title' => 'Keynote Address at NAOSNP Media Workshop', 'cat' => 'events', 'img' => 'demola-bakare-speaking.jpg', 'desc' => 'Mr. Demola Bakare, FSI, delivering keynote address at NAOSNP capacity-building workshop, Lagos Chamber of Commerce, October 2025.' ),
-                    array( 'title' => 'At the ICPC Public Enlightenment Office', 'cat' => 'media', 'img' => 'demola-bakare-office.jpg', 'desc' => 'Mr. Demola Bakare, FSI, at his office as Director, Public Enlightenment & Education Department, ICPC Headquarters, Abuja.' ),
-                    array( 'title' => 'SAEMA Diligent Investigation Award Ceremony', 'cat' => 'awards', 'img' => 'saema-award-ceremony.jpg', 'desc' => 'Mr. Demola Bakare, FSI, representing ICPC at the SAEMA Awards at NDLEA Headquarters, accepting the Diligent Investigation Award, November 2025.' ),
-                    array( 'title' => 'Anti-Corruption Champion Award 2024', 'cat' => 'awards', 'img' => 'anti-corruption-champion-award.jpg', 'desc' => 'Mr. Demola Bakare accepting the Anti-Corruption Champion of the Year 2024 award from Top 10 Magazine on behalf of ICPC Chairman, Abuja.' ),
-                    array( 'title' => 'CEPTI Phase 6 & EICS World Press Conference', 'cat' => 'media', 'img' => 'cepti-eics-press-conference.png', 'desc' => 'Mr. Demola Bakare, FSI, presenting CEPTI Phase 6 and EICS reports at the ICPC World Press Conference, December 2024.' ),
-                    array( 'title' => 'ICPC-UBEC Partnership Meeting', 'cat' => 'meetings', 'img' => 'icpc-ubec-partnership.png', 'desc' => 'ICPC and UBEC leadership meeting to strengthen transparency and accountability in Nigeria\'s basic education sector, October 2025.' ),
-                    array( 'title' => 'Students Anti-Corruption Vanguard Inauguration', 'cat' => 'events', 'img' => 'sav-inauguration.jpg', 'desc' => 'Mr. Demola Bakare, FSI, at the inauguration of Students Anti-Corruption Vanguards at Nile University, Federal Polytechnic Nasarawa, and FCT College of Nursing, November 2024.' ),
-                    array( 'title' => 'Secondary School Anti-Corruption Educational Visit', 'cat' => 'events', 'img' => 'icpc-secondary-school-visit.jpg', 'desc' => 'ICPC hosting secondary school students at headquarters for anti-corruption educational visit, May 2025.' ),
-                    array( 'title' => 'ACTU Desk Officers Workshop', 'cat' => 'training', 'img' => 'actu-workshop.jpg', 'desc' => 'ACTU desk officers capacity-building workshop organised by ICPC in partnership with RoLAC, Abuja, November 2024.' ),
-                    array( 'title' => 'Students Anti-Corruption Awareness Campaign', 'cat' => 'training', 'img' => 'students-anti-corruption-visit.png', 'desc' => 'ICPC Public Enlightenment Department engaging students on anti-corruption values and the National Ethics and Integrity Policy, October 2025.' ),
+                $gallery_defaults = array(
+                    array( 'key' => 'demola_gallery_1', 'img' => 'demola-bakare-speaking.jpg', 'alt' => 'Keynote Address at NAOSNP Media Workshop' ),
+                    array( 'key' => 'demola_gallery_2', 'img' => 'demola-bakare-office.jpg', 'alt' => 'At the ICPC Public Enlightenment Office' ),
+                    array( 'key' => 'demola_gallery_3', 'img' => 'saema-award-ceremony.jpg', 'alt' => 'SAEMA Diligent Investigation Award Ceremony' ),
+                    array( 'key' => 'demola_gallery_4', 'img' => 'anti-corruption-champion-award.jpg', 'alt' => 'Anti-Corruption Champion Award 2024' ),
+                    array( 'key' => 'demola_gallery_5', 'img' => 'cepti-eics-press-conference.png', 'alt' => 'CEPTI Phase 6 & EICS World Press Conference' ),
+                    array( 'key' => 'demola_gallery_6', 'img' => 'sav-inauguration.jpg', 'alt' => 'Students Anti-Corruption Vanguard Inauguration' ),
                 );
-                foreach ( $placeholder_gallery as $index => $gal ) :
+                foreach ( $gallery_defaults as $index => $gal ) :
+                    $custom_img_id = get_theme_mod( $gal['key'] );
+                    if ( $custom_img_id ) {
+                        $img_url = wp_get_attachment_url( $custom_img_id );
+                    } else {
+                        $img_url = $theme_img_url . $gal['img'];
+                    }
             ?>
-                <div class="gallery-item <?php echo esc_attr( $gal['cat'] ); ?>" data-aos="fade-up" data-aos-delay="<?php echo esc_attr( ( $index % 3 ) * 100 ); ?>">
-                    <img src="<?php echo esc_url( $theme_img_url . $gal['img'] ); ?>" alt="<?php echo esc_attr( $gal['title'] ); ?>" loading="lazy">
-                    <div class="gallery-overlay">
-                        <h4><?php echo esc_html( $gal['title'] ); ?></h4>
-                        <p><?php echo esc_html( $gal['desc'] ); ?></p>
-                    </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="<?php echo esc_attr( ( $index % 3 ) * 100 ); ?>">
+                    <img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $gal['alt'] ); ?>" loading="lazy">
                 </div>
             <?php endforeach;
             endif;
