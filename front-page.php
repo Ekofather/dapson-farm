@@ -16,16 +16,16 @@ get_header();
         <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
             <div class="hero-badge">
                 <span class="badge-icon"><i class="fas fa-shield-alt"></i></span>
-                <span>Anti-Corruption Advocate &bull; Governance Strategist</span>
+                <span>Anti-Corruption Advocate &bull; Governance Strategist &bull; ICPC Director</span>
             </div>
             <h1 class="hero-title">
                 <span class="hero-name">Demola Bakare</span>
                 <span class="hero-suffix">, FSI</span>
             </h1>
-            <p class="hero-subtitle"><?php echo esc_html( get_theme_mod( 'demola_hero_subtitle', 'Pioneer Officer of ICPC Nigeria | Director, Public Enlightenment & Education | Ethics Trainer | Governance & Policy Consultant | Civic Transformation Strategist' ) ); ?></p>
+            <p class="hero-subtitle"><?php echo esc_html( get_theme_mod( 'demola_hero_subtitle', 'Director, Public Enlightenment & Education Department, ICPC Nigeria | Pioneer Anti-Corruption Officer | ANIPR | Spokesperson of Nigeria\'s Premier Anti-Corruption Agency | Architect of Preventive Anti-Corruption Strategies | Founder, MRI-ELG' ) ); ?></p>
             <div class="hero-quote">
                 <blockquote>
-                    &ldquo;<?php echo esc_html( get_theme_mod( 'demola_hero_quote', 'Credibility, not speed, remains the true currency of leadership. Every institution must be built on a foundation of integrity and pursued with meticulous expertise.' ) ); ?>&rdquo;
+                    &ldquo;<?php echo esc_html( get_theme_mod( 'demola_hero_quote', 'Credibility, not speed, remains the true currency of journalism. Every investigation must be built on a foundation of integrity and pursued with meticulous expertise. Prevention, not enforcement alone, offers deeper, longer-lasting value in the fight against corruption.' ) ); ?>&rdquo;
                 </blockquote>
             </div>
             <div class="hero-actions">
@@ -43,16 +43,16 @@ get_header();
                     <span class="stat-label">Years of Service</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" data-count="500">0</span><span class="stat-suffix">+</span>
-                    <span class="stat-label">Training Sessions</span>
+                    <span class="stat-number" data-count="330">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">MDAs Assessed</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" data-count="50">0</span><span class="stat-suffix">+</span>
-                    <span class="stat-label">Policy Initiatives</span>
+                    <span class="stat-number" data-count="1500">0</span><span class="stat-suffix">+</span>
+                    <span class="stat-label">Projects Tracked</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" data-count="100">0</span><span class="stat-suffix">K+</span>
-                    <span class="stat-label">Lives Impacted</span>
+                    <span class="stat-number" data-count="30">0</span><span class="stat-suffix">B+</span>
+                    <span class="stat-label">Naira Saved for Govt</span>
                 </div>
             </div>
         </div>
@@ -88,14 +88,16 @@ get_header();
                 <span class="section-label">About Demola Bakare</span>
                 <h2 class="section-title">A Legacy of Integrity,<br>A Vision for Ethical Governance</h2>
                 <div class="about-text">
-                    <p><?php echo esc_html( get_theme_mod( 'demola_about_intro', 'Demola Bakare, FSI, is a nationally respected anti-corruption advocate, governance strategist, and ethics trainer with over 25 years of distinguished service in Nigeria\'s fight against corruption. As a pioneer officer and Director of Public Enlightenment and Education at the Independent Corrupt Practices and Other Related Offences Commission (ICPC), he has been at the forefront of shaping Nigeria\'s anti-corruption landscape.' ) ); ?></p>
-                    <p>His work spans policy advocacy, ethics training, civic reorientation, public enlightenment campaigns, and institutional reform initiatives that have impacted millions of Nigerians across all sectors of governance.</p>
+                    <p><?php echo esc_html( get_theme_mod( 'demola_about_intro', 'Demola Bakare, FSI, ANIPR, is a nationally respected anti-corruption advocate, governance strategist, and ethics trainer who has dedicated over two decades to Nigeria\'s fight against corruption. As a pioneer officer and the current Director of Public Enlightenment and Education Department at the Independent Corrupt Practices and Other Related Offences Commission (ICPC), he serves as the official Spokesperson of Nigeria\'s premier anti-corruption agency — leading nationwide campaigns, corruption risk assessments, system studies, and public enlightenment initiatives that have saved the Nigerian government over N30 billion.' ) ); ?></p>
+                    <p>His thought leadership has shaped national discourse on corruption prevention, tax reform, digital governance, and ethical citizenship. From inaugurating Students Anti-Corruption Vanguards across Nigerian universities to presenting ICPC\'s landmark Constituency and Executive Projects Tracking Initiative (CEPTI) findings at World Press Conferences, Mr. Bakare bridges the gap between institutional enforcement and public consciousness.</p>
                 </div>
                 <div class="credential-tags">
                     <span class="tag"><i class="fas fa-award"></i> Fellow, Security Institute (FSI)</span>
+                    <span class="tag"><i class="fas fa-certificate"></i> Associate, NIPR (ANIPR)</span>
                     <span class="tag"><i class="fas fa-landmark"></i> Pioneer Officer, ICPC</span>
                     <span class="tag"><i class="fas fa-microphone-alt"></i> ICPC Spokesperson</span>
                     <span class="tag"><i class="fas fa-trophy"></i> NAOSNP Award of Excellence</span>
+                    <span class="tag"><i class="fas fa-medal"></i> SAEMA Award Recipient</span>
                 </div>
                 <a href="<?php echo esc_url( get_permalink( get_page_by_path( 'about' ) ) ?: '#' ); ?>" class="btn btn-primary">
                     <span>Read Full Biography</span>
@@ -120,32 +122,32 @@ get_header();
                 array(
                     'icon'  => 'fas fa-shield-alt',
                     'title' => 'Anti-Corruption Strategy',
-                    'desc'  => 'Leading Nigeria\'s fight against corruption through evidence-based strategies, institutional frameworks, and pioneering enforcement mechanisms at ICPC.',
+                    'desc'  => 'Spearheading Nigeria\'s fight against corruption through corruption risk assessments, system studies, and preventive strategies. Played a key role in ICPC\'s port sector reforms that dismantled corruption networks and enhanced trade facilitation.',
                 ),
                 array(
                     'icon'  => 'fas fa-landmark',
                     'title' => 'Governance & Policy',
-                    'desc'  => 'Designing and advocating for governance reforms, transparency frameworks, and accountability mechanisms across public institutions.',
+                    'desc'  => 'Advancing governance reforms through ICPC\'s Ethics and Integrity Compliance Scorecard (EICS) — assessing 330+ MDAs annually on management culture, transparency, and accountability structures to drive institutional transformation.',
                 ),
                 array(
                     'icon'  => 'fas fa-chalkboard-teacher',
                     'title' => 'Ethics Training',
-                    'desc'  => 'Developing and delivering comprehensive ethics and integrity training programs for public servants, institutions, and civil society organizations.',
+                    'desc'  => 'Delivering sensitisation workshops and capacity-building programs for public servants from Grade Level 16-17 officers to agency heads — embedding corruption prevention as organizational culture, not merely compliance.',
                 ),
                 array(
                     'icon'  => 'fas fa-bullhorn',
                     'title' => 'Public Enlightenment',
-                    'desc'  => 'Pioneering public awareness campaigns and civic education initiatives that have reached millions of Nigerians across all demographics.',
+                    'desc'  => 'Directing ICPC\'s public awareness strategy as official Spokesperson — from World Press Conferences to community outreach campaigns. Delivered keynote at NAOSNP media workshop on combatting corruption through responsible journalism.',
                 ),
                 array(
                     'icon'  => 'fas fa-users',
                     'title' => 'Civic Reorientation',
-                    'desc'  => 'Championing value reorientation programs that foster development-minded citizenship, patriotism, and collective responsibility.',
+                    'desc'  => 'Launching Students Anti-Corruption Vanguards (SAV) across Nigerian universities and polytechnics, hosting secondary school educational visits to ICPC, and championing youth-driven integrity movements to reshape Nigeria\'s moral fabric.',
                 ),
                 array(
                     'icon'  => 'fas fa-handshake',
                     'title' => 'Institutional Reform',
-                    'desc'  => 'Advising on institutional restructuring, capacity building, and the development of robust integrity systems for organizations.',
+                    'desc'  => 'Leading ICPC\'s collaboration with UBEC to strengthen transparency in Nigeria\'s basic education sector, inaugurating Anti-Corruption and Transparency Units (ACTUs) across MDAs, and advocating for digitally-enabled coordination in public institutions.',
                 ),
             );
             foreach ( $pillars as $index => $pillar ) :
@@ -177,28 +179,28 @@ get_header();
                 <p class="mri-tagline">&ldquo;Advancing Integrity, Accountability and Development-Minded Citizenship&rdquo;</p>
             </div>
             <div class="mri-description">
-                <p>MRI-ELG is a think tank and consultancy institution founded by Demola Bakare, FSI, dedicated to advancing ethical leadership, good governance, and institutional integrity across Africa and beyond.</p>
+                <p>Born from over two decades at the frontlines of Nigeria's anti-corruption struggle, MRI-ELG is the institutional expression of Demola Bakare's conviction that sustainable development requires more than enforcement — it demands a fundamental moral rearmament of leadership, governance systems, and citizenry. MRI-ELG brings together research, training, civic mobilization, and institutional advisory to forge a new culture of accountability across Africa.</p>
             </div>
             <div class="mri-focus-areas">
                 <div class="focus-item" data-aos="fade-up" data-aos-delay="100">
                     <div class="focus-icon"><i class="fas fa-graduation-cap"></i></div>
                     <h4>Research & Policy</h4>
-                    <p>Evidence-based research and policy recommendations for governance reform.</p>
+                    <p>Corruption risk assessments, system studies, and evidence-based policy briefs drawn from ICPC-level institutional knowledge.</p>
                 </div>
                 <div class="focus-item" data-aos="fade-up" data-aos-delay="200">
                     <div class="focus-icon"><i class="fas fa-users-cog"></i></div>
                     <h4>Capacity Building</h4>
-                    <p>Training programs for ethical leadership and institutional integrity.</p>
+                    <p>Ethics academies, anti-corruption masterclasses, and leadership integrity workshops for public and private sectors.</p>
                 </div>
                 <div class="focus-item" data-aos="fade-up" data-aos-delay="300">
                     <div class="focus-icon"><i class="fas fa-globe-africa"></i></div>
                     <h4>Civic Engagement</h4>
-                    <p>Mobilizing citizens for accountability and development-minded participation.</p>
+                    <p>Citizens' enlightenment campaigns, Students Anti-Corruption Vanguards, and community-based accountability programs.</p>
                 </div>
                 <div class="focus-item" data-aos="fade-up" data-aos-delay="400">
                     <div class="focus-icon"><i class="fas fa-chart-line"></i></div>
                     <h4>Institutional Advisory</h4>
-                    <p>Strategic consulting for organizations seeking integrity-driven transformation.</p>
+                    <p>ACTU establishment, governance audits, and integrity compliance scorecards for organizations seeking systemic transformation.</p>
                 </div>
             </div>
             <a href="<?php echo esc_url( get_permalink( get_page_by_path( 'mri-elg' ) ) ?: '#' ); ?>" class="btn btn-gold btn-lg">
@@ -222,32 +224,32 @@ get_header();
                 array(
                     'year'  => 'Early 2000s',
                     'title' => 'Pioneer Officer, ICPC',
-                    'desc'  => 'Joined the Independent Corrupt Practices and Other Related Offences Commission as one of its founding officers, helping to establish the institutional framework for Nigeria\'s premier anti-corruption agency.',
+                    'desc'  => 'Joined the Independent Corrupt Practices and Other Related Offences Commission (ICPC) as one of its founding officers following the enactment of the ICPC Act 2000 under President Olusegun Obasanjo — helping to build Nigeria\'s premier anti-corruption institution from the ground up.',
                 ),
                 array(
                     'year'  => '2000s-2010s',
                     'title' => 'Public Enlightenment Campaigns',
-                    'desc'  => 'Led groundbreaking public awareness campaigns across Nigeria, reaching millions of citizens with anti-corruption education and civic engagement programs.',
+                    'desc'  => 'Served as Deputy Director in the System Study and Review Department, representing the ICPC Chairman at sensitisation workshops, corruption risk assessment trainings, and institutional integrity programs across federal ministries and agencies.',
                 ),
                 array(
                     'year'  => '2010s',
                     'title' => 'Ethics Training Programs',
-                    'desc'  => 'Developed and delivered hundreds of ethics and integrity training sessions for public servants, law enforcement, judiciary, and educational institutions.',
+                    'desc'  => 'Delivered corruption prevention workshops for senior civil servants (GL 16-17), emphasizing that prevention is the best strategy for a corruption-free workplace. Trained hundreds of public servants on the phenomenon of corruption and its impact on governance.',
                 ),
                 array(
                     'year'  => '2020s',
                     'title' => 'Director, Public Enlightenment & Education',
-                    'desc'  => 'Appointed Director of the Public Enlightenment and Education Department at ICPC, overseeing nationwide anti-corruption education and communication strategies.',
+                    'desc'  => 'Appointed Director of the Public Enlightenment and Education Department at ICPC, becoming the Commission\'s official Spokesperson. Oversaw the presentation of CEPTI Phase 6 reports and Ethics and Integrity Compliance Scorecard (EICS) findings assessing 330 MDAs.',
                 ),
                 array(
                     'year'  => '2025',
                     'title' => 'Award of Excellence in Media Relations',
-                    'desc'  => 'Conferred with the Award of Excellence in Media Relations by the National Association of Online Security News Publishers (NAOSNP) for outstanding media engagement.',
+                    'desc'  => 'Conferred with the NAOSNP Award of Excellence in Media Relations at Lagos Chamber of Commerce. Delivered keynote on "Combatting Corruption in Public Service: The Role of Online Journalists." Accepted the SAEMA Diligent Investigation Award on behalf of ICPC at NDLEA headquarters.',
                 ),
                 array(
                     'year'  => 'Present',
                     'title' => 'Founding MRI-ELG',
-                    'desc'  => 'Establishing the Moral Rearmament Initiative for Ethical Leadership & Governance (MRI-ELG) to advance integrity, accountability, and development-minded citizenship across Africa.',
+                    'desc'  => 'Establishing MRI-ELG to institutionalize a lifetime of anti-corruption expertise into a think tank and consultancy advancing integrity, accountability, and development-minded citizenship. Publishing influential opinion pieces on corruption prevention, tax reform, and governance in national media.',
                 ),
             );
             foreach ( $timeline_items as $index => $item ) :
@@ -308,31 +310,31 @@ get_header();
             ?>
                 <div class="testimonial-card" data-aos="fade-up">
                     <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <blockquote>Every investigation must be built on a foundation of integrity and pursued with meticulous expertise. This is the ingrained ethos within the ICPC.</blockquote>
+                    <blockquote>This award speaks to an ingrained ethos within the ICPC — the unwavering belief that every investigation must be built on a foundation of integrity and pursued with meticulous expertise.</blockquote>
                     <div class="testimonial-author">
                         <div class="author-info">
                             <strong>Demola Bakare, FSI</strong>
-                            <span>At SAEMA Award Ceremony, 2025</span>
+                            <span>Accepting SAEMA Diligent Investigation Award, NDLEA HQ, 2025</span>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <blockquote>Credibility, not speed, remains the true currency of journalism. Inaccurate or exaggerated reports could undermine public trust and compromise national security.</blockquote>
+                    <blockquote>Credibility, not speed, remains the true currency of journalism. Protecting investigators' mental health through factual, objective, and less opinionated reportage is protecting the integrity of our institutions.</blockquote>
                     <div class="testimonial-author">
                         <div class="author-info">
                             <strong>Demola Bakare, FSI</strong>
-                            <span>NAOSNP Media Workshop, 2025</span>
+                            <span>Keynote Address, NAOSNP Media Workshop, LCCI Lagos, October 2025</span>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
-                    <blockquote>Every time you choose to do the right thing, even when no one is watching, you are helping to build a better Nigeria. Young people can lead with values and integrity.</blockquote>
+                    <blockquote>Prevention is better than cure. Enforcement addresses corruption after public resources have been diverted, trust eroded, and institutions weakened. Prevention, on the other hand, is proactive — it blocks opportunities, closes loopholes, and reshapes incentives before misconduct occurs.</blockquote>
                     <div class="testimonial-author">
                         <div class="author-info">
-                            <strong>ICPC Youth Engagement Program</strong>
-                            <span>Anti-Corruption Educational Visit</span>
+                            <strong>Demola Bakare, FSI, ANIPR</strong>
+                            <span>Published in The Pinnacle Times, February 2026</span>
                         </div>
                     </div>
                 </div>
@@ -404,22 +406,22 @@ get_header();
                 <?php
                 $placeholder_posts = array(
                     array(
-                        'title' => 'The Role of Public Enlightenment in Anti-Corruption',
-                        'desc'  => 'Examining how strategic communication and civic education can transform public attitudes toward corruption and institutional accountability.',
+                        'title' => 'Why Prevention is Better Than "Cure" in Nigeria\'s Anti-Corruption Efforts',
+                        'desc'  => 'Enforcement alone cannot sustainably defeat corruption. Preventive strategies — corruption risk assessments, system studies, and institutional reform — offer deeper, longer-lasting value.',
+                        'cat'   => 'Anti-Corruption',
+                        'date'  => 'Feb 17, 2026',
+                    ),
+                    array(
+                        'title' => 'Why Well-Meaning Nigerians Should Support Tax Reform',
+                        'desc'  => 'A weak tax framework is itself a corruption enabler. By broadening the tax base and reducing excessive human interference, tax reform directly advances the anti-corruption agenda.',
                         'cat'   => 'Governance',
-                        'date'  => 'Jan 15, 2025',
+                        'date'  => 'Jan 18, 2026',
                     ),
                     array(
-                        'title' => 'Ethics Training as a Tool for Institutional Reform',
-                        'desc'  => 'How structured ethics training programs can fundamentally reshape organizational culture and foster a new generation of integrity-driven leaders.',
-                        'cat'   => 'Ethics',
-                        'date'  => 'Dec 08, 2024',
-                    ),
-                    array(
-                        'title' => 'Building Development-Minded Citizenship in Nigeria',
-                        'desc'  => 'A strategic framework for cultivating civic responsibility, national consciousness, and active citizen participation in governance processes.',
-                        'cat'   => 'Civic Education',
-                        'date'  => 'Nov 22, 2024',
+                        'title' => 'Accelerating Basic Education Through Digitally-Enabled Coordination',
+                        'desc'  => 'Digital transformation offers practical solutions for real-time, transparent governance across UBEC and SUBEBs — from geo-tagged project monitoring to automated financial management.',
+                        'cat'   => 'Policy',
+                        'date'  => 'Apr 27, 2026',
                     ),
                 );
                 foreach ( $placeholder_posts as $index => $post_item ) :
@@ -457,11 +459,13 @@ get_header();
         <div class="partners-logos" data-aos="fade-up" data-aos-delay="200">
             <?php
             $partners = array(
-                array( 'name' => 'ICPC Nigeria', 'abbr' => 'ICPC' ),
-                array( 'name' => 'NAOSNP', 'abbr' => 'NAOSNP' ),
-                array( 'name' => 'Security Institute', 'abbr' => 'SI' ),
-                array( 'name' => 'SAEMA', 'abbr' => 'SAEMA' ),
+                array( 'name' => 'Independent Corrupt Practices Commission', 'abbr' => 'ICPC' ),
+                array( 'name' => 'National Association of Online Security News Publishers', 'abbr' => 'NAOSNP' ),
+                array( 'name' => 'Security Institute of Nigeria', 'abbr' => 'SI' ),
+                array( 'name' => 'Security & Emergency Management Awards', 'abbr' => 'SAEMA' ),
                 array( 'name' => 'Federal Government of Nigeria', 'abbr' => 'FGN' ),
+                array( 'name' => 'Universal Basic Education Commission', 'abbr' => 'UBEC' ),
+                array( 'name' => 'Nigerian Institute of Public Relations', 'abbr' => 'NIPR' ),
                 array( 'name' => 'MRI-ELG', 'abbr' => 'MRI-ELG' ),
             );
             foreach ( $partners as $partner ) :

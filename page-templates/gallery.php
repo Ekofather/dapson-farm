@@ -15,7 +15,7 @@ get_header();
         <div class="page-hero-content" data-aos="fade-up">
             <span class="page-label">Gallery</span>
             <h1>Photo <span class="gold">Gallery</span></h1>
-            <p>Moments captured from engagements, events, training sessions, and institutional activities.</p>
+            <p>Documenting a legacy of service — from NAOSNP award ceremonies and SAEMA presentations at NDLEA headquarters, to Students Anti-Corruption Vanguard inaugurations, UBEC partnership meetings, secondary school educational visits, and World Press Conferences at ICPC headquarters.</p>
         </div>
     </div>
 </section>

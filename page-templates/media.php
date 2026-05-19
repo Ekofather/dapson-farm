@@ -15,7 +15,7 @@ get_header();
         <div class="page-hero-content" data-aos="fade-up">
             <span class="page-label">Media</span>
             <h1>Media & <span class="gold">Publications</span></h1>
-            <p>Research papers, policy briefs, media appearances, and thought leadership content on governance and anti-corruption.</p>
+            <p>Published opinion editorials, keynote addresses, institutional reports, and media coverage documenting over two decades of anti-corruption advocacy, governance reform, and ethical leadership at the national level.</p>
         </div>
     </div>
 </section>
@@ -73,12 +73,12 @@ get_header();
                 wp_reset_postdata();
             else :
                 $sample_pubs = array(
-                    array( 'title' => 'The Role of Public Enlightenment in Anti-Corruption Campaigns', 'type' => 'Policy Brief', 'desc' => 'An analysis of strategic communication approaches in shaping public attitudes toward corruption.' ),
-                    array( 'title' => 'Ethics Training as a Tool for Institutional Reform', 'type' => 'Research Paper', 'desc' => 'How structured ethics programs reshape organizational culture and foster integrity-driven leadership.' ),
-                    array( 'title' => 'Building Development-Minded Citizenship in Nigeria', 'type' => 'Working Paper', 'desc' => 'A framework for cultivating civic responsibility and active citizen participation in governance.' ),
-                    array( 'title' => 'Media Relations and Anti-Corruption Communication', 'type' => 'Speech', 'desc' => 'Exploring the intersection of journalism, transparency, and the fight against corruption in public service.' ),
-                    array( 'title' => 'Civic Reorientation and National Development', 'type' => 'Report', 'desc' => 'Strategies for fostering value reorientation, patriotism, and collective responsibility in society.' ),
-                    array( 'title' => 'Integrity Systems in Public Institutions', 'type' => 'Case Study', 'desc' => 'Examining best practices in building and sustaining integrity frameworks within government agencies.' ),
+                    array( 'title' => 'Why Prevention is Better Than "Cure" in Nigeria\'s Anti-Corruption Efforts', 'type' => 'Op-Ed', 'desc' => 'A compelling argument for preventive strategies over enforcement-only approaches, drawing on ICPC\'s landmark work in port sector reform. Published in The Pinnacle Times, February 2026.' ),
+                    array( 'title' => 'Why Well-Meaning Nigerians Should Support Tax Reform', 'type' => 'Op-Ed', 'desc' => 'Positioning fiscal reform as integrity reform — arguing that a weak tax framework is itself a corruption enabler. Published in Economic Confidential, January 2026.' ),
+                    array( 'title' => 'CEPTI Phase 6 Report & Ethics and Integrity Compliance Scorecard 2024', 'type' => 'Institutional Report', 'desc' => 'Presented at ICPC World Press Conference. Covering 330 MDAs assessed, N346M cash recoveries, N513M asset recoveries, and approximately N30B saved through project monitoring.' ),
+                    array( 'title' => 'Combatting Corruption and Other Vices in Public Service: The Role of Online Journalists', 'type' => 'Keynote Address', 'desc' => 'Delivered at NAOSNP capacity-building workshop, Lagos Chamber of Commerce. On media as watchdog and partner in governance.' ),
+                    array( 'title' => 'Accelerating Basic Education Performance Through Digitally-Enabled Coordination', 'type' => 'Presentation', 'desc' => 'Presented at UBEC\'s 29th Quarterly Meeting on digital governance solutions for education sector transparency.' ),
+                    array( 'title' => 'The Phenomenon of Corruption: Types, Causes, Consequences and Impact on Civil Servants', 'type' => 'Training Material', 'desc' => 'Sensitisation workshop content delivered to GL 16-17 officers at the Federal Ministry of Labour and Employment.' ),
                 );
                 foreach ( $sample_pubs as $index => $pub ) :
             ?>
@@ -111,7 +111,28 @@ get_header();
             <?php
             $media_items = array(
                 array(
-                    'title'  => 'ICPC Spokesperson Bags Award of Excellence in Media Relations',
+                    'title'  => 'ICPC Calls for Digital Coordination to Boost Basic Education Delivery',
+                    'source' => 'ICPC Nigeria',
+                    'date'   => 'April 2026',
+                    'url'    => 'https://icpc.gov.ng/icpc-calls-for-digital-coordination-to-boost-basic-education-delivery/',
+                    'type'   => 'Press Release',
+                ),
+                array(
+                    'title'  => 'Why Prevention is Better Than "Cure" in Nigeria\'s Anti-Corruption Efforts',
+                    'source' => 'The Pinnacle Times',
+                    'date'   => 'February 2026',
+                    'url'    => 'https://thepinnacletimes.com.ng/why-prevention-is-better-than-cure-in-nigeria-s-anti-corruption-efforts/',
+                    'type'   => 'Op-Ed',
+                ),
+                array(
+                    'title'  => 'Why Well-Meaning Nigerians Should Support Tax Reform',
+                    'source' => 'Economic Confidential',
+                    'date'   => 'January 2026',
+                    'url'    => 'https://economicconfidential.com/well-meaning-nigerians-tax/',
+                    'type'   => 'Op-Ed',
+                ),
+                array(
+                    'title'  => 'ICPC Spokesperson, Demola Bakare, Bags Award of Excellence in Media Relations',
                     'source' => 'ICPC Nigeria',
                     'date'   => 'October 2025',
                     'url'    => 'https://icpc.gov.ng/icpc-spokesperson-demola-bakare-bags-award-of-excellence-in-media-relations/',
@@ -125,10 +146,24 @@ get_header();
                     'type'   => 'Press Release',
                 ),
                 array(
+                    'title'  => 'ICPC Releases Reports on CEPTI Phase 6 and 2024 Ethics and Integrity Compliance Scorecard',
+                    'source' => 'ICPC Nigeria',
+                    'date'   => 'December 2024',
+                    'url'    => 'https://icpc.gov.ng/icpc-releases-reports-on-cepti-phase-6-and-2024-ethics-and-integrity-compliance-scorecard-eics/',
+                    'type'   => 'Press Conference',
+                ),
+                array(
                     'title'  => 'ICPC Urges Students to Champion the Fight Against Corruption',
                     'source' => 'ICPC Nigeria',
                     'date'   => 'October 2025',
                     'url'    => 'https://icpc.gov.ng/icpc-urges-students-to-champion-the-fight-against-corruption/',
+                    'type'   => 'News',
+                ),
+                array(
+                    'title'  => 'ICPC Launches Student Anti-Corruption Vanguard to Empower Youth',
+                    'source' => 'The Sun Nigeria',
+                    'date'   => 'November 2024',
+                    'url'    => 'https://thesun.ng/icpc-launches-student-anti-corruption-vanguard-to-empower-youth-against-corruption/',
                     'type'   => 'News',
                 ),
                 array(
@@ -137,6 +172,27 @@ get_header();
                     'date'   => 'May 2025',
                     'url'    => 'https://icpc.gov.ng/icpc-hosts-secondary-school-students-on-anti-corruption-educational-visit/',
                     'type'   => 'News',
+                ),
+                array(
+                    'title'  => 'Corruption Prevention, Best Strategy for a Corruption-Free Workplace – ICPC',
+                    'source' => 'ICPC Nigeria',
+                    'date'   => 'February 2022',
+                    'url'    => 'https://icpc.gov.ng/corruption-prevention-best-strategy-for-a-corruption-free-workplace-icpc/',
+                    'type'   => 'Workshop',
+                ),
+                array(
+                    'title'  => 'ICPC, UBEC Strengthen Partnership to Promote Transparency in Basic Education',
+                    'source' => 'ICPC Nigeria',
+                    'date'   => 'October 2025',
+                    'url'    => 'https://icpc.gov.ng/icpc-ubec-strengthen-partnership-to-promote-transparency-and-accountability-in-nigerias-basic-education-sector/',
+                    'type'   => 'News',
+                ),
+                array(
+                    'title'  => 'NELFUND Disbursed Only N44.2bn, Over N71bn Unaccounted For – ICPC',
+                    'source' => 'The Whistler',
+                    'date'   => '2025',
+                    'url'    => 'https://thewhistler.ng/tag/demola-bakare/',
+                    'type'   => 'Investigation',
                 ),
             );
             foreach ( $media_items as $index => $media ) :

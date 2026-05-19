@@ -15,7 +15,7 @@ get_header();
         <div class="page-hero-content" data-aos="fade-up">
             <span class="page-label">Services</span>
             <h1>Consultancy & <span class="gold">Professional Services</span></h1>
-            <p>Comprehensive governance, ethics, and anti-corruption solutions for institutions, organizations, and governments.</p>
+            <p>Battle-tested governance, ethics, and anti-corruption solutions drawn from over two decades of institutional reform at ICPC Nigeria. From corruption risk assessments to ethics training, from ACTU establishment to digital governance advisory.</p>
         </div>
     </div>
 </section>
@@ -28,7 +28,7 @@ get_header();
         <div class="section-header text-center" data-aos="fade-up">
             <span class="section-label">What We Offer</span>
             <h2 class="section-title">Professional Services</h2>
-            <p class="section-desc">Drawing from over 25 years of frontline experience in anti-corruption and governance, Demola Bakare and MRI-ELG offer a comprehensive suite of professional services.</p>
+            <p class="section-desc">Drawing from over 25 years of frontline experience — including corruption risk assessments that transformed Nigeria's port sector, ethics training for senior civil servants, and the presentation of nationwide CEPTI and EICS reports — Demola Bakare and MRI-ELG offer a battle-tested suite of professional services.</p>
         </div>
 
         <div class="services-detailed-grid">
@@ -37,79 +37,79 @@ get_header();
                 array(
                     'icon'     => 'fas fa-chalkboard-teacher',
                     'title'    => 'Ethics & Anti-Corruption Training',
-                    'desc'     => 'Customized training programs that equip organizations with the knowledge, tools, and frameworks needed to build a culture of integrity.',
+                    'desc'     => 'Modelled on the sensitisation workshops delivered to senior civil servants, agency heads, and tertiary institutions — programs that embed corruption prevention as organizational culture, not merely compliance.',
                     'features' => array(
-                        'Customized Ethics Workshops',
-                        'Anti-Corruption Compliance Training',
-                        'Leadership Integrity Programs',
-                        'Code of Conduct Development',
-                        'Train-the-Trainer Certification',
-                        'Online & In-Person Delivery',
+                        'Senior Civil Servant Ethics Workshops (GL 14-17)',
+                        'Anti-Corruption Compliance & Prevention Training',
+                        'Leadership Integrity Masterclasses',
+                        'Code of Conduct & SOP Development',
+                        'Train-the-Trainer Certification Programs',
+                        'Students Anti-Corruption Vanguard Setup',
                     ),
                 ),
                 array(
                     'icon'     => 'fas fa-building',
                     'title'    => 'Institutional Governance Advisory',
-                    'desc'     => 'Strategic advisory services for governments, agencies, and organizations seeking to strengthen their governance frameworks.',
+                    'desc'     => 'Strategic advisory drawing on ICPC\'s proven methodologies for corruption risk assessment, system studies, and the establishment of Anti-Corruption and Transparency Units (ACTUs) across MDAs.',
                     'features' => array(
-                        'Governance Audits & Assessments',
-                        'Institutional Reform Strategy',
-                        'Anti-Corruption Policy Development',
-                        'Regulatory Framework Design',
-                        'Performance Management Systems',
-                        'Stakeholder Engagement Strategy',
+                        'Corruption Risk Assessment & Mitigation',
+                        'ACTU Establishment & Operationalization',
+                        'Ethics & Integrity Compliance Scorecards',
+                        'Process Redesign & SOP Harmonization',
+                        'Digital Governance & e-Monitoring Systems',
+                        'Grievance Handling Mechanism Design',
                     ),
                 ),
                 array(
                     'icon'     => 'fas fa-microphone-alt',
                     'title'    => 'Keynote Speaking & Presentations',
-                    'desc'     => 'Engaging, thought-provoking presentations on governance, ethics, anti-corruption, and leadership for conferences and events.',
+                    'desc'     => 'Drawing from keynote addresses at NAOSNP, UBEC quarterly meetings, World Press Conferences, and SAEMA ceremonies — engaging presentations that shape national discourse on governance and integrity.',
                     'features' => array(
                         'Conference Keynote Addresses',
-                        'Panel Discussions & Moderation',
-                        'Commencement Speeches',
-                        'Corporate Retreats & Seminars',
+                        'Anti-Corruption & Governance Panel Discussions',
+                        'Institutional Retreats & Capacity Sessions',
                         'Parliamentary & Legislative Briefings',
-                        'Media Commentary & Analysis',
+                        'Media Engagement & Press Conferences',
+                        'University Lectures & Student Engagements',
                     ),
                 ),
                 array(
                     'icon'     => 'fas fa-bullhorn',
                     'title'    => 'Public Enlightenment Campaign Design',
-                    'desc'     => 'Designing and executing impactful public awareness campaigns that drive behavioral change and civic engagement.',
+                    'desc'     => 'Drawing on the expertise that produced ICPC\'s nationwide public enlightenment reach — designing campaigns that bridge the gap between institutional enforcement and public consciousness.',
                     'features' => array(
-                        'Campaign Strategy Development',
-                        'Media Relations & Communications',
-                        'Community Engagement Programs',
-                        'Digital Advocacy Campaigns',
-                        'Stakeholder Mobilization',
-                        'Impact Measurement & Evaluation',
+                        'National Anti-Corruption Campaign Strategy',
+                        'Media Relations & Spokesperson Training',
+                        'Community & Grassroots Mobilization',
+                        'Digital Advocacy & Social Media Strategy',
+                        'Citizens\' Enlightenment Programs',
+                        'Campaign Impact Measurement & Reporting',
                     ),
                 ),
                 array(
                     'icon'     => 'fas fa-flask',
                     'title'    => 'Research & Policy Development',
-                    'desc'     => 'Rigorous research and analysis that informs evidence-based policy recommendations for governance improvement.',
+                    'desc'     => 'Modelled on the corruption risk assessments and system studies that produced Nigeria\'s Port Process Manual and saved over N30 billion in public funds through effective project monitoring.',
                     'features' => array(
-                        'Governance Research Studies',
-                        'Anti-Corruption Index Analysis',
-                        'Policy Brief Development',
-                        'Benchmarking & Best Practices',
-                        'Legislative Review & Recommendations',
-                        'White Paper Publishing',
+                        'Corruption Risk Assessment Projects',
+                        'System Studies & Institutional Reviews',
+                        'Constituency Projects Tracking Methodology',
+                        'Policy Brief & Op-Ed Development',
+                        'Legislative Review & Reform Recommendations',
+                        'Governance Data Analysis & Scorecards',
                     ),
                 ),
                 array(
                     'icon'     => 'fas fa-project-diagram',
                     'title'    => 'Program Design & Management',
-                    'desc'     => 'End-to-end design and management of governance, ethics, and civic engagement programs for maximum impact.',
+                    'desc'     => 'End-to-end design and management of anti-corruption, ethics, and civic engagement programs — from conceptualization through implementation to impact evaluation.',
                     'features' => array(
-                        'Program Conceptualization',
-                        'Curriculum Development',
-                        'Implementation Management',
-                        'Monitoring & Evaluation',
-                        'Report Writing & Documentation',
-                        'Sustainability Planning',
+                        'Anti-Corruption Program Design',
+                        'Ethics Curriculum Development',
+                        'Implementation & Project Management',
+                        'Monitoring, Evaluation & Geo-Tagging',
+                        'Report Writing & World Press Presentations',
+                        'Sustainability & Institutional Memory Planning',
                     ),
                 ),
             );
@@ -142,10 +142,10 @@ get_header();
         <div class="process-steps">
             <?php
             $steps = array(
-                array( 'num' => '01', 'title' => 'Initial Consultation', 'desc' => 'We begin with a thorough assessment of your organization\'s needs, challenges, and objectives.' ),
-                array( 'num' => '02', 'title' => 'Strategy Development', 'desc' => 'Our team develops a customized strategy and action plan tailored to your specific context.' ),
-                array( 'num' => '03', 'title' => 'Implementation', 'desc' => 'We deliver our services with excellence, adapting to feedback and emerging needs along the way.' ),
-                array( 'num' => '04', 'title' => 'Evaluation & Follow-Up', 'desc' => 'We measure impact, provide detailed reporting, and offer ongoing support for sustained results.' ),
+                array( 'num' => '01', 'title' => 'Diagnostic Assessment', 'desc' => 'We conduct a thorough corruption risk assessment and institutional review — identifying vulnerabilities in processes such as procurement, licensing, recruitment, and revenue collection.' ),
+                array( 'num' => '02', 'title' => 'Strategy & Design', 'desc' => 'We develop a customized intervention strategy: redesigning SOPs, establishing accountability structures, and designing training curricula tailored to your institutional context.' ),
+                array( 'num' => '03', 'title' => 'Implementation & Training', 'desc' => 'We deploy our programs with excellence — from ethics workshops and ACTU inaugurations to public enlightenment campaigns and digital monitoring systems.' ),
+                array( 'num' => '04', 'title' => 'Evaluation & Sustainability', 'desc' => 'We measure impact through integrity compliance scorecards, provide detailed reporting, and build institutional memory to ensure reforms outlast individual leaders.' ),
             );
             foreach ( $steps as $index => $step ) :
             ?>
@@ -169,12 +169,12 @@ get_header();
         <div class="clients-grid" data-aos="fade-up" data-aos-delay="200">
             <?php
             $clients = array(
-                array( 'icon' => 'fas fa-landmark', 'title' => 'Government Agencies', 'desc' => 'Federal, state, and local government institutions seeking governance reform.' ),
-                array( 'icon' => 'fas fa-briefcase', 'title' => 'Corporate Organizations', 'desc' => 'Businesses committed to ethical practices and corporate governance.' ),
-                array( 'icon' => 'fas fa-users', 'title' => 'Civil Society', 'desc' => 'NGOs and CSOs working on governance, accountability, and transparency.' ),
-                array( 'icon' => 'fas fa-university', 'title' => 'Educational Institutions', 'desc' => 'Universities, schools, and training academies integrating ethics education.' ),
-                array( 'icon' => 'fas fa-globe', 'title' => 'International Organizations', 'desc' => 'Multilateral agencies and development partners focused on governance.' ),
-                array( 'icon' => 'fas fa-gavel', 'title' => 'Legislative Bodies', 'desc' => 'Parliamentary committees and legislative assemblies on oversight and reform.' ),
+                array( 'icon' => 'fas fa-landmark', 'title' => 'Government MDAs', 'desc' => 'Federal ministries, departments, and agencies — from UBEC to the Federal Ministry of Labour — seeking integrity assessments and ACTU establishment.' ),
+                array( 'icon' => 'fas fa-briefcase', 'title' => 'Corporate & Port Sector', 'desc' => 'Private businesses, port operators, and corporations building ethical governance frameworks and anti-corruption compliance systems.' ),
+                array( 'icon' => 'fas fa-users', 'title' => 'Civil Society & Media', 'desc' => 'NGOs, CSOs, and media organizations working on accountability journalism, governance monitoring, and citizen engagement.' ),
+                array( 'icon' => 'fas fa-university', 'title' => 'Educational Institutions', 'desc' => 'Universities, polytechnics, and secondary schools establishing Students Anti-Corruption Vanguards and ethics curricula.' ),
+                array( 'icon' => 'fas fa-globe', 'title' => 'Development Partners', 'desc' => 'UNDP, bilateral agencies, and international organizations investing in governance reform and anti-corruption capacity building.' ),
+                array( 'icon' => 'fas fa-gavel', 'title' => 'Security & Justice Sector', 'desc' => 'Law enforcement agencies, the judiciary, and security sector institutions seeking integrity-driven institutional reform.' ),
             );
             foreach ( $clients as $index => $client ) :
             ?>

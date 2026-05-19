@@ -92,12 +92,12 @@ function demola_customize_register( $wp_customize ) {
     $hero_text_fields = array(
         'demola_hero_subtitle' => array(
             'Hero Subtitle',
-            'Pioneer Officer of ICPC Nigeria | Director, Public Enlightenment & Education | Ethics Trainer | Governance & Policy Consultant | Civic Transformation Strategist',
+            'Director, Public Enlightenment & Education Department, ICPC Nigeria | Pioneer Anti-Corruption Officer | ANIPR | Spokesperson of Nigeria\'s Premier Anti-Corruption Agency | Architect of Preventive Anti-Corruption Strategies | Founder, MRI-ELG',
             'textarea',
         ),
         'demola_hero_quote' => array(
             'Hero Quote',
-            'Credibility, not speed, remains the true currency of leadership. Every institution must be built on a foundation of integrity and pursued with meticulous expertise.',
+            'Credibility, not speed, remains the true currency of journalism. Every investigation must be built on a foundation of integrity and pursued with meticulous expertise. Prevention, not enforcement alone, offers deeper, longer-lasting value in the fight against corruption.',
             'textarea',
         ),
     );
@@ -130,7 +130,7 @@ function demola_customize_register( $wp_customize ) {
     ) ) );
 
     $wp_customize->add_setting( 'demola_about_intro', array(
-        'default'           => 'Demola Bakare, FSI, is a nationally respected anti-corruption advocate, governance strategist, and ethics trainer with over 25 years of distinguished service in Nigeria\'s fight against corruption. As a pioneer officer and Director of Public Enlightenment and Education at the Independent Corrupt Practices and Other Related Offences Commission (ICPC), he has been at the forefront of shaping Nigeria\'s anti-corruption landscape.',
+        'default'           => 'Demola Bakare, FSI, ANIPR, is a nationally respected anti-corruption advocate, governance strategist, and ethics trainer who has dedicated over two decades to Nigeria\'s fight against corruption. As a pioneer officer and the current Director of Public Enlightenment and Education Department at the Independent Corrupt Practices and Other Related Offences Commission (ICPC), he serves as the official Spokesperson of Nigeria\'s premier anti-corruption agency \u2014 leading nationwide campaigns, corruption risk assessments, system studies, and public enlightenment initiatives that have saved the Nigerian government over N30 billion.',
         'sanitize_callback' => 'sanitize_textarea_field',
     ) );
     $wp_customize->add_control( 'demola_about_intro', array(
@@ -146,7 +146,7 @@ function demola_customize_register( $wp_customize ) {
     ) );
 
     $wp_customize->add_setting( 'demola_footer_about', array(
-        'default'           => 'Anti-Corruption Advocate, Governance Strategist, Ethics Trainer & Pioneer Officer of ICPC Nigeria. Over 25 years championing transparency, accountability, and ethical leadership.',
+        'default'           => 'Director, Public Enlightenment & Education, ICPC Nigeria. Pioneer Anti-Corruption Officer. ICPC Spokesperson. Founder, MRI-ELG. Over 25 years advancing integrity, accountability, and development-minded citizenship.',
         'sanitize_callback' => 'sanitize_textarea_field',
     ) );
     $wp_customize->add_control( 'demola_footer_about', array(

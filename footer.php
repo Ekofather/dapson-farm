@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="container">
             <div class="cta-content" data-aos="fade-up">
                 <h2>Ready to Advance Integrity in Governance?</h2>
-                <p>Partner with Demola Bakare, FSI for consultancy, training, speaking engagements, or institutional collaboration.</p>
+                <p>Partner with Demola Bakare, FSI, ANIPR — Director of Public Enlightenment & Education at ICPC Nigeria and Founder of MRI-ELG — for ethics training, governance advisory, speaking engagements, corruption risk assessments, or institutional collaboration.</p>
                 <div class="cta-actions">
                     <a href="<?php echo esc_url( get_permalink( get_page_by_path( 'contact' ) ) ?: '#' ); ?>" class="btn btn-gold">Start a Conversation</a>
                     <a href="<?php echo esc_url( get_permalink( get_page_by_path( 'services' ) ) ?: '#' ); ?>" class="btn btn-outline-light">View Services</a>
@@ -36,7 +36,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <span class="logo-name">Demola Bakare</span>
                         <span class="logo-title">FSI</span>
                     </div>
-                    <p class="footer-desc"><?php echo esc_html( get_theme_mod( 'demola_footer_about', 'Anti-Corruption Advocate, Governance Strategist, Ethics Trainer & Pioneer Officer of ICPC Nigeria. Over 25 years championing transparency, accountability, and ethical leadership.' ) ); ?></p>
+                    <p class="footer-desc"><?php echo esc_html( get_theme_mod( 'demola_footer_about', 'Director, Public Enlightenment & Education, ICPC Nigeria. Pioneer Anti-Corruption Officer. ICPC Spokesperson. Founder, MRI-ELG. Over 25 years advancing integrity, accountability, and development-minded citizenship.' ) ); ?></p>
                     <div class="footer-social">
                         <?php
                         $footer_socials = array(
@@ -87,7 +87,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <!-- Newsletter -->
                 <div class="footer-col">
                     <h4>Stay Informed</h4>
-                    <p>Subscribe to receive insights on governance, ethics, and institutional reform.</p>
+                    <p>Subscribe for insights on anti-corruption strategy, governance reform, ethical leadership, and MRI-ELG initiatives.</p>
                     <form class="newsletter-form" id="footer-newsletter">
                         <?php wp_nonce_field( 'demola_nonce', 'newsletter_nonce' ); ?>
                         <div class="newsletter-input-group">

@@ -15,7 +15,7 @@ get_header();
         <div class="page-hero-content" data-aos="fade-up">
             <span class="page-label">Contact</span>
             <h1>Get In <span class="gold">Touch</span></h1>
-            <p>Connect with Demola Bakare, FSI, for consultancy, speaking engagements, partnerships, or general inquiries.</p>
+            <p>Connect with Demola Bakare, FSI, ANIPR, for ethics training, institutional governance advisory, speaking engagements, corruption risk assessments, MRI-ELG partnerships, or media inquiries.</p>
         </div>
     </div>
 </section>
@@ -46,12 +46,13 @@ get_header();
                         <label for="contact-subject">Subject</label>
                         <select id="contact-subject" name="subject">
                             <option value="">Select a subject</option>
-                            <option value="Speaking Engagement">Speaking Engagement</option>
-                            <option value="Consultancy Inquiry">Consultancy Inquiry</option>
-                            <option value="Training Request">Training Request</option>
-                            <option value="Partnership Proposal">Partnership Proposal</option>
-                            <option value="Media Inquiry">Media Inquiry</option>
-                            <option value="MRI-ELG Inquiry">MRI-ELG Inquiry</option>
+                            <option value="Speaking Engagement">Speaking Engagement / Keynote Request</option>
+                            <option value="Ethics Training">Ethics & Anti-Corruption Training</option>
+                            <option value="Governance Advisory">Institutional Governance Advisory</option>
+                            <option value="Corruption Risk Assessment">Corruption Risk Assessment</option>
+                            <option value="ACTU Establishment">ACTU Establishment & Support</option>
+                            <option value="Partnership Proposal">MRI-ELG Partnership Proposal</option>
+                            <option value="Media Inquiry">Media Inquiry / Interview Request</option>
                             <option value="General Inquiry">General Inquiry</option>
                         </select>
                     </div>
