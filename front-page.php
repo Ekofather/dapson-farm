@@ -394,13 +394,7 @@ $service_icons = array(
                 <div class="phone-frame">
                     <div class="phone-screen">
                         <div class="mock-app-header">
-                            <?php
-                            $mock_logo = get_theme_mod('vehdoc_logo_image');
-                            if ($mock_logo) : ?>
-                                <img src="<?php echo esc_url($mock_logo); ?>" alt="<?php bloginfo('name'); ?>" class="vehdoc-logo-img vehdoc-logo-mock">
-                            <?php else : ?>
-                                <img src="<?php echo esc_url(get_template_directory_uri() . '/images/vehdoc-logo.png'); ?>" alt="<?php bloginfo('name'); ?>" class="vehdoc-logo-img vehdoc-logo-mock">
-                            <?php endif; ?>
+                            <?php vehdoc_render_logo('mock'); ?>
                             <i class="fa-solid fa-bell"></i>
                         </div>
                         <div class="mock-app-greeting">

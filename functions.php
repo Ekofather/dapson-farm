@@ -128,6 +128,23 @@ function vehdoc_logo_inline_css() {
 add_action('wp_enqueue_scripts', 'vehdoc_logo_inline_css', 20);
 
 /**
+ * Render the VehDoc logo mark + wordmark combo.
+ *
+ * @param string $context  CSS modifier: header, footer, preloader, auth, mock.
+ */
+function vehdoc_render_logo($context = 'header') {
+    $custom_logo = get_theme_mod('vehdoc_logo_image');
+    $src = $custom_logo ? $custom_logo : get_template_directory_uri() . '/images/vehdoc-logo.png';
+    $alt = get_bloginfo('name');
+    ?>
+    <span class="vehdoc-brand vehdoc-brand--<?php echo esc_attr($context); ?>">
+        <img src="<?php echo esc_url($src); ?>" alt="<?php echo esc_attr($alt); ?>" class="vehdoc-logo-img vehdoc-logo-<?php echo esc_attr($context); ?>">
+        <span class="vehdoc-wordmark">Veh<span class="vehdoc-wordmark-accent">doc</span></span>
+    </span>
+    <?php
+}
+
+/**
  * Admin Scripts and Styles
  */
 function vehdoc_admin_scripts($hook) {

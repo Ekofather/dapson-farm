@@ -15,13 +15,7 @@
 <div class="vehdoc-preloader" id="preloader">
     <div class="preloader-inner">
         <div class="preloader-logo">
-            <?php
-            $preloader_logo = get_theme_mod('vehdoc_logo_image');
-            if ($preloader_logo) : ?>
-                <img src="<?php echo esc_url($preloader_logo); ?>" alt="<?php bloginfo('name'); ?>" class="vehdoc-logo-img vehdoc-logo-preloader">
-            <?php else : ?>
-                <img src="<?php echo esc_url(get_template_directory_uri() . '/images/vehdoc-logo.png'); ?>" alt="<?php bloginfo('name'); ?>" class="vehdoc-logo-img vehdoc-logo-preloader">
-            <?php endif; ?>
+            <?php vehdoc_render_logo('preloader'); ?>
         </div>
         <div class="preloader-spinner"></div>
     </div>
@@ -38,13 +32,7 @@
                 <?php if (has_custom_logo()) : ?>
                     <?php the_custom_logo(); ?>
                 <?php else : ?>
-                    <?php
-                    $header_logo = get_theme_mod('vehdoc_logo_image');
-                    if ($header_logo) : ?>
-                        <img src="<?php echo esc_url($header_logo); ?>" alt="<?php bloginfo('name'); ?>" class="vehdoc-logo-img vehdoc-logo-header">
-                    <?php else : ?>
-                        <img src="<?php echo esc_url(get_template_directory_uri() . '/images/vehdoc-logo.png'); ?>" alt="<?php bloginfo('name'); ?>" class="vehdoc-logo-img vehdoc-logo-header">
-                    <?php endif; ?>
+                    <?php vehdoc_render_logo('header'); ?>
                 <?php endif; ?>
             </a>
 

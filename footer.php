@@ -6,13 +6,7 @@
         <div class="footer-grid">
             <div class="footer-col footer-about">
                 <a href="<?php echo home_url('/'); ?>" class="footer-logo">
-                    <?php
-                    $footer_logo = get_theme_mod('vehdoc_logo_image');
-                    if ($footer_logo) : ?>
-                        <img src="<?php echo esc_url($footer_logo); ?>" alt="<?php bloginfo('name'); ?>" class="vehdoc-logo-img vehdoc-logo-footer">
-                    <?php else : ?>
-                        <img src="<?php echo esc_url(get_template_directory_uri() . '/images/vehdoc-logo.png'); ?>" alt="<?php bloginfo('name'); ?>" class="vehdoc-logo-img vehdoc-logo-footer">
-                    <?php endif; ?>
+                    <?php vehdoc_render_logo('footer'); ?>
                 </a>
                 <p class="footer-desc">Fast, secure and reliable vehicle documentation services with doorstep delivery across Nigeria.</p>
                 <div class="footer-socials">

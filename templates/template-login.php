@@ -17,13 +17,7 @@ get_header(); ?>
         <div class="auth-card animate-fade-in">
             <div class="auth-header">
                 <a href="<?php echo home_url('/'); ?>" class="auth-logo">
-                    <?php
-                    $auth_logo = get_theme_mod('vehdoc_logo_image');
-                    if ($auth_logo) : ?>
-                        <img src="<?php echo esc_url($auth_logo); ?>" alt="<?php bloginfo('name'); ?>" class="vehdoc-logo-img vehdoc-logo-auth">
-                    <?php else : ?>
-                        <img src="<?php echo esc_url(get_template_directory_uri() . '/images/vehdoc-logo.png'); ?>" alt="<?php bloginfo('name'); ?>" class="vehdoc-logo-img vehdoc-logo-auth">
-                    <?php endif; ?>
+                    <?php vehdoc_render_logo('auth'); ?>
                 </a>
                 <h1>Welcome Back</h1>
                 <p>Log in to manage your vehicle documents</p>
