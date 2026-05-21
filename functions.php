@@ -1,246 +1,533 @@
 <?php
 /**
- * Annie Cakes & Gift Theme Functions
+ * Vehdoc Theme Functions
  *
- * @package AnnieCakes
+ * @package Vehdoc
  * @version 1.0.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
-}
+if (!defined('ABSPATH')) exit;
 
-define( 'ANNIE_CAKES_VERSION', '1.0.0' );
-define( 'ANNIE_CAKES_DIR', get_template_directory() );
-define( 'ANNIE_CAKES_URI', get_template_directory_uri() );
+define('VEHDOC_VERSION', '1.0.0');
+define('VEHDOC_DIR', get_template_directory());
+define('VEHDOC_URI', get_template_directory_uri());
 
 /**
  * Theme Setup
  */
-function annie_cakes_setup() {
-    load_theme_textdomain( 'annie-cakes', ANNIE_CAKES_DIR . '/languages' );
-
-    add_theme_support( 'automatic-feed-links' );
-    add_theme_support( 'title-tag' );
-    add_theme_support( 'post-thumbnails' );
-    add_theme_support( 'html5', array( 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script' ) );
-    add_theme_support( 'customize-selective-refresh-widgets' );
-    add_theme_support( 'custom-logo', array(
-        'height'      => 100,
-        'width'       => 300,
+function vehdoc_setup() {
+    add_theme_support('title-tag');
+    add_theme_support('post-thumbnails');
+    add_theme_support('custom-logo', array(
+        'height'      => 60,
+        'width'       => 200,
         'flex-height' => true,
         'flex-width'  => true,
-    ) );
-    add_theme_support( 'woocommerce' );
-    add_theme_support( 'wc-product-gallery-zoom' );
-    add_theme_support( 'wc-product-gallery-lightbox' );
-    add_theme_support( 'wc-product-gallery-slider' );
+    ));
+    add_theme_support('html5', array(
+        'search-form', 'comment-form', 'comment-list', 'gallery', 'caption', 'style', 'script',
+    ));
+    add_theme_support('customize-selective-refresh-widgets');
+    add_theme_support('wp-block-styles');
+    add_theme_support('responsive-embeds');
 
-    add_image_size( 'annie-hero', 1920, 800, true );
-    add_image_size( 'annie-product-card', 400, 400, true );
-    add_image_size( 'annie-gallery', 600, 600, true );
-    add_image_size( 'annie-blog-thumb', 800, 500, true );
+    register_nav_menus(array(
+        'primary'   => __('Primary Menu', 'vehdoc'),
+        'footer'    => __('Footer Menu', 'vehdoc'),
+        'dashboard' => __('Dashboard Menu', 'vehdoc'),
+    ));
 
-    register_nav_menus( array(
-        'primary'   => esc_html__( 'Primary Menu', 'annie-cakes' ),
-        'footer'    => esc_html__( 'Footer Menu', 'annie-cakes' ),
-        'mobile'    => esc_html__( 'Mobile Menu', 'annie-cakes' ),
-    ) );
+    add_image_size('vehdoc-hero', 1920, 800, true);
+    add_image_size('vehdoc-service', 600, 400, true);
+    add_image_size('vehdoc-thumbnail', 300, 200, true);
 }
-add_action( 'after_setup_theme', 'annie_cakes_setup' );
+add_action('after_setup_theme', 'vehdoc_setup');
 
 /**
- * Content Width
+ * Enqueue Scripts and Styles
  */
-function annie_cakes_content_width() {
-    $GLOBALS['content_width'] = apply_filters( 'annie_cakes_content_width', 1200 );
+function vehdoc_scripts() {
+    // Google Fonts
+    wp_enqueue_style('vehdoc-google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap', array(), null);
+
+    // Font Awesome
+    wp_enqueue_style('font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), '6.5.1');
+
+    // Theme Styles
+    wp_enqueue_style('vehdoc-style', VEHDOC_URI . '/css/theme-style.css', array(), VEHDOC_VERSION);
+
+    // Dashboard Styles (only for logged-in users on dashboard pages)
+    if (is_user_logged_in() && is_page_template(array(
+        'templates/template-dashboard.php',
+        'templates/template-vehicles.php',
+        'templates/template-orders.php',
+        'templates/template-tracking.php',
+        'templates/template-delivery.php',
+        'templates/template-profile.php',
+    ))) {
+        wp_enqueue_style('vehdoc-dashboard', VEHDOC_URI . '/css/dashboard.css', array('vehdoc-style'), VEHDOC_VERSION);
+        wp_enqueue_script('vehdoc-dashboard-js', VEHDOC_URI . '/js/dashboard.js', array('jquery'), VEHDOC_VERSION, true);
+        wp_localize_script('vehdoc-dashboard-js', 'vehdocDashboard', array(
+            'ajaxUrl'  => admin_url('admin-ajax.php'),
+            'restUrl'  => rest_url('vehdoc/v1/'),
+            'nonce'    => wp_create_nonce('wp_rest'),
+            'userId'   => get_current_user_id(),
+        ));
+    }
+
+    // Main JS
+    wp_enqueue_script('vehdoc-main', VEHDOC_URI . '/js/main.js', array('jquery'), VEHDOC_VERSION, true);
+    wp_localize_script('vehdoc-main', 'vehdocMain', array(
+        'ajaxUrl'  => admin_url('admin-ajax.php'),
+        'restUrl'  => rest_url('vehdoc/v1/'),
+        'nonce'    => wp_create_nonce('wp_rest'),
+        'siteUrl'  => home_url(),
+        'themeUrl' => VEHDOC_URI,
+    ));
+
+    // Payment JS (only on service/checkout pages)
+    if (is_page_template('templates/template-checkout.php') || is_page_template('templates/template-services.php')) {
+        wp_enqueue_script('paystack', 'https://js.paystack.co/v2/inline.js', array(), null, true);
+        wp_enqueue_script('flutterwave', 'https://checkout.flutterwave.com/v3.js', array(), null, true);
+        wp_enqueue_script('vehdoc-payment', VEHDOC_URI . '/js/payment.js', array('jquery', 'paystack', 'flutterwave'), VEHDOC_VERSION, true);
+
+        $paystack_key = get_option('vehdoc_paystack_public_key', '');
+        $flutterwave_key = get_option('vehdoc_flutterwave_public_key', '');
+
+        wp_localize_script('vehdoc-payment', 'vehdocPayment', array(
+            'ajaxUrl'        => admin_url('admin-ajax.php'),
+            'restUrl'        => rest_url('vehdoc/v1/'),
+            'nonce'          => wp_create_nonce('wp_rest'),
+            'paystackPublicKey'    => $paystack_key,
+            'flutterwavePublicKey' => $flutterwave_key,
+            'dashboardUrl'         => home_url('/dashboard/'),
+            'currency'       => 'NGN',
+            'siteName'       => get_bloginfo('name'),
+            'siteUrl'        => home_url(),
+        ));
+    }
 }
-add_action( 'after_setup_theme', 'annie_cakes_content_width', 0 );
+add_action('wp_enqueue_scripts', 'vehdoc_scripts');
+
+/**
+ * Output inline CSS for Customizer logo size settings
+ */
+function vehdoc_logo_inline_css() {
+    $max_height = get_theme_mod('vehdoc_logo_max_height', 48);
+    $max_width  = get_theme_mod('vehdoc_logo_max_width', 160);
+
+    if ($max_height != 48 || $max_width != 160) {
+        $css = sprintf(
+            '.vehdoc-logo-header { --vehdoc-logo-max-height: %dpx; --vehdoc-logo-max-width: %dpx; }' .
+            '.vehdoc-logo .custom-logo { max-height: %dpx; }',
+            $max_height, $max_width, $max_height
+        );
+        wp_add_inline_style('vehdoc-style', $css);
+    }
+}
+add_action('wp_enqueue_scripts', 'vehdoc_logo_inline_css', 20);
+
+/**
+ * Admin Scripts and Styles
+ */
+function vehdoc_admin_scripts($hook) {
+    wp_enqueue_style('vehdoc-admin-style', VEHDOC_URI . '/css/admin.css', array(), VEHDOC_VERSION);
+    wp_enqueue_script('vehdoc-admin-js', VEHDOC_URI . '/js/admin.js', array('jquery', 'wp-color-picker'), VEHDOC_VERSION, true);
+    wp_localize_script('vehdoc-admin-js', 'vehdocAdmin', array(
+        'ajaxUrl' => admin_url('admin-ajax.php'),
+        'restUrl' => rest_url('vehdoc/v1/'),
+        'nonce'   => wp_create_nonce('wp_rest'),
+    ));
+}
+add_action('admin_enqueue_scripts', 'vehdoc_admin_scripts');
+
+/**
+ * Include Theme Modules
+ */
+require_once VEHDOC_DIR . '/inc/custom-post-types.php';
+require_once VEHDOC_DIR . '/inc/theme-options.php';
+require_once VEHDOC_DIR . '/inc/rest-api.php';
+require_once VEHDOC_DIR . '/inc/payment-gateway.php';
+require_once VEHDOC_DIR . '/inc/user-dashboard.php';
+require_once VEHDOC_DIR . '/inc/document-upload.php';
+require_once VEHDOC_DIR . '/inc/order-tracking.php';
+require_once VEHDOC_DIR . '/inc/delivery-system.php';
+require_once VEHDOC_DIR . '/inc/reminder-system.php';
+require_once VEHDOC_DIR . '/inc/admin-dashboard.php';
+require_once VEHDOC_DIR . '/inc/security.php';
 
 /**
  * Register Widget Areas
  */
-function annie_cakes_widgets_init() {
-    register_sidebar( array(
-        'name'          => esc_html__( 'Shop Sidebar', 'annie-cakes' ),
-        'id'            => 'shop-sidebar',
-        'description'   => esc_html__( 'Sidebar for shop pages.', 'annie-cakes' ),
-        'before_widget' => '<div id="%1$s" class="ac-widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="ac-widget-title">',
-        'after_title'   => '</h3>',
-    ) );
-
-    register_sidebar( array(
-        'name'          => esc_html__( 'Blog Sidebar', 'annie-cakes' ),
-        'id'            => 'blog-sidebar',
-        'description'   => esc_html__( 'Sidebar for blog pages.', 'annie-cakes' ),
-        'before_widget' => '<div id="%1$s" class="ac-widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h3 class="ac-widget-title">',
-        'after_title'   => '</h3>',
-    ) );
-
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer Column 1', 'annie-cakes' ),
+function vehdoc_widgets_init() {
+    register_sidebar(array(
+        'name'          => __('Footer Column 1', 'vehdoc'),
         'id'            => 'footer-1',
-        'before_widget' => '<div id="%1$s" class="ac-footer-widget %2$s">',
+        'before_widget' => '<div class="footer-widget">',
         'after_widget'  => '</div>',
-        'before_title'  => '<h4 class="ac-footer-title">',
+        'before_title'  => '<h4 class="footer-widget-title">',
         'after_title'   => '</h4>',
-    ) );
-
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer Column 2', 'annie-cakes' ),
+    ));
+    register_sidebar(array(
+        'name'          => __('Footer Column 2', 'vehdoc'),
         'id'            => 'footer-2',
-        'before_widget' => '<div id="%1$s" class="ac-footer-widget %2$s">',
+        'before_widget' => '<div class="footer-widget">',
         'after_widget'  => '</div>',
-        'before_title'  => '<h4 class="ac-footer-title">',
+        'before_title'  => '<h4 class="footer-widget-title">',
         'after_title'   => '</h4>',
-    ) );
-
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer Column 3', 'annie-cakes' ),
+    ));
+    register_sidebar(array(
+        'name'          => __('Footer Column 3', 'vehdoc'),
         'id'            => 'footer-3',
-        'before_widget' => '<div id="%1$s" class="ac-footer-widget %2$s">',
+        'before_widget' => '<div class="footer-widget">',
         'after_widget'  => '</div>',
-        'before_title'  => '<h4 class="ac-footer-title">',
+        'before_title'  => '<h4 class="footer-widget-title">',
         'after_title'   => '</h4>',
-    ) );
-
-    register_sidebar( array(
-        'name'          => esc_html__( 'Footer Column 4', 'annie-cakes' ),
-        'id'            => 'footer-4',
-        'before_widget' => '<div id="%1$s" class="ac-footer-widget %2$s">',
-        'after_widget'  => '</div>',
-        'before_title'  => '<h4 class="ac-footer-title">',
-        'after_title'   => '</h4>',
-    ) );
+    ));
 }
-add_action( 'widgets_init', 'annie_cakes_widgets_init' );
+add_action('widgets_init', 'vehdoc_widgets_init');
 
 /**
- * Enqueue Styles & Scripts
+ * Custom Rewrite Rules
  */
-function annie_cakes_scripts() {
-    // Google Fonts
-    wp_enqueue_style( 'annie-google-fonts', 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Poppins:wght@300;400;500;600;700&display=swap', array(), null );
+function vehdoc_rewrite_rules() {
+    add_rewrite_rule('dashboard/?$', 'index.php?pagename=dashboard', 'top');
+    add_rewrite_rule('dashboard/vehicles/?$', 'index.php?pagename=dashboard&vehdoc_tab=vehicles', 'top');
+    add_rewrite_rule('dashboard/orders/?$', 'index.php?pagename=dashboard&vehdoc_tab=orders', 'top');
+    add_rewrite_rule('dashboard/tracking/([0-9]+)/?$', 'index.php?pagename=dashboard&vehdoc_tab=tracking&order_id=$matches[1]', 'top');
+    add_rewrite_rule('dashboard/profile/?$', 'index.php?pagename=dashboard&vehdoc_tab=profile', 'top');
+}
+add_action('init', 'vehdoc_rewrite_rules', 20);
 
-    // Font Awesome
-    wp_enqueue_style( 'font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', array(), '6.5.1' );
+function vehdoc_query_vars($vars) {
+    $vars[] = 'vehdoc_tab';
+    $vars[] = 'order_id';
+    return $vars;
+}
+add_filter('query_vars', 'vehdoc_query_vars');
 
-    // AOS Animate on Scroll
-    wp_enqueue_style( 'aos-css', 'https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css', array(), '2.3.4' );
-
-    // Swiper Slider
-    wp_enqueue_style( 'swiper-css', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css', array(), '11.0.5' );
-
-    // Theme Styles
-    wp_enqueue_style( 'annie-main', ANNIE_CAKES_URI . '/assets/css/main.css', array(), ANNIE_CAKES_VERSION );
-    wp_enqueue_style( 'annie-woocommerce', ANNIE_CAKES_URI . '/assets/css/woocommerce.css', array(), ANNIE_CAKES_VERSION );
-    wp_enqueue_style( 'annie-responsive', ANNIE_CAKES_URI . '/assets/css/responsive.css', array(), ANNIE_CAKES_VERSION );
-    wp_enqueue_style( 'annie-cakes-style', get_stylesheet_uri(), array(), ANNIE_CAKES_VERSION );
-
-    // AOS JS
-    wp_enqueue_script( 'aos-js', 'https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js', array(), '2.3.4', true );
-
-    // Swiper JS
-    wp_enqueue_script( 'swiper-js', 'https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js', array(), '11.0.5', true );
-
-    // Theme Scripts
-    wp_enqueue_script( 'annie-main', ANNIE_CAKES_URI . '/assets/js/main.js', array( 'jquery', 'aos-js', 'swiper-js' ), ANNIE_CAKES_VERSION, true );
-
-    wp_localize_script( 'annie-main', 'annie_cakes_data', array(
-        'ajax_url'    => admin_url( 'admin-ajax.php' ),
-        'nonce'       => wp_create_nonce( 'annie_cakes_nonce' ),
-        'cart_url'    => function_exists( 'wc_get_cart_url' ) ? wc_get_cart_url() : '',
-        'checkout_url'=> function_exists( 'wc_get_checkout_url' ) ? wc_get_checkout_url() : '',
-        'currency'    => function_exists( 'get_woocommerce_currency_symbol' ) ? get_woocommerce_currency_symbol() : '$',
-        'i18n'        => array(
-            'addedToCart'  => esc_html__( 'Added to cart!', 'annie-cakes' ),
-            'addedToWish'  => esc_html__( 'Added to wishlist!', 'annie-cakes' ),
-            'removedWish'  => esc_html__( 'Removed from wishlist.', 'annie-cakes' ),
-            'quickView'    => esc_html__( 'Quick View', 'annie-cakes' ),
-            'loading'      => esc_html__( 'Loading...', 'annie-cakes' ),
-        ),
-    ) );
-
-    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-        wp_enqueue_script( 'comment-reply' );
+/**
+ * Redirect non-logged-in users from dashboard
+ */
+function vehdoc_dashboard_redirect() {
+    if (is_page_template('templates/template-dashboard.php') && !is_user_logged_in()) {
+        wp_redirect(home_url('/login/'));
+        exit;
     }
 }
-add_action( 'wp_enqueue_scripts', 'annie_cakes_scripts' );
+add_action('template_redirect', 'vehdoc_dashboard_redirect');
 
 /**
- * Include theme modules
+ * Custom Login/Registration
  */
-require_once ANNIE_CAKES_DIR . '/inc/customizer.php';
-require_once ANNIE_CAKES_DIR . '/inc/template-tags.php';
-require_once ANNIE_CAKES_DIR . '/inc/custom-post-types.php';
-require_once ANNIE_CAKES_DIR . '/inc/woocommerce-functions.php';
-require_once ANNIE_CAKES_DIR . '/inc/ajax-handlers.php';
-require_once ANNIE_CAKES_DIR . '/inc/wishlist.php';
-require_once ANNIE_CAKES_DIR . '/inc/order-tracking.php';
-require_once ANNIE_CAKES_DIR . '/inc/custom-orders.php';
-require_once ANNIE_CAKES_DIR . '/inc/loyalty-system.php';
-require_once ANNIE_CAKES_DIR . '/inc/demo-content.php';
-
-/**
- * Admin Enqueue
- */
-function annie_cakes_admin_scripts() {
-    wp_enqueue_style( 'annie-admin', ANNIE_CAKES_URI . '/assets/css/admin.css', array(), ANNIE_CAKES_VERSION );
-    wp_enqueue_script( 'annie-admin', ANNIE_CAKES_URI . '/assets/js/admin.js', array( 'jquery' ), ANNIE_CAKES_VERSION, true );
-    wp_localize_script( 'annie-admin', 'annieCakesAdmin', array(
-        'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-        'nonce'   => wp_create_nonce( 'annie_cakes_admin_nonce' ),
-    ) );
-}
-add_action( 'admin_enqueue_scripts', 'annie_cakes_admin_scripts' );
-
-/**
- * AJAX Cart Fragments
- */
-function annie_cakes_cart_count_fragment( $fragments ) {
-    ob_start();
-    ?>
-    <span class="ac-cart-count"><?php echo esc_html( WC()->cart->get_cart_contents_count() ); ?></span>
-    <?php
-    $fragments['span.ac-cart-count'] = ob_get_clean();
-    return $fragments;
-}
-if ( class_exists( 'WooCommerce' ) ) {
-    add_filter( 'woocommerce_add_to_cart_fragments', 'annie_cakes_cart_count_fragment' );
-}
-
-/**
- * Body Classes
- */
-function annie_cakes_body_classes( $classes ) {
-    if ( is_front_page() ) {
-        $classes[] = 'ac-home';
-    }
-    if ( class_exists( 'WooCommerce' ) ) {
-        if ( is_shop() || is_product_category() || is_product_tag() ) {
-            $classes[] = 'ac-shop-page';
+function vehdoc_custom_login_redirect($redirect_to, $requested_redirect_to, $user) {
+    if (!is_wp_error($user)) {
+        if (in_array('administrator', $user->roles)) {
+            return admin_url();
         }
-        if ( is_product() ) {
-            $classes[] = 'ac-product-page';
+        return home_url('/dashboard/');
+    }
+    return $redirect_to;
+}
+add_filter('login_redirect', 'vehdoc_custom_login_redirect', 10, 3);
+
+/**
+ * Allow SVG uploads for admins
+ */
+function vehdoc_mime_types($mimes) {
+    $mimes['svg'] = 'image/svg+xml';
+    return $mimes;
+}
+add_filter('upload_mimes', 'vehdoc_mime_types');
+
+/**
+ * Theme Activation: Create Default Pages & Services
+ */
+function vehdoc_activate() {
+    $pages = array(
+        'Dashboard'      => 'templates/template-dashboard.php',
+        'Services'       => 'templates/template-services.php',
+        'Login'          => 'templates/template-login.php',
+        'Register'       => 'templates/template-register.php',
+        'Checkout'       => 'templates/template-checkout.php',
+        'Track Order'    => 'templates/template-tracking.php',
+        'About Us'       => 'templates/template-about.php',
+        'Contact Us'     => 'templates/template-contact.php',
+        'Privacy Policy' => 'templates/template-privacy.php',
+        'Terms of Service' => 'templates/template-terms.php',
+    );
+
+    foreach ($pages as $title => $template) {
+        $existing = get_page_by_title($title, OBJECT, 'page');
+        if ($existing) {
+            if ($existing->post_status !== 'publish') {
+                wp_update_post(array('ID' => $existing->ID, 'post_status' => 'publish'));
+            }
+            update_post_meta($existing->ID, '_wp_page_template', $template);
+        } else {
+            $page_id = wp_insert_post(array(
+                'post_title'   => $title,
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
+                'post_content' => '',
+            ));
+            if ($page_id && !is_wp_error($page_id)) {
+                update_post_meta($page_id, '_wp_page_template', $template);
+            }
         }
     }
-    return $classes;
+
+    // Create default services
+    $default_services = array(
+        array('title' => 'Vehicle Licence Renewal', 'price' => 25000, 'time' => '3-5 business days', 'desc' => 'Renew your vehicle licence quickly and easily. We handle the entire process from submission to delivery.'),
+        array('title' => 'Proof of Ownership', 'price' => 18000, 'time' => '5-7 business days', 'desc' => 'Get your proof of ownership certificate processed without the hassle of visiting government offices.'),
+        array('title' => 'Road Worthiness Certificate', 'price' => 20000, 'time' => '3-5 business days', 'desc' => 'Obtain your road worthiness certificate with our streamlined process and doorstep delivery.'),
+        array('title' => 'Change of Ownership', 'price' => 45000, 'time' => '7-14 business days', 'desc' => 'Transfer vehicle ownership seamlessly with all documentation handled by our expert team.'),
+        array('title' => 'Plate Number Processing', 'price' => 70000, 'time' => '14-21 business days', 'desc' => 'Get your vehicle plate number processed and delivered to your doorstep.'),
+        array('title' => "Driver's Licence Renewal", 'price' => 35000, 'time' => '5-10 business days', 'desc' => "Renew your driver's licence without the long queues. We handle everything for you."),
+        array('title' => 'Tinted Permit Processing', 'price' => 55000, 'time' => '5-7 business days', 'desc' => 'Get your vehicle tinted glass permit processed legally and efficiently.'),
+        array('title' => 'Vehicle Insurance Processing', 'price' => 30000, 'time' => '1-3 business days', 'desc' => 'Get comprehensive vehicle insurance coverage with our trusted insurance partners.'),
+        array('title' => 'Hackney Permit', 'price' => 40000, 'time' => '7-10 business days', 'desc' => 'Obtain your hackney permit for commercial vehicles with full documentation support.'),
+        array('title' => 'Fleet Registration Services', 'price' => 150000, 'time' => '14-30 business days', 'desc' => 'Complete fleet registration and documentation services for businesses with multiple vehicles.'),
+    );
+
+    foreach ($default_services as $service) {
+        $existing = get_page_by_title($service['title'], OBJECT, 'vehdoc_service');
+        if (!$existing) {
+            $post_id = wp_insert_post(array(
+                'post_title'   => $service['title'],
+                'post_status'  => 'publish',
+                'post_type'    => 'vehdoc_service',
+                'post_content' => $service['desc'],
+            ));
+            if ($post_id && !is_wp_error($post_id)) {
+                update_post_meta($post_id, '_vehdoc_service_price', $service['price']);
+                update_post_meta($post_id, '_vehdoc_service_time', $service['time']);
+                update_post_meta($post_id, '_vehdoc_fast_track_price', round($service['price'] * 1.5));
+                update_post_meta($post_id, '_vehdoc_delivery_fee', 3000);
+            }
+        }
+    }
+
+    // Set permalink structure to Post name (required for clean URLs)
+    global $wp_rewrite;
+    $wp_rewrite->set_permalink_structure('/%postname%/');
+    $wp_rewrite->flush_rules(true);
+
+    // Set the front page to display latest posts (not a static page)
+    // so front-page.php is used as the template
+    update_option('show_on_front', 'posts');
+
+    // Mark activation as complete
+    update_option('vehdoc_theme_activated', true);
 }
-add_filter( 'body_class', 'annie_cakes_body_classes' );
+add_action('after_switch_theme', 'vehdoc_activate');
 
 /**
- * Excerpt Length
+ * Ensure pages and rewrite rules exist on every init (one-time setup)
+ * Handles cases where theme activation didn't fully run
  */
-function annie_cakes_excerpt_length( $length ) {
-    return 25;
-}
-add_filter( 'excerpt_length', 'annie_cakes_excerpt_length' );
+function vehdoc_ensure_setup() {
+    if (get_option('vehdoc_pages_version', 0) >= 2) {
+        return;
+    }
 
-function annie_cakes_excerpt_more( $more ) {
-    return '&hellip;';
+    $pages = array(
+        'Dashboard'        => 'templates/template-dashboard.php',
+        'Services'         => 'templates/template-services.php',
+        'Login'            => 'templates/template-login.php',
+        'Register'         => 'templates/template-register.php',
+        'Checkout'         => 'templates/template-checkout.php',
+        'Track Order'      => 'templates/template-tracking.php',
+        'About Us'         => 'templates/template-about.php',
+        'Contact Us'       => 'templates/template-contact.php',
+        'Privacy Policy'   => 'templates/template-privacy.php',
+        'Terms of Service' => 'templates/template-terms.php',
+    );
+
+    foreach ($pages as $title => $template) {
+        $existing = get_page_by_title($title, OBJECT, 'page');
+        if ($existing) {
+            if ($existing->post_status !== 'publish') {
+                wp_update_post(array('ID' => $existing->ID, 'post_status' => 'publish'));
+            }
+            update_post_meta($existing->ID, '_wp_page_template', $template);
+        } else {
+            $page_id = wp_insert_post(array(
+                'post_title'   => $title,
+                'post_status'  => 'publish',
+                'post_type'    => 'page',
+                'post_content' => '',
+            ));
+            if ($page_id && !is_wp_error($page_id)) {
+                update_post_meta($page_id, '_wp_page_template', $template);
+            }
+        }
+    }
+
+    // Ensure permalink structure is set
+    $permalink_structure = get_option('permalink_structure');
+    if (empty($permalink_structure) || $permalink_structure !== '/%postname%/') {
+        global $wp_rewrite;
+        $wp_rewrite->set_permalink_structure('/%postname%/');
+        $wp_rewrite->flush_rules(true);
+    }
+
+    update_option('vehdoc_pages_version', 2);
 }
-add_filter( 'excerpt_more', 'annie_cakes_excerpt_more' );
+add_action('init', 'vehdoc_ensure_setup');
+
+/**
+ * AJAX Handler: User Registration
+ */
+function vehdoc_ajax_register() {
+    check_ajax_referer('wp_rest', 'nonce');
+
+    $email     = sanitize_email($_POST['email'] ?? '');
+    $password  = sanitize_text_field($_POST['password'] ?? '');
+    $full_name = sanitize_text_field($_POST['full_name'] ?? '');
+    $phone     = sanitize_text_field($_POST['phone'] ?? '');
+
+    if (empty($email) || empty($password) || empty($full_name) || empty($phone)) {
+        wp_send_json_error(array('message' => 'All fields are required.'));
+    }
+
+    if (email_exists($email)) {
+        wp_send_json_error(array('message' => 'Email already registered.'));
+    }
+
+    if (strlen($password) < 8) {
+        wp_send_json_error(array('message' => 'Password must be at least 8 characters.'));
+    }
+
+    $username = sanitize_user(strtolower(str_replace(' ', '', $full_name)) . rand(100, 999));
+    $user_id  = wp_create_user($username, $password, $email);
+
+    if (is_wp_error($user_id)) {
+        wp_send_json_error(array('message' => $user_id->get_error_message()));
+    }
+
+    wp_update_user(array(
+        'ID'           => $user_id,
+        'display_name' => $full_name,
+        'first_name'   => explode(' ', $full_name)[0],
+        'last_name'    => implode(' ', array_slice(explode(' ', $full_name), 1)),
+    ));
+
+    update_user_meta($user_id, 'vehdoc_phone', $phone);
+    update_user_meta($user_id, 'vehdoc_verified', false);
+    update_user_meta($user_id, 'vehdoc_registered_at', current_time('mysql'));
+
+    // Auto login
+    wp_set_current_user($user_id);
+    wp_set_auth_cookie($user_id);
+
+    wp_send_json_success(array(
+        'message'  => 'Registration successful!',
+        'redirect' => home_url('/dashboard/'),
+    ));
+}
+add_action('wp_ajax_nopriv_vehdoc_register', 'vehdoc_ajax_register');
+
+/**
+ * AJAX Handler: User Login
+ */
+function vehdoc_ajax_login() {
+    check_ajax_referer('wp_rest', 'nonce');
+
+    $email    = sanitize_email($_POST['email'] ?? '');
+    $password = sanitize_text_field($_POST['password'] ?? '');
+
+    if (empty($email) || empty($password)) {
+        wp_send_json_error(array('message' => 'Email and password are required.'));
+    }
+
+    $user = wp_authenticate($email, $password);
+    if (is_wp_error($user)) {
+        wp_send_json_error(array('message' => 'Invalid email or password.'));
+    }
+
+    wp_set_current_user($user->ID);
+    wp_set_auth_cookie($user->ID);
+
+    $redirect = in_array('administrator', $user->roles) ? admin_url() : home_url('/dashboard/');
+
+    wp_send_json_success(array(
+        'message'  => 'Login successful!',
+        'redirect' => $redirect,
+    ));
+}
+add_action('wp_ajax_nopriv_vehdoc_login', 'vehdoc_ajax_login');
+
+/**
+ * AJAX Handler: Forgot Password
+ */
+function vehdoc_ajax_forgot_password() {
+    check_ajax_referer('wp_rest', 'nonce');
+
+    $email = sanitize_email($_POST['email'] ?? '');
+    if (empty($email)) {
+        wp_send_json_error(array('message' => 'Email is required.'));
+    }
+
+    $user = get_user_by('email', $email);
+    if (!$user) {
+        wp_send_json_error(array('message' => 'No account found with that email.'));
+    }
+
+    $reset_key = get_password_reset_key($user);
+    if (is_wp_error($reset_key)) {
+        wp_send_json_error(array('message' => 'Error generating reset link.'));
+    }
+
+    $reset_url = network_site_url("wp-login.php?action=rp&key=$reset_key&login=" . rawurlencode($user->user_login), 'login');
+
+    $message = sprintf(
+        "Hi %s,\n\nYou requested a password reset for your Vehdoc account.\n\nClick here to reset your password:\n%s\n\nIf you didn't request this, please ignore this email.\n\n— Vehdoc Team",
+        $user->display_name,
+        $reset_url
+    );
+
+    wp_mail($email, 'Reset Your Vehdoc Password', $message);
+
+    wp_send_json_success(array('message' => 'Password reset link sent to your email.'));
+}
+add_action('wp_ajax_nopriv_vehdoc_forgot_password', 'vehdoc_ajax_forgot_password');
+
+/**
+ * AJAX Handler: Contact Form
+ */
+function vehdoc_ajax_contact() {
+    check_ajax_referer('wp_rest', 'nonce');
+
+    $name    = sanitize_text_field($_POST['name'] ?? '');
+    $email   = sanitize_email($_POST['email'] ?? '');
+    $phone   = sanitize_text_field($_POST['phone'] ?? '');
+    $subject = sanitize_text_field($_POST['subject'] ?? '');
+    $message = sanitize_textarea_field($_POST['message'] ?? '');
+
+    if (empty($name) || empty($email) || empty($subject) || empty($message)) {
+        wp_send_json_error(array('message' => 'Please fill in all required fields.'));
+    }
+
+    $admin_email = get_option('vehdoc_company_email', get_option('admin_email'));
+    $subject_map = array(
+        'general'     => 'General Inquiry',
+        'order'       => 'Order Support',
+        'payment'     => 'Payment Issue',
+        'delivery'    => 'Delivery Question',
+        'partnership' => 'Partnership Inquiry',
+        'other'       => 'Other',
+    );
+
+    $subject_text = $subject_map[$subject] ?? $subject;
+    $email_subject = "[Vehdoc Contact] {$subject_text} from {$name}";
+    $email_body = "Name: {$name}\nEmail: {$email}\nPhone: {$phone}\nSubject: {$subject_text}\n\nMessage:\n{$message}";
+
+    $headers = array("Reply-To: {$name} <{$email}>");
+    wp_mail($admin_email, $email_subject, $email_body, $headers);
+
+    wp_send_json_success(array('message' => 'Thank you! Your message has been sent. We will respond within 2 hours.'));
+}
+add_action('wp_ajax_vehdoc_contact', 'vehdoc_ajax_contact');
+add_action('wp_ajax_nopriv_vehdoc_contact', 'vehdoc_ajax_contact');
