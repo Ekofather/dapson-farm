@@ -1,104 +1,182 @@
 <?php
 /**
- * Order Tracking System
+ * Vehdoc Order Tracking System
  *
- * @package AnnieCakes
+ * @package Vehdoc
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+if (!defined('ABSPATH')) exit;
+
+/**
+ * Get Order Tracking Data
+ */
+function vehdoc_get_tracking_data($order_id) {
+    $order = get_post($order_id);
+    if (!$order) return null;
+
+    $status  = get_post_meta($order_id, '_vehdoc_order_status', true) ?: 'pending';
+    $history = get_post_meta($order_id, '_vehdoc_status_history', true) ?: array();
+
+    $steps = array(
+        'pending'            => array('label' => 'Order Placed', 'icon' => 'fa-clipboard-check', 'description' => 'Your order has been placed and is awaiting processing.'),
+        'documents_received' => array('label' => 'Documents Received', 'icon' => 'fa-file-alt', 'description' => 'We have received your documents and are reviewing them.'),
+        'processing'         => array('label' => 'Processing', 'icon' => 'fa-cog', 'description' => 'Your documents are being processed with the relevant authority.'),
+        'approved'           => array('label' => 'Approved', 'icon' => 'fa-check-circle', 'description' => 'Your documents have been approved and are being prepared.'),
+        'ready_for_delivery' => array('label' => 'Ready for Delivery', 'icon' => 'fa-box', 'description' => 'Your documents are ready and awaiting delivery pickup.'),
+        'delivered'          => array('label' => 'Delivered', 'icon' => 'fa-home', 'description' => 'Your documents have been delivered successfully!'),
+    );
+
+    $status_keys   = array_keys($steps);
+    $current_index = array_search($status, $status_keys);
+
+    $tracking = array();
+    foreach ($steps as $key => $step) {
+        $step_index = array_search($key, $status_keys);
+        $timestamp  = null;
+
+        foreach ($history as $h) {
+            if ($h['to'] === $key) {
+                $timestamp = $h['timestamp'];
+                break;
+            }
+        }
+
+        $tracking[] = array(
+            'key'         => $key,
+            'label'       => $step['label'],
+            'icon'        => $step['icon'],
+            'description' => $step['description'],
+            'completed'   => $step_index <= $current_index,
+            'current'     => $step_index === $current_index,
+            'timestamp'   => $timestamp,
+        );
+    }
+
+    return array(
+        'current_status' => $status,
+        'steps'          => $tracking,
+        'order_number'   => 'VHD-' . str_pad($order_id, 6, '0', STR_PAD_LEFT),
+    );
 }
 
 /**
- * Add tracking meta box to orders
+ * AJAX: Get Order Tracking
  */
-function annie_cakes_order_tracking_meta_box() {
-    $screen = class_exists( '\Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController' )
-        && wc_get_container()->get( \Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController::class )->custom_orders_table_usage_is_enabled()
-        ? wc_get_page_screen_id( 'shop-order' )
-        : 'shop_order';
+function vehdoc_ajax_get_tracking() {
+    check_ajax_referer('wp_rest', 'nonce');
 
-    add_meta_box(
-        'ac_order_tracking',
-        __( 'Order Tracking', 'annie-cakes' ),
-        'annie_cakes_order_tracking_callback',
-        $screen,
-        'side',
-        'high'
-    );
-}
-add_action( 'add_meta_boxes', 'annie_cakes_order_tracking_meta_box' );
-
-function annie_cakes_order_tracking_callback( $post_or_order ) {
-    $order_id = is_a( $post_or_order, 'WP_Post' ) ? $post_or_order->ID : $post_or_order->get_id();
-    $order    = wc_get_order( $order_id );
-    if ( ! $order ) {
-        return;
+    $order_id = intval($_GET['order_id'] ?? $_POST['order_id'] ?? 0);
+    if (!$order_id) {
+        wp_send_json_error(array('message' => 'Order ID required'));
     }
 
-    wp_nonce_field( 'annie_tracking_meta', 'tracking_meta_nonce' );
+    $order_user = get_post_meta($order_id, '_vehdoc_order_user', true);
+    if ($order_user != get_current_user_id() && !current_user_can('manage_options')) {
+        wp_send_json_error(array('message' => 'Access denied'));
+    }
 
-    $tracking_number = $order->get_meta( '_tracking_number' );
-    $tracking_notes  = $order->get_meta( '_tracking_notes' );
+    $tracking = vehdoc_get_tracking_data($order_id);
+    if (!$tracking) {
+        wp_send_json_error(array('message' => 'Order not found'));
+    }
+
+    wp_send_json_success($tracking);
+}
+add_action('wp_ajax_vehdoc_get_tracking', 'vehdoc_ajax_get_tracking');
+
+/**
+ * Shortcode: Order Tracking
+ */
+function vehdoc_tracking_shortcode($atts) {
+    if (!is_user_logged_in()) {
+        return '<p class="vehdoc-notice">Please <a href="' . home_url('/login/') . '">log in</a> to track your order.</p>';
+    }
+
+    $order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
+
+    if (!$order_id) {
+        return '<div class="vehdoc-tracking-search">
+            <h3>Track Your Order</h3>
+            <form method="get" class="vehdoc-search-form">
+                <input type="text" name="order_id" placeholder="Enter Order Number (e.g., VHD-000123)" class="vehdoc-input" required>
+                <button type="submit" class="vehdoc-btn vehdoc-btn-primary">Track Order</button>
+            </form>
+        </div>';
+    }
+
+    $tracking = vehdoc_get_tracking_data($order_id);
+    if (!$tracking) {
+        return '<p class="vehdoc-notice vehdoc-notice-error">Order not found.</p>';
+    }
+
+    ob_start();
     ?>
-    <p>
-        <label><strong><?php esc_html_e( 'Tracking Number:', 'annie-cakes' ); ?></strong></label><br>
-        <input type="text" name="tracking_number" value="<?php echo esc_attr( $tracking_number ); ?>" style="width: 100%;" placeholder="AC-<?php echo esc_attr( $order_id ); ?>">
-    </p>
-    <p>
-        <label><strong><?php esc_html_e( 'Tracking Notes:', 'annie-cakes' ); ?></strong></label><br>
-        <textarea name="tracking_notes" style="width: 100%;" rows="3"><?php echo esc_textarea( $tracking_notes ); ?></textarea>
-    </p>
-    <p class="description"><?php esc_html_e( 'Update the order status above to update the tracking progress.', 'annie-cakes' ); ?></p>
+    <div class="vehdoc-tracking-container">
+        <div class="vehdoc-tracking-header">
+            <h3>Order <?php echo esc_html($tracking['order_number']); ?></h3>
+            <span class="vehdoc-status-badge status-<?php echo esc_attr($tracking['current_status']); ?>">
+                <?php echo esc_html(ucwords(str_replace('_', ' ', $tracking['current_status']))); ?>
+            </span>
+        </div>
+
+        <div class="vehdoc-progress-tracker">
+            <?php foreach ($tracking['steps'] as $index => $step) : ?>
+                <div class="vehdoc-progress-step <?php echo $step['completed'] ? 'completed' : ''; ?> <?php echo $step['current'] ? 'current' : ''; ?>">
+                    <div class="step-indicator">
+                        <div class="step-circle">
+                            <i class="fa-solid <?php echo esc_attr($step['icon']); ?>"></i>
+                        </div>
+                        <?php if ($index < count($tracking['steps']) - 1) : ?>
+                            <div class="step-line"></div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="step-content">
+                        <h4><?php echo esc_html($step['label']); ?></h4>
+                        <p><?php echo esc_html($step['description']); ?></p>
+                        <?php if ($step['timestamp']) : ?>
+                            <span class="step-time"><?php echo esc_html(date('M j, Y g:i A', strtotime($step['timestamp']))); ?></span>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
     <?php
+    return ob_get_clean();
 }
+add_shortcode('vehdoc_tracking', 'vehdoc_tracking_shortcode');
 
 /**
- * Save tracking meta
+ * Get Tracking by Order Number (VHD-XXXXXX format)
  */
-function annie_cakes_save_tracking_meta( $order_id ) {
-    if ( ! isset( $_POST['tracking_meta_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['tracking_meta_nonce'] ) ), 'annie_tracking_meta' ) ) {
-        return;
+function vehdoc_get_tracking_by_number($order_number) {
+    $order_number = strtoupper(trim($order_number));
+    $order_id     = 0;
+
+    if (preg_match('/^VHD-?(\d+)$/i', $order_number, $m)) {
+        $order_id = intval($m[1]);
+    } elseif (is_numeric($order_number)) {
+        $order_id = intval($order_number);
     }
 
-    $order = wc_get_order( $order_id );
-    if ( ! $order ) {
-        return;
+    if (!$order_id) return null;
+
+    $order = get_post($order_id);
+    if (!$order || $order->post_type !== 'vehdoc_order') return null;
+
+    $order_user = get_post_meta($order_id, '_vehdoc_order_user', true);
+    if ($order_user != get_current_user_id() && !current_user_can('manage_options')) {
+        return null;
     }
 
-    if ( isset( $_POST['tracking_number'] ) ) {
-        $order->update_meta_data( '_tracking_number', sanitize_text_field( wp_unslash( $_POST['tracking_number'] ) ) );
-    }
-    if ( isset( $_POST['tracking_notes'] ) ) {
-        $order->update_meta_data( '_tracking_notes', sanitize_textarea_field( wp_unslash( $_POST['tracking_notes'] ) ) );
-    }
-    $order->save();
+    $tracking = vehdoc_get_tracking_data($order_id);
+    if (!$tracking) return null;
+
+    $service_id = get_post_meta($order_id, '_vehdoc_order_service', true);
+    $service    = $service_id ? get_post($service_id) : null;
+
+    $tracking['service'] = $service ? $service->post_title : 'Vehicle Documentation Service';
+    $tracking['status']  = get_post_meta($order_id, '_vehdoc_order_status', true) ?: 'pending';
+
+    return $tracking;
 }
-add_action( 'woocommerce_process_shop_order_meta', 'annie_cakes_save_tracking_meta' );
-
-/**
- * Send tracking notification on status change
- */
-function annie_cakes_order_status_notification( $order_id, $old_status, $new_status, $order ) {
-    $status_messages = array(
-        'processing'   => __( 'Your order #%s is being processed!', 'annie-cakes' ),
-        'baking'       => __( 'Your order #%s is now in the oven! Your cake is being baked with love.', 'annie-cakes' ),
-        'out-delivery' => __( 'Your order #%s is out for delivery! It\'s on its way to you.', 'annie-cakes' ),
-        'completed'    => __( 'Your order #%s has been delivered! We hope you love it. Enjoy!', 'annie-cakes' ),
-    );
-
-    if ( isset( $status_messages[ $new_status ] ) ) {
-        $message = sprintf( $status_messages[ $new_status ], $order_id );
-        $to      = $order->get_billing_email();
-        $subject = sprintf( __( 'Order #%s Status Update - Annie Cakes & Gift', 'annie-cakes' ), $order_id );
-        $body    = '<div style="font-family: Poppins, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">';
-        $body   .= '<h1 style="color: #ff4fa3; text-align: center;">Annie Cakes & Gift</h1>';
-        $body   .= '<p>' . esc_html( $message ) . '</p>';
-        $body   .= '<p><a href="' . esc_url( home_url( '/order-tracking/' ) ) . '" style="background: #ff4fa3; color: white; padding: 12px 24px; text-decoration: none; border-radius: 25px; display: inline-block;">Track Your Order</a></p>';
-        $body   .= '</div>';
-
-        $headers = array( 'Content-Type: text/html; charset=UTF-8' );
-        wp_mail( $to, $subject, $body, $headers );
-    }
-}
-add_action( 'woocommerce_order_status_changed', 'annie_cakes_order_status_notification', 10, 4 );

@@ -1,34 +1,19 @@
 <?php
 /**
- * Default Page Template
+ * Vehdoc Page Template
  *
- * @package AnnieCakes
+ * @package Vehdoc
  */
 
-get_header();
-?>
+get_header(); ?>
 
-<section class="ac-page-header">
-    <div class="ac-container">
-        <h1><?php the_title(); ?></h1>
-        <nav class="ac-breadcrumb">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Home', 'annie-cakes' ); ?></a>
-            <span>/</span>
-            <span><?php the_title(); ?></span>
-        </nav>
+<section class="page-section page-default">
+    <div class="container">
+        <?php while (have_posts()) : the_post(); ?>
+            <h1 class="page-title"><?php the_title(); ?></h1>
+            <div class="page-content"><?php the_content(); ?></div>
+        <?php endwhile; ?>
     </div>
 </section>
 
-<section class="ac-page-content">
-    <div class="ac-container">
-        <?php
-        while ( have_posts() ) :
-            the_post();
-            the_content();
-        endwhile;
-        ?>
-    </div>
-</section>
-
-<?php
-get_footer();
+<?php get_footer(); ?>

@@ -1,639 +1,435 @@
 <?php
 /**
- * Homepage Template — Annie Cakes & Gift
- * Premium Gold & Chocolate Theme
+ * Vehdoc Landing Page
  *
- * @package AnnieCakes
+ * @package Vehdoc
  */
 
 get_header();
+
+$hero_title    = get_theme_mod('vehdoc_hero_title', 'Renew Your Vehicle Documents Without Leaving Your Home');
+$hero_subtitle = get_theme_mod('vehdoc_hero_subtitle', 'Fast, secure and reliable vehicle documentation services with doorstep delivery across Nigeria.');
+$hero_bg       = get_theme_mod('vehdoc_hero_bg', '');
+
+$services = get_posts(array(
+    'post_type'      => 'vehdoc_service',
+    'posts_per_page' => 10,
+    'post_status'    => 'publish',
+    'orderby'        => 'menu_order',
+    'order'          => 'ASC',
+));
+
+$service_icons = array(
+    'fa-solid fa-id-card',
+    'fa-solid fa-file-certificate',
+    'fa-solid fa-shield-check',
+    'fa-solid fa-right-left',
+    'fa-solid fa-hashtag',
+    'fa-solid fa-address-card',
+    'fa-solid fa-window-maximize',
+    'fa-solid fa-car-burst',
+    'fa-solid fa-taxi',
+    'fa-solid fa-truck-moving',
+);
 ?>
 
 <!-- Hero Section -->
-<section class="ac-hero">
-    <div class="ac-hero-slider swiper" id="ac-hero-slider">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide ac-hero-slide" style="background-image: url('<?php echo esc_url( get_theme_mod( 'annie_hero_bg_1', ANNIE_CAKES_URI . '/assets/images/hero-1.jpg' ) ); ?>'); background-color: #3C1518;">
-                <div class="ac-hero-overlay"></div>
-                <div class="ac-container">
-                    <div class="ac-hero-content" data-aos="fade-up" data-aos-delay="200">
-                        <span class="ac-hero-badge"><?php esc_html_e( 'Premium Bakery & Gifts', 'annie-cakes' ); ?></span>
-                        <h1><?php echo esc_html( get_theme_mod( 'annie_hero_title_1', 'Crafting Sweet Memories' ) ); ?></h1>
-                        <p><?php echo esc_html( get_theme_mod( 'annie_hero_subtitle_1', 'Luxury cakes and thoughtful gifts for every special moment. Handcrafted with love and the finest ingredients.' ) ); ?></p>
-                        <div class="ac-hero-buttons">
-                            <a href="<?php echo esc_url( function_exists( 'wc_get_page_id' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' ) ); ?>" class="ac-btn ac-btn-primary ac-btn-lg">
-                                <i class="fas fa-shopping-bag"></i> <?php esc_html_e( 'Shop Now', 'annie-cakes' ); ?>
-                            </a>
-                            <a href="<?php echo esc_url( home_url( '/custom-orders/' ) ); ?>" class="ac-btn ac-btn-outline-white ac-btn-lg">
-                                <i class="fas fa-birthday-cake"></i> <?php esc_html_e( 'Custom Cake', 'annie-cakes' ); ?>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="ac-hero-floating">
-                    <div class="ac-floating-element ac-float-1"><i class="fas fa-star"></i></div>
-                    <div class="ac-floating-element ac-float-2"><i class="fas fa-heart"></i></div>
-                    <div class="ac-floating-element ac-float-3"><i class="fas fa-birthday-cake"></i></div>
-                </div>
-            </div>
-
-            <div class="swiper-slide ac-hero-slide" style="background-image: url('<?php echo esc_url( get_theme_mod( 'annie_hero_bg_2', ANNIE_CAKES_URI . '/assets/images/hero-2.jpg' ) ); ?>'); background-color: #5C3D2E;">
-                <div class="ac-hero-overlay"></div>
-                <div class="ac-container">
-                    <div class="ac-hero-content" data-aos="fade-up" data-aos-delay="200">
-                        <span class="ac-hero-badge"><?php esc_html_e( 'Handcrafted With Love', 'annie-cakes' ); ?></span>
-                        <h1><?php echo esc_html( get_theme_mod( 'annie_hero_title_2', 'Order Your Dream Cake' ) ); ?></h1>
-                        <p><?php echo esc_html( get_theme_mod( 'annie_hero_subtitle_2', 'From birthdays to weddings, we create stunning custom cakes that make your celebrations unforgettable.' ) ); ?></p>
-                        <div class="ac-hero-buttons">
-                            <a href="<?php echo esc_url( home_url( '/custom-orders/' ) ); ?>" class="ac-btn ac-btn-primary ac-btn-lg">
-                                <i class="fas fa-magic"></i> <?php esc_html_e( 'Get Quote', 'annie-cakes' ); ?>
-                            </a>
-                            <a href="<?php echo esc_url( home_url( '/gallery/' ) ); ?>" class="ac-btn ac-btn-outline-white ac-btn-lg">
-                                <i class="fas fa-images"></i> <?php esc_html_e( 'View Gallery', 'annie-cakes' ); ?>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="swiper-slide ac-hero-slide" style="background-image: url('<?php echo esc_url( get_theme_mod( 'annie_hero_bg_3', ANNIE_CAKES_URI . '/assets/images/hero-3.jpg' ) ); ?>'); background-color: #3C1518;">
-                <div class="ac-hero-overlay"></div>
-                <div class="ac-container">
-                    <div class="ac-hero-content" data-aos="fade-up" data-aos-delay="200">
-                        <span class="ac-hero-badge"><?php esc_html_e( 'Perfect Gifts', 'annie-cakes' ); ?></span>
-                        <h1><?php echo esc_html( get_theme_mod( 'annie_hero_title_3', 'Gift Boxes & Hampers' ) ); ?></h1>
-                        <p><?php echo esc_html( get_theme_mod( 'annie_hero_subtitle_3', 'Surprise your loved ones with our luxury gift boxes, hampers, and curated gift packages.' ) ); ?></p>
-                        <div class="ac-hero-buttons">
-                            <a href="<?php echo esc_url( home_url( '/product-category/gifts/' ) ); ?>" class="ac-btn ac-btn-primary ac-btn-lg">
-                                <i class="fas fa-gift"></i> <?php esc_html_e( 'Shop Gifts', 'annie-cakes' ); ?>
-                            </a>
-                            <a href="<?php echo esc_url( home_url( '/about-us/' ) ); ?>" class="ac-btn ac-btn-outline-white ac-btn-lg">
-                                <i class="fas fa-info-circle"></i> <?php esc_html_e( 'About Us', 'annie-cakes' ); ?>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="swiper-pagination ac-hero-pagination"></div>
+<section class="hero-section" id="hero" <?php echo $hero_bg ? 'style="background-image:url(' . esc_url($hero_bg) . ')"' : ''; ?>>
+    <div class="hero-bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
     </div>
-</section>
-
-<!-- Features Bar -->
-<section class="ac-features-bar ac-section">
-    <div class="ac-container">
-        <div class="ac-features-grid" data-aos="fade-up">
-            <div class="ac-feature-item">
-                <div class="ac-feature-icon"><i class="fas fa-truck"></i></div>
-                <div class="ac-feature-text">
-                    <h4><?php esc_html_e( 'Same Day Delivery', 'annie-cakes' ); ?></h4>
-                    <p><?php esc_html_e( 'Fast delivery within Lagos and nationwide shipping', 'annie-cakes' ); ?></p>
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-text">
+                <div class="hero-badge animate-fade-in">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    Trusted by 10,000+ vehicle owners across Nigeria
+                </div>
+                <h1 class="hero-title animate-fade-in"><?php echo esc_html($hero_title); ?></h1>
+                <p class="hero-subtitle animate-fade-in"><?php echo esc_html($hero_subtitle); ?></p>
+                <div class="hero-cta animate-fade-in">
+                    <a href="<?php echo home_url('/register/'); ?>" class="btn btn-primary btn-lg">
+                        <i class="fa-solid fa-rocket"></i> Get Started
+                    </a>
+                    <a href="<?php echo home_url('/services/'); ?>" class="btn btn-outline-white btn-lg">
+                        <i class="fa-solid fa-rotate"></i> Renew Now
+                    </a>
+                </div>
+                <div class="hero-trust animate-fade-in">
+                    <div class="trust-item"><i class="fa-solid fa-lock"></i> Secure Payments</div>
+                    <div class="trust-item"><i class="fa-solid fa-truck-fast"></i> Doorstep Delivery</div>
+                    <div class="trust-item"><i class="fa-solid fa-headset"></i> 24/7 Support</div>
                 </div>
             </div>
-            <div class="ac-feature-item">
-                <div class="ac-feature-icon"><i class="fas fa-medal"></i></div>
-                <div class="ac-feature-text">
-                    <h4><?php esc_html_e( 'Premium Quality', 'annie-cakes' ); ?></h4>
-                    <p><?php esc_html_e( 'Made with the finest imported ingredients', 'annie-cakes' ); ?></p>
-                </div>
-            </div>
-            <div class="ac-feature-item">
-                <div class="ac-feature-icon"><i class="fas fa-birthday-cake"></i></div>
-                <div class="ac-feature-text">
-                    <h4><?php esc_html_e( 'Custom Designs', 'annie-cakes' ); ?></h4>
-                    <p><?php esc_html_e( 'Bespoke cakes for every celebration', 'annie-cakes' ); ?></p>
-                </div>
-            </div>
-            <div class="ac-feature-item">
-                <div class="ac-feature-icon"><i class="fas fa-shield-alt"></i></div>
-                <div class="ac-feature-text">
-                    <h4><?php esc_html_e( 'Secure Payment', 'annie-cakes' ); ?></h4>
-                    <p><?php esc_html_e( 'Safe checkout with Paystack & Flutterwave', 'annie-cakes' ); ?></p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Categories Section -->
-<section class="ac-section">
-    <div class="ac-container">
-        <div class="ac-section-header" data-aos="fade-up">
-            <span class="ac-section-badge"><?php esc_html_e( 'Browse Collection', 'annie-cakes' ); ?></span>
-            <h2><?php esc_html_e( 'Shop by Category', 'annie-cakes' ); ?></h2>
-            <p><?php esc_html_e( 'From decadent chocolate cakes to elegant gift hampers — find the perfect treat for every occasion.', 'annie-cakes' ); ?></p>
-        </div>
-        <div class="ac-categories-grid">
-            <?php
-            if ( class_exists( 'WooCommerce' ) ) {
-                $cats = get_terms( array( 'taxonomy' => 'product_cat', 'hide_empty' => false, 'number' => 6, 'parent' => 0 ) );
-                if ( ! is_wp_error( $cats ) && $cats ) {
-                    foreach ( $cats as $cat ) {
-                        $thumb_id = get_term_meta( $cat->term_id, 'thumbnail_id', true );
-                        $img = $thumb_id ? wp_get_attachment_url( $thumb_id ) : ANNIE_CAKES_URI . '/assets/images/category-placeholder.jpg';
-                        ?>
-                        <a href="<?php echo esc_url( get_term_link( $cat ) ); ?>" class="ac-category-card" data-aos="zoom-in" data-aos-delay="<?php echo esc_attr( 100 ); ?>">
-                            <img src="<?php echo esc_url( $img ); ?>" alt="<?php echo esc_attr( $cat->name ); ?>" loading="lazy">
-                            <div class="ac-category-overlay">
-                                <h3><?php echo esc_html( $cat->name ); ?></h3>
-                                <span><?php echo esc_html( sprintf( _n( '%s product', '%s products', $cat->count, 'annie-cakes' ), number_format_i18n( $cat->count ) ) ); ?></span>
+            <div class="hero-visual animate-slide-right">
+                <div class="hero-card">
+                    <div class="card-header">
+                        <div class="card-dot green"></div>
+                        <div class="card-dot yellow"></div>
+                        <div class="card-dot red"></div>
+                    </div>
+                    <div class="card-body">
+                        <div class="mock-status">
+                            <div class="status-icon"><i class="fa-solid fa-circle-check"></i></div>
+                            <div class="status-text">
+                                <strong>Vehicle Licence Renewed</strong>
+                                <span>Ready for doorstep delivery</span>
                             </div>
-                        </a>
-                        <?php
-                    }
-                }
-            }
-            if ( ! class_exists( 'WooCommerce' ) || empty( $cats ) || is_wp_error( $cats ) ) {
-                $default_cats = array(
-                    array( 'name' => 'Birthday Cakes', 'icon' => 'fas fa-birthday-cake' ),
-                    array( 'name' => 'Wedding Cakes', 'icon' => 'fas fa-ring' ),
-                    array( 'name' => 'Cupcakes', 'icon' => 'fas fa-cookie' ),
-                    array( 'name' => 'Gift Hampers', 'icon' => 'fas fa-gift' ),
-                    array( 'name' => 'Pastries', 'icon' => 'fas fa-bread-slice' ),
-                    array( 'name' => 'Custom Cakes', 'icon' => 'fas fa-magic' ),
-                );
-                foreach ( $default_cats as $i => $dc ) {
-                    ?>
-                    <div class="ac-category-card ac-category-placeholder" data-aos="zoom-in" data-aos-delay="<?php echo esc_attr( $i * 100 ); ?>">
-                        <div style="width:100%;height:100%;background:linear-gradient(135deg,#3C1518,#5C3D2E);display:flex;align-items:center;justify-content:center;">
-                            <i class="<?php echo esc_attr( $dc['icon'] ); ?>" style="font-size:3rem;color:#d4af37;opacity:0.6;"></i>
                         </div>
-                        <div class="ac-category-overlay">
-                            <h3><?php echo esc_html( $dc['name'] ); ?></h3>
-                            <span><?php esc_html_e( 'View Collection', 'annie-cakes' ); ?></span>
+                        <div class="mock-progress">
+                            <div class="progress-step done"><i class="fa-solid fa-check"></i> Submitted</div>
+                            <div class="progress-step done"><i class="fa-solid fa-check"></i> Processing</div>
+                            <div class="progress-step done"><i class="fa-solid fa-check"></i> Approved</div>
+                            <div class="progress-step active"><i class="fa-solid fa-truck"></i> Delivery</div>
+                        </div>
+                        <div class="mock-vehicle">
+                            <i class="fa-solid fa-car"></i>
+                            <div>
+                                <strong>Toyota Camry 2022</strong>
+                                <span>LAG-234-XY</span>
+                            </div>
                         </div>
                     </div>
-                    <?php
-                }
-            }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item animate-count">
+                <span class="stat-number" data-count="10000">0</span>
+                <span class="stat-suffix">+</span>
+                <span class="stat-label">Documents Processed</span>
+            </div>
+            <div class="stat-item animate-count">
+                <span class="stat-number" data-count="5000">0</span>
+                <span class="stat-suffix">+</span>
+                <span class="stat-label">Happy Customers</span>
+            </div>
+            <div class="stat-item animate-count">
+                <span class="stat-number" data-count="37">0</span>
+                <span class="stat-suffix"></span>
+                <span class="stat-label">States Covered</span>
+            </div>
+            <div class="stat-item animate-count">
+                <span class="stat-number" data-count="98">0</span>
+                <span class="stat-suffix">%</span>
+                <span class="stat-label">Success Rate</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="how-it-works" id="how-it-works">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">Simple Process</span>
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Get your vehicle documents processed in 4 easy steps</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card animate-fade-up">
+                <div class="step-number">01</div>
+                <div class="step-icon"><i class="fa-solid fa-user-plus"></i></div>
+                <h3>Create Account</h3>
+                <p>Sign up in seconds with your email and phone number. Add your vehicle details.</p>
+            </div>
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="step-card animate-fade-up" style="animation-delay: 0.1s">
+                <div class="step-number">02</div>
+                <div class="step-icon"><i class="fa-solid fa-list-check"></i></div>
+                <h3>Select Service</h3>
+                <p>Choose the vehicle document service you need and upload required documents.</p>
+            </div>
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="step-card animate-fade-up" style="animation-delay: 0.2s">
+                <div class="step-number">03</div>
+                <div class="step-icon"><i class="fa-solid fa-credit-card"></i></div>
+                <h3>Pay Securely</h3>
+                <p>Pay online in Naira using your preferred method — card, bank transfer, or USSD.</p>
+            </div>
+            <div class="step-connector"><i class="fa-solid fa-arrow-right"></i></div>
+            <div class="step-card animate-fade-up" style="animation-delay: 0.3s">
+                <div class="step-number">04</div>
+                <div class="step-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                <h3>Doorstep Delivery</h3>
+                <p>Track your order in real-time and receive your documents at your doorstep.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section" id="services">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">Our Services</span>
+            <h2 class="section-title">Vehicle Documentation Services</h2>
+            <p class="section-subtitle">Professional handling of all your vehicle documentation needs</p>
+        </div>
+        <div class="services-grid">
+            <?php foreach ($services as $index => $service) :
+                $price           = get_post_meta($service->ID, '_vehdoc_service_price', true);
+                $processing_time = get_post_meta($service->ID, '_vehdoc_service_time', true);
+                $icon            = get_post_meta($service->ID, '_vehdoc_service_icon', true) ?: ($service_icons[$index] ?? 'fa-solid fa-file');
+                $fast_track      = get_post_meta($service->ID, '_vehdoc_fast_track_price', true);
             ?>
-        </div>
-    </div>
-</section>
-
-<!-- Best Sellers Section -->
-<section class="ac-section" style="background: var(--ac-bg-alt);">
-    <div class="ac-container">
-        <div class="ac-section-header" data-aos="fade-up">
-            <span class="ac-section-badge"><?php esc_html_e( 'Customer Favourites', 'annie-cakes' ); ?></span>
-            <h2><?php esc_html_e( 'Best Selling Products', 'annie-cakes' ); ?></h2>
-            <p><?php esc_html_e( 'Our most loved cakes and gifts — chosen by thousands of happy customers across Nigeria.', 'annie-cakes' ); ?></p>
-        </div>
-        <div class="ac-products-grid">
-            <?php
-            if ( class_exists( 'WooCommerce' ) ) {
-                $best = new WP_Query( array(
-                    'post_type'      => 'product',
-                    'posts_per_page' => 8,
-                    'meta_key'       => 'total_sales',
-                    'orderby'        => 'meta_value_num',
-                    'order'          => 'DESC',
-                ) );
-                if ( $best->have_posts() ) {
-                    while ( $best->have_posts() ) {
-                        $best->the_post();
-                        get_template_part( 'template-parts/product-card' );
-                    }
-                    wp_reset_postdata();
-                }
-            }
-            if ( ! class_exists( 'WooCommerce' ) || ! $best->have_posts() ) {
-                $placeholders = array(
-                    array( 'name' => 'Chocolate Birthday Cake', 'price' => '₦45,000', 'cat' => 'Birthday Cakes' ),
-                    array( 'name' => 'Red Velvet Cake', 'price' => '₦38,000', 'cat' => 'Birthday Cakes' ),
-                    array( 'name' => 'Wedding Cake', 'price' => '₦120,000', 'cat' => 'Wedding Cakes' ),
-                    array( 'name' => 'Luxury Gift Box', 'price' => '₦55,000', 'cat' => 'Gift Hampers' ),
-                    array( 'name' => 'Cupcake Box (12pcs)', 'price' => '₦25,000', 'cat' => 'Cupcakes' ),
-                    array( 'name' => 'Fruit Cake', 'price' => '₦35,000', 'cat' => 'Birthday Cakes' ),
-                    array( 'name' => 'Buttercream Cake', 'price' => '₦40,000', 'cat' => 'Birthday Cakes' ),
-                    array( 'name' => 'Anniversary Cake', 'price' => '₦50,000', 'cat' => 'Custom Cakes' ),
-                );
-                foreach ( $placeholders as $i => $p ) {
-                    ?>
-                    <div class="ac-product-card" data-aos="fade-up" data-aos-delay="<?php echo esc_attr( $i * 80 ); ?>">
-                        <div class="ac-product-image">
-                            <div style="width:100%;height:100%;background:linear-gradient(135deg,#F5ECDF,#E8DDD4);display:flex;align-items:center;justify-content:center;">
-                                <i class="fas fa-birthday-cake" style="font-size:3rem;color:#d4af37;opacity:0.4;"></i>
-                            </div>
-                            <?php if ( $i < 3 ) : ?>
-                                <div class="ac-product-badges"><span class="ac-badge ac-badge-hot"><?php esc_html_e( 'Best Seller', 'annie-cakes' ); ?></span></div>
-                            <?php endif; ?>
-                        </div>
-                        <div class="ac-product-info">
-                            <div class="ac-product-category"><?php echo esc_html( $p['cat'] ); ?></div>
-                            <h3><a href="#"><?php echo esc_html( $p['name'] ); ?></a></h3>
-                            <div class="ac-product-rating">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <div class="ac-product-price">
-                                <span class="current-price"><?php echo esc_html( $p['price'] ); ?></span>
-                            </div>
-                            <button class="ac-product-add-to-cart"><i class="fas fa-shopping-bag"></i> <?php esc_html_e( 'Add to Cart', 'annie-cakes' ); ?></button>
-                        </div>
-                    </div>
-                    <?php
-                }
-            }
-            ?>
-        </div>
-        <div style="text-align:center;margin-top:40px;" data-aos="fade-up">
-            <a href="<?php echo esc_url( function_exists( 'wc_get_page_id' ) ? get_permalink( wc_get_page_id( 'shop' ) ) : home_url( '/shop/' ) ); ?>" class="ac-btn ac-btn-outline">
-                <?php esc_html_e( 'View All Products', 'annie-cakes' ); ?> <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- Hot Sales Countdown -->
-<section class="ac-hot-sales">
-    <div class="ac-container">
-        <div class="ac-hot-sales-inner">
-            <div class="ac-hot-sales-content" data-aos="fade-right">
-                <span class="ac-section-badge"><?php esc_html_e( 'Limited Time Offer', 'annie-cakes' ); ?></span>
-                <h2><?php echo esc_html( get_theme_mod( 'annie_sale_title', 'Hot Sales — Up to 40% Off!' ) ); ?></h2>
-                <p><?php echo esc_html( get_theme_mod( 'annie_sale_subtitle', 'Don\'t miss out on our seasonal collection. Premium cakes and gift sets at unbeatable prices. Perfect for birthdays, anniversaries, and special surprises.' ) ); ?></p>
-                <div class="ac-countdown" data-date="<?php echo esc_attr( get_theme_mod( 'annie_sale_end', gmdate( 'Y-m-d', strtotime( '+30 days' ) ) ) ); ?>">
-                    <div class="ac-countdown-item"><span class="number" data-days>00</span><span class="label"><?php esc_html_e( 'Days', 'annie-cakes' ); ?></span></div>
-                    <div class="ac-countdown-item"><span class="number" data-hours>00</span><span class="label"><?php esc_html_e( 'Hours', 'annie-cakes' ); ?></span></div>
-                    <div class="ac-countdown-item"><span class="number" data-minutes>00</span><span class="label"><?php esc_html_e( 'Mins', 'annie-cakes' ); ?></span></div>
-                    <div class="ac-countdown-item"><span class="number" data-seconds>00</span><span class="label"><?php esc_html_e( 'Secs', 'annie-cakes' ); ?></span></div>
+            <div class="service-card animate-fade-up" style="animation-delay: <?php echo $index * 0.05; ?>s">
+                <div class="service-icon"><i class="<?php echo esc_attr($icon); ?>"></i></div>
+                <h3 class="service-title"><?php echo esc_html($service->post_title); ?></h3>
+                <p class="service-desc"><?php echo esc_html(wp_trim_words($service->post_content, 20)); ?></p>
+                <div class="service-meta">
+                    <span class="service-price">₦<?php echo number_format(floatval($price)); ?></span>
+                    <span class="service-time"><i class="fa-regular fa-clock"></i> <?php echo esc_html($processing_time); ?></span>
                 </div>
-                <a href="<?php echo esc_url( home_url( '/hot-sales/' ) ); ?>" class="ac-btn ac-btn-primary ac-btn-lg">
-                    <i class="fas fa-fire"></i> <?php esc_html_e( 'Shop Hot Sales', 'annie-cakes' ); ?>
+                <?php if ($fast_track) : ?>
+                <div class="service-fast-track">
+                    <i class="fa-solid fa-bolt"></i> Fast-track: ₦<?php echo number_format(floatval($fast_track)); ?>
+                </div>
+                <?php endif; ?>
+                <a href="<?php echo is_user_logged_in() ? home_url('/dashboard/?tab=new-order&service=' . $service->ID) : home_url('/register/'); ?>" class="btn btn-primary btn-block">
+                    Get Started <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
-            <div class="ac-hot-sales-products" data-aos="fade-left">
-                <?php
-                if ( class_exists( 'WooCommerce' ) ) {
-                    $sale = new WP_Query( array( 'post_type' => 'product', 'posts_per_page' => 2, 'meta_query' => array( array( 'key' => '_sale_price', 'value' => 0, 'compare' => '>', 'type' => 'NUMERIC' ) ) ) );
-                    if ( $sale->have_posts() ) {
-                        while ( $sale->have_posts() ) { $sale->the_post(); get_template_part( 'template-parts/product-card' ); }
-                        wp_reset_postdata();
-                    }
-                }
-                ?>
-            </div>
+            <?php endforeach; ?>
         </div>
-    </div>
-</section>
-
-<!-- Custom Order CTA -->
-<section class="ac-custom-cta ac-section">
-    <div class="ac-container">
-        <div class="ac-custom-cta-inner">
-            <div class="ac-custom-cta-content" data-aos="fade-right">
-                <span class="ac-section-badge"><?php esc_html_e( 'Made Just For You', 'annie-cakes' ); ?></span>
-                <h2><?php esc_html_e( 'Design Your Perfect Cake', 'annie-cakes' ); ?></h2>
-                <p><?php esc_html_e( 'Tell us your vision and we\'ll bring it to life. Our master bakers specialise in creating one-of-a-kind cakes for weddings, birthdays, corporate events, and every special occasion. Upload your inspiration photo, choose your flavour, pick your size — and leave the rest to us.', 'annie-cakes' ); ?></p>
-                <ul class="ac-custom-cta-features">
-                    <li><i class="fas fa-check-circle"></i> <?php esc_html_e( 'Upload your cake inspiration photo', 'annie-cakes' ); ?></li>
-                    <li><i class="fas fa-check-circle"></i> <?php esc_html_e( 'Choose from 12+ premium flavours', 'annie-cakes' ); ?></li>
-                    <li><i class="fas fa-check-circle"></i> <?php esc_html_e( 'Pick size from 6" to 14" multi-tier', 'annie-cakes' ); ?></li>
-                    <li><i class="fas fa-check-circle"></i> <?php esc_html_e( 'Free consultation via WhatsApp', 'annie-cakes' ); ?></li>
-                    <li><i class="fas fa-check-circle"></i> <?php esc_html_e( 'Delivery or pickup available', 'annie-cakes' ); ?></li>
-                    <li><i class="fas fa-check-circle"></i> <?php esc_html_e( 'Get a quote within 2 hours', 'annie-cakes' ); ?></li>
-                </ul>
-                <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                    <a href="<?php echo esc_url( home_url( '/custom-orders/' ) ); ?>" class="ac-btn ac-btn-primary">
-                        <i class="fas fa-paint-brush"></i> <?php esc_html_e( 'Design Your Cake', 'annie-cakes' ); ?>
-                    </a>
-                    <a href="https://wa.me/<?php echo esc_attr( get_theme_mod( 'annie_whatsapp', '2348000000000' ) ); ?>" target="_blank" rel="noopener" class="ac-btn ac-btn-outline">
-                        <i class="fab fa-whatsapp"></i> <?php esc_html_e( 'Chat on WhatsApp', 'annie-cakes' ); ?>
-                    </a>
-                </div>
-            </div>
-            <div class="ac-custom-cta-image" data-aos="fade-left">
-                <img src="<?php echo esc_url( get_theme_mod( 'annie_custom_cta_img', ANNIE_CAKES_URI . '/assets/images/custom-cake.jpg' ) ); ?>" alt="<?php esc_attr_e( 'Custom cake design', 'annie-cakes' ); ?>" loading="lazy" style="background:linear-gradient(135deg,#F5ECDF,#E8DDD4);min-height:400px;">
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- New Arrivals Slider -->
-<section class="ac-section" style="background: var(--ac-bg-alt);">
-    <div class="ac-container">
-        <div class="ac-section-header" data-aos="fade-up">
-            <span class="ac-section-badge"><?php esc_html_e( 'Fresh From The Oven', 'annie-cakes' ); ?></span>
-            <h2><?php esc_html_e( 'New Arrivals', 'annie-cakes' ); ?></h2>
-            <p><?php esc_html_e( 'Explore our latest creations — freshly designed cakes and newly curated gift packages.', 'annie-cakes' ); ?></p>
-        </div>
-        <div class="ac-arrivals-slider swiper">
-            <div class="swiper-wrapper">
-                <?php
-                if ( class_exists( 'WooCommerce' ) ) {
-                    $new = new WP_Query( array( 'post_type' => 'product', 'posts_per_page' => 8, 'orderby' => 'date', 'order' => 'DESC' ) );
-                    if ( $new->have_posts() ) {
-                        while ( $new->have_posts() ) {
-                            $new->the_post();
-                            echo '<div class="swiper-slide">';
-                            get_template_part( 'template-parts/product-card' );
-                            echo '</div>';
-                        }
-                        wp_reset_postdata();
-                    }
-                }
-                if ( ! class_exists( 'WooCommerce' ) || ! $new->have_posts() ) {
-                    $new_items = array( 'Chocolate Hamper', 'Surprise Box', 'Bridal Shower Cake', 'Graduation Cake', 'Valentine Package', 'Kids Cartoon Cake', 'Teddy Gift Package', 'Anniversary Cake' );
-                    foreach ( $new_items as $ni ) {
-                        ?>
-                        <div class="swiper-slide">
-                            <div class="ac-product-card">
-                                <div class="ac-product-image">
-                                    <div style="width:100%;height:100%;aspect-ratio:1;background:linear-gradient(135deg,#F5ECDF,#E8DDD4);display:flex;align-items:center;justify-content:center;">
-                                        <i class="fas fa-gift" style="font-size:3rem;color:#d4af37;opacity:0.4;"></i>
-                                    </div>
-                                    <div class="ac-product-badges"><span class="ac-badge ac-badge-new"><?php esc_html_e( 'New', 'annie-cakes' ); ?></span></div>
-                                </div>
-                                <div class="ac-product-info">
-                                    <h3><a href="#"><?php echo esc_html( $ni ); ?></a></h3>
-                                    <div class="ac-product-rating"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i></div>
-                                    <div class="ac-product-price"><span class="current-price">₦<?php echo esc_html( number_format( wp_rand( 20000, 80000 ), 0 ) ); ?></span></div>
-                                    <button class="ac-product-add-to-cart"><i class="fas fa-shopping-bag"></i> <?php esc_html_e( 'Add to Cart', 'annie-cakes' ); ?></button>
-                                </div>
-                            </div>
-                        </div>
-                        <?php
-                    }
-                }
-                ?>
-            </div>
-            <div class="swiper-pagination ac-arrivals-pagination"></div>
-        </div>
-    </div>
-</section>
-
-<!-- Testimonials Section -->
-<section class="ac-section">
-    <div class="ac-container">
-        <div class="ac-section-header" data-aos="fade-up">
-            <span class="ac-section-badge"><?php esc_html_e( 'Customer Love', 'annie-cakes' ); ?></span>
-            <h2><?php esc_html_e( 'What Our Customers Say', 'annie-cakes' ); ?></h2>
-            <p><?php esc_html_e( 'Over 2,000 happy customers trust Annie Cakes & Gift for their sweetest moments.', 'annie-cakes' ); ?></p>
-        </div>
-        <div class="ac-testimonials-slider swiper">
-            <div class="swiper-wrapper">
-                <?php
-                $testimonials = get_posts( array( 'post_type' => 'ac_testimonial', 'posts_per_page' => 6, 'orderby' => 'rand' ) );
-                if ( $testimonials ) {
-                    foreach ( $testimonials as $t ) {
-                        $rating = get_post_meta( $t->ID, '_testimonial_rating', true ) ?: 5;
-                        $role = get_post_meta( $t->ID, '_testimonial_role', true ) ?: '';
-                        ?>
-                        <div class="swiper-slide">
-                            <div class="ac-testimonial-card">
-                                <span class="ac-testimonial-quote">&ldquo;</span>
-                                <div class="ac-testimonial-stars">
-                                    <?php for ( $s = 0; $s < $rating; $s++ ) : ?><i class="fas fa-star"></i><?php endfor; ?>
-                                </div>
-                                <p class="ac-testimonial-text"><?php echo esc_html( $t->post_content ); ?></p>
-                                <div class="ac-testimonial-author">
-                                    <div class="ac-testimonial-avatar"><?php echo esc_html( mb_strtoupper( mb_substr( $t->post_title, 0, 1 ) ) ); ?></div>
-                                    <div class="ac-testimonial-info">
-                                        <h4><?php echo esc_html( $t->post_title ); ?></h4>
-                                        <?php if ( $role ) : ?><span><?php echo esc_html( $role ); ?></span><?php endif; ?>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php
-                    }
-                } else {
-                    $default_testimonials = array(
-                        array( 'name' => 'Chioma Adeyemi', 'text' => 'Annie Cakes made the most beautiful wedding cake for my daughter\'s wedding. The 5-tier fondant cake was an absolute showstopper! Every guest was blown away by both the design and the taste. I\'ve already recommended them to three friends.', 'role' => 'Happy Mother of the Bride', 'initial' => 'C' ),
-                        array( 'name' => 'Tunde Okoye', 'text' => 'I ordered a surprise birthday cake for my wife and it exceeded all expectations. The chocolate ganache was divine, the decorations were exactly what I described, and it arrived on time. The team even called to confirm the delivery address. Excellent service!', 'role' => 'Loyal Customer', 'initial' => 'T' ),
-                        array( 'name' => 'Amara Nwosu', 'text' => 'I\'ve been ordering from Annie Cakes for over two years now. Their cupcakes are always fresh, moist, and perfectly decorated. The gift hampers are my go-to for Christmas and Valentine\'s. Consistent quality every single time!', 'role' => 'Regular Customer', 'initial' => 'A' ),
-                        array( 'name' => 'Blessing Eze', 'text' => 'We ordered 200 cupcakes for our corporate event and every single one was beautifully decorated with our company logo. Annie Cakes delivered on time and the quality was outstanding. Our clients loved them. Will definitely be ordering again!', 'role' => 'Corporate Client', 'initial' => 'B' ),
-                        array( 'name' => 'Kemi Bakare', 'text' => 'The custom teddy bear gift package I ordered for my sister\'s baby shower was absolutely adorable! The packaging was elegant, the chocolates were delicious, and the personalised card was a lovely touch. Annie Cakes goes above and beyond.', 'role' => 'Gift Buyer', 'initial' => 'K' ),
-                        array( 'name' => 'David Olumide', 'text' => 'From ordering to delivery, the experience was seamless. I tracked my order in real-time and received updates at every stage. The graduation cake was exactly as designed — my daughter was thrilled! The WhatsApp support team is incredibly responsive.', 'role' => 'Satisfied Father', 'initial' => 'D' ),
-                    );
-                    foreach ( $default_testimonials as $dt ) {
-                        ?>
-                        <div class="swiper-slide">
-                            <div class="ac-testimonial-card">
-                                <span class="ac-testimonial-quote">&ldquo;</span>
-                                <div class="ac-testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                                <p class="ac-testimonial-text"><?php echo esc_html( $dt['text'] ); ?></p>
-                                <div class="ac-testimonial-author">
-                                    <div class="ac-testimonial-avatar"><?php echo esc_html( $dt['initial'] ); ?></div>
-                                    <div class="ac-testimonial-info">
-                                        <h4><?php echo esc_html( $dt['name'] ); ?></h4>
-                                        <span><?php echo esc_html( $dt['role'] ); ?></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <?php
-                    }
-                }
-                ?>
-            </div>
-            <div class="swiper-pagination ac-testimonials-pagination"></div>
-        </div>
-    </div>
-</section>
-
-<!-- Video CTA Section -->
-<section class="ac-video-section" style="background-image: url('<?php echo esc_url( get_theme_mod( 'annie_video_bg', ANNIE_CAKES_URI . '/assets/images/bakery-bg.jpg' ) ); ?>'); background-color: #3C1518;">
-    <div class="ac-video-overlay"></div>
-    <div class="ac-video-content" data-aos="zoom-in">
-        <div class="ac-video-play">
-            <i class="fas fa-play"></i>
-        </div>
-        <h2><?php esc_html_e( 'Watch How We Bake With Love', 'annie-cakes' ); ?></h2>
-        <p><?php esc_html_e( 'Take a peek behind the scenes of our kitchen — where passion meets pastry.', 'annie-cakes' ); ?></p>
     </div>
 </section>
 
 <!-- Why Choose Us -->
-<section class="ac-section">
-    <div class="ac-container">
-        <div class="ac-section-header" data-aos="fade-up">
-            <span class="ac-section-badge"><?php esc_html_e( 'The Annie Cakes Difference', 'annie-cakes' ); ?></span>
-            <h2><?php esc_html_e( 'Why Choose Us', 'annie-cakes' ); ?></h2>
-            <p><?php esc_html_e( 'We don\'t just bake cakes — we craft experiences that make your celebrations truly unforgettable.', 'annie-cakes' ); ?></p>
+<section class="why-choose-us" id="why-us">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">Why Vehdoc</span>
+            <h2 class="section-title">Why Choose Us</h2>
+            <p class="section-subtitle">We make vehicle documentation simple, fast, and stress-free</p>
         </div>
-        <div class="ac-why-grid">
-            <div class="ac-why-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="ac-why-icon"><i class="fas fa-award"></i></div>
-                <h3><?php esc_html_e( 'Premium Ingredients', 'annie-cakes' ); ?></h3>
-                <p><?php esc_html_e( 'We use only the finest imported butter, Belgian chocolate, Madagascar vanilla, and farm-fresh eggs in every recipe. No artificial preservatives, no shortcuts — just pure deliciousness.', 'annie-cakes' ); ?></p>
+        <div class="features-grid">
+            <div class="feature-card animate-fade-up">
+                <div class="feature-icon"><i class="fa-solid fa-bolt-lightning"></i></div>
+                <h3>Lightning Fast</h3>
+                <p>Get your documents processed in record time with our fast-track option available.</p>
             </div>
-            <div class="ac-why-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="ac-why-icon"><i class="fas fa-palette"></i></div>
-                <h3><?php esc_html_e( 'Artistic Designs', 'annie-cakes' ); ?></h3>
-                <p><?php esc_html_e( 'Our cake artists are trained in fondant sculpting, sugar flowers, hand-painting, and 3D cake design. Every creation is a masterpiece tailored to your vision and celebration.', 'annie-cakes' ); ?></p>
+            <div class="feature-card animate-fade-up">
+                <div class="feature-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>100% Secure</h3>
+                <p>Your documents and payments are protected with bank-level encryption and security.</p>
             </div>
-            <div class="ac-why-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="ac-why-icon"><i class="fas fa-clock"></i></div>
-                <h3><?php esc_html_e( 'Always On Time', 'annie-cakes' ); ?></h3>
-                <p><?php esc_html_e( 'We understand timing is everything. With our dedicated delivery team and real-time order tracking, your cake arrives fresh and on schedule — every single time, guaranteed.', 'annie-cakes' ); ?></p>
+            <div class="feature-card animate-fade-up">
+                <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                <h3>Doorstep Delivery</h3>
+                <p>Receive your processed documents right at your doorstep — no office visits needed.</p>
             </div>
-            <div class="ac-why-card" data-aos="fade-up" data-aos-delay="400">
-                <div class="ac-why-icon"><i class="fas fa-headset"></i></div>
-                <h3><?php esc_html_e( '24/7 Support', 'annie-cakes' ); ?></h3>
-                <p><?php esc_html_e( 'Our customer service team is available around the clock via WhatsApp, phone, and email. Have a question about your order? We respond within minutes, not hours.', 'annie-cakes' ); ?></p>
+            <div class="feature-card animate-fade-up">
+                <div class="feature-icon"><i class="fa-solid fa-eye"></i></div>
+                <h3>Real-Time Tracking</h3>
+                <p>Track your document processing status in real-time from your dashboard.</p>
             </div>
-            <div class="ac-why-card" data-aos="fade-up" data-aos-delay="500">
-                <div class="ac-why-icon"><i class="fas fa-gift"></i></div>
-                <h3><?php esc_html_e( 'Gift-Ready Packaging', 'annie-cakes' ); ?></h3>
-                <p><?php esc_html_e( 'Every order is beautifully packaged in our signature gold and chocolate boxes with ribbons, tissue paper, and a personalised greeting card. Ready to gift, ready to impress.', 'annie-cakes' ); ?></p>
+            <div class="feature-card animate-fade-up">
+                <div class="feature-icon"><i class="fa-solid fa-bell"></i></div>
+                <h3>Renewal Reminders</h3>
+                <p>Never miss an expiry date — get automatic reminders before your documents expire.</p>
             </div>
-            <div class="ac-why-card" data-aos="fade-up" data-aos-delay="600">
-                <div class="ac-why-icon"><i class="fas fa-heart"></i></div>
-                <h3><?php esc_html_e( 'Made With Love', 'annie-cakes' ); ?></h3>
-                <p><?php esc_html_e( 'Every cake is baked with passion by our team of artisan bakers who have over 10 years of combined experience. We treat every order like it\'s for our own family celebration.', 'annie-cakes' ); ?></p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Counters Section -->
-<section class="ac-counters ac-counters-section">
-    <div class="ac-container">
-        <div class="ac-counters-grid">
-            <div class="ac-counter-item" data-aos="fade-up">
-                <div class="ac-counter-icon"><i class="fas fa-birthday-cake"></i></div>
-                <div class="ac-counter-number ac-counter-num" data-target="5000">0</div>
-                <div class="ac-counter-label"><?php esc_html_e( 'Cakes Delivered', 'annie-cakes' ); ?></div>
-            </div>
-            <div class="ac-counter-item" data-aos="fade-up" data-aos-delay="100">
-                <div class="ac-counter-icon"><i class="fas fa-smile"></i></div>
-                <div class="ac-counter-number ac-counter-num" data-target="3000">0</div>
-                <div class="ac-counter-label"><?php esc_html_e( 'Happy Customers', 'annie-cakes' ); ?></div>
-            </div>
-            <div class="ac-counter-item" data-aos="fade-up" data-aos-delay="200">
-                <div class="ac-counter-icon"><i class="fas fa-star"></i></div>
-                <div class="ac-counter-number ac-counter-num" data-target="4500">0</div>
-                <div class="ac-counter-label"><?php esc_html_e( '5-Star Reviews', 'annie-cakes' ); ?></div>
-            </div>
-            <div class="ac-counter-item" data-aos="fade-up" data-aos-delay="300">
-                <div class="ac-counter-icon"><i class="fas fa-cookie-bite"></i></div>
-                <div class="ac-counter-number ac-counter-num" data-target="150">0</div>
-                <div class="ac-counter-label"><?php esc_html_e( 'Cake Flavours', 'annie-cakes' ); ?></div>
+            <div class="feature-card animate-fade-up">
+                <div class="feature-icon"><i class="fa-solid fa-headset"></i></div>
+                <h3>Expert Support</h3>
+                <p>Our team of experts is available via WhatsApp, email, and phone to assist you.</p>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Instagram Gallery -->
-<section class="ac-section">
-    <div class="ac-container">
-        <div class="ac-section-header" data-aos="fade-up">
-            <span class="ac-section-badge"><?php esc_html_e( 'Follow Us', 'annie-cakes' ); ?></span>
-            <h2><?php esc_html_e( 'Our Instagram Gallery', 'annie-cakes' ); ?></h2>
-            <p><?php esc_html_e( 'Follow @anniecakesandgift for daily cake inspiration, behind-the-scenes content, and exclusive offers.', 'annie-cakes' ); ?></p>
+<!-- Testimonials -->
+<section class="testimonials-section" id="testimonials">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">Testimonials</span>
+            <h2 class="section-title">What Our Customers Say</h2>
+            <p class="section-subtitle">Join thousands of satisfied vehicle owners across Nigeria</p>
         </div>
-    </div>
-    <div class="ac-instagram-grid">
-        <?php for ( $ig = 0; $ig < 6; $ig++ ) : ?>
-            <div class="ac-instagram-item" data-aos="zoom-in" data-aos-delay="<?php echo esc_attr( $ig * 80 ); ?>">
-                <div style="width:100%;height:100%;background:linear-gradient(<?php echo esc_attr( 135 + $ig * 30 ); ?>deg,#3C1518,#5C3D2E);display:flex;align-items:center;justify-content:center;">
-                    <i class="fas fa-<?php echo esc_attr( array( 'birthday-cake', 'gift', 'cookie', 'heart', 'star', 'camera' )[ $ig ] ); ?>" style="font-size:2rem;color:#d4af37;opacity:0.3;"></i>
+        <div class="testimonials-grid">
+            <div class="testimonial-card animate-fade-up">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                 </div>
-                <div class="ac-instagram-overlay"><i class="fab fa-instagram"></i></div>
+                <p class="testimonial-text">"Vehdoc saved me so much time and stress. I renewed my vehicle licence without leaving my office. The documents were delivered to my doorstep in 3 days!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <strong>Adebayo Johnson</strong>
+                        <span>Lagos, Nigeria</span>
+                    </div>
+                </div>
             </div>
-        <?php endfor; ?>
-    </div>
-</section>
-
-<!-- Blog Preview -->
-<section class="ac-section" style="background: var(--ac-bg-alt);">
-    <div class="ac-container">
-        <div class="ac-section-header" data-aos="fade-up">
-            <span class="ac-section-badge"><?php esc_html_e( 'From Our Blog', 'annie-cakes' ); ?></span>
-            <h2><?php esc_html_e( 'Baking Tips & Sweet Stories', 'annie-cakes' ); ?></h2>
-            <p><?php esc_html_e( 'Recipes, decorating tutorials, and inspiration from our kitchen to yours.', 'annie-cakes' ); ?></p>
-        </div>
-        <div class="ac-blog-grid">
-            <?php
-            $blog = new WP_Query( array( 'post_type' => 'post', 'posts_per_page' => 3 ) );
-            if ( $blog->have_posts() ) {
-                while ( $blog->have_posts() ) {
-                    $blog->the_post();
-                    ?>
-                    <article class="ac-blog-card" data-aos="fade-up">
-                        <div class="ac-blog-card-image">
-                            <?php if ( has_post_thumbnail() ) : ?>
-                                <?php the_post_thumbnail( 'annie-blog-thumb' ); ?>
-                            <?php else : ?>
-                                <div style="width:100%;height:100%;background:linear-gradient(135deg,#F5ECDF,#E8DDD4);display:flex;align-items:center;justify-content:center;"><i class="fas fa-pen-fancy" style="font-size:2rem;color:#d4af37;opacity:0.4;"></i></div>
-                            <?php endif; ?>
-                            <span class="ac-blog-card-date"><?php echo esc_html( get_the_date( 'M d' ) ); ?></span>
-                        </div>
-                        <div class="ac-blog-card-body">
-                            <div class="ac-blog-card-meta">
-                                <span><i class="fas fa-user"></i> <?php the_author(); ?></span>
-                                <span><i class="fas fa-comment"></i> <?php echo esc_html( get_comments_number() ); ?></span>
-                            </div>
-                            <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                            <p><?php echo esc_html( wp_trim_words( get_the_excerpt(), 18 ) ); ?></p>
-                            <a href="<?php the_permalink(); ?>" class="ac-read-more"><?php esc_html_e( 'Read More', 'annie-cakes' ); ?> <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </article>
-                    <?php
-                }
-                wp_reset_postdata();
-            } else {
-                $default_posts = array(
-                    array( 'title' => '10 Trending Cake Designs for 2024 Nigerian Weddings', 'excerpt' => 'From elegant minimalist fondant to opulent gold-leaf masterpieces, discover the cake trends that are taking Nigerian weddings by storm this year.' ),
-                    array( 'title' => 'How to Choose the Perfect Birthday Cake Flavour', 'excerpt' => 'Red velvet, chocolate ganache, or vanilla buttercream? Our comprehensive guide helps you pick the ideal flavour to match the birthday person\'s personality.' ),
-                    array( 'title' => 'The Art of Gift Hamper Packaging: A Behind-the-Scenes Look', 'excerpt' => 'Step inside our gift studio and see how we curate, assemble, and package our signature luxury gift hampers that leave lasting impressions.' ),
-                );
-                foreach ( $default_posts as $dp ) {
-                    ?>
-                    <article class="ac-blog-card" data-aos="fade-up">
-                        <div class="ac-blog-card-image">
-                            <div style="width:100%;height:100%;aspect-ratio:16/10;background:linear-gradient(135deg,#F5ECDF,#E8DDD4);display:flex;align-items:center;justify-content:center;">
-                                <i class="fas fa-pen-fancy" style="font-size:2rem;color:#d4af37;opacity:0.4;"></i>
-                            </div>
-                            <span class="ac-blog-card-date"><?php echo esc_html( wp_date( 'M d' ) ); ?></span>
-                        </div>
-                        <div class="ac-blog-card-body">
-                            <div class="ac-blog-card-meta">
-                                <span><i class="fas fa-user"></i> Annie Cakes</span>
-                                <span><i class="fas fa-comment"></i> 0</span>
-                            </div>
-                            <h3><a href="#"><?php echo esc_html( $dp['title'] ); ?></a></h3>
-                            <p><?php echo esc_html( $dp['excerpt'] ); ?></p>
-                            <a href="#" class="ac-read-more"><?php esc_html_e( 'Read More', 'annie-cakes' ); ?> <i class="fas fa-arrow-right"></i></a>
-                        </div>
-                    </article>
-                    <?php
-                }
-            }
-            ?>
-        </div>
-        <div style="text-align:center;margin-top:40px;" data-aos="fade-up">
-            <a href="<?php echo esc_url( home_url( '/blog/' ) ); ?>" class="ac-btn ac-btn-outline">
-                <?php esc_html_e( 'Read All Articles', 'annie-cakes' ); ?> <i class="fas fa-arrow-right"></i>
-            </a>
+            <div class="testimonial-card animate-fade-up" style="animation-delay: 0.1s">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-text">"As a fleet manager with 20+ vehicles, Vehdoc has been a game-changer. They handle all our documentation and renewals seamlessly. Highly recommended!"</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <strong>Chidinma Okafor</strong>
+                        <span>Abuja, Nigeria</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card animate-fade-up" style="animation-delay: 0.2s">
+                <div class="testimonial-stars">
+                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                </div>
+                <p class="testimonial-text">"The tracking feature is amazing! I could see exactly where my documents were in the process. Payment was easy and the delivery was right on time."</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <strong>Emeka Nwosu</strong>
+                        <span>Port Harcourt, Nigeria</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<!-- Delivery Info Section -->
-<section class="ac-section">
-    <div class="ac-container">
-        <div class="ac-section-header" data-aos="fade-up">
-            <span class="ac-section-badge"><?php esc_html_e( 'Delivery Information', 'annie-cakes' ); ?></span>
-            <h2><?php esc_html_e( 'We Deliver Happiness', 'annie-cakes' ); ?></h2>
-            <p><?php esc_html_e( 'Fast, reliable delivery to your doorstep — anywhere in Lagos and nationwide across Nigeria.', 'annie-cakes' ); ?></p>
+<!-- FAQ Section -->
+<section class="faq-section" id="faq">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">FAQ</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Got questions? We've got answers.</p>
         </div>
-        <div class="ac-why-grid">
-            <div class="ac-why-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="ac-why-icon"><i class="fas fa-motorcycle"></i></div>
-                <h3><?php esc_html_e( 'Same Day Delivery', 'annie-cakes' ); ?></h3>
-                <p><?php esc_html_e( 'Order before 12pm and receive your cake the same day anywhere within Lagos. Express delivery available for last-minute celebrations.', 'annie-cakes' ); ?></p>
+        <div class="faq-list">
+            <div class="faq-item animate-fade-up">
+                <button class="faq-question">
+                    <span>How long does the process take?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Processing times vary by service. Most documents are processed within 3-14 business days. You can opt for fast-track processing for quicker turnaround. You'll receive real-time updates throughout the process.</p>
+                </div>
             </div>
-            <div class="ac-why-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="ac-why-icon"><i class="fas fa-shipping-fast"></i></div>
-                <h3><?php esc_html_e( 'Nationwide Shipping', 'annie-cakes' ); ?></h3>
-                <p><?php esc_html_e( 'We ship to all 36 states and FCT with secure, temperature-controlled packaging. Gift hampers and non-perishable items delivered within 2-3 business days.', 'annie-cakes' ); ?></p>
+            <div class="faq-item animate-fade-up">
+                <button class="faq-question">
+                    <span>What documents do I need to upload?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Requirements vary by service. Typically you'll need: old vehicle papers, proof of ownership, valid ID card, and passport photographs. Each service page lists specific requirements.</p>
+                </div>
             </div>
-            <div class="ac-why-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="ac-why-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <h3><?php esc_html_e( 'Real-Time Tracking', 'annie-cakes' ); ?></h3>
-                <p><?php esc_html_e( 'Track your order from our kitchen to your doorstep. Receive SMS and email updates at every stage — from baking to dispatch to delivery.', 'annie-cakes' ); ?></p>
+            <div class="faq-item animate-fade-up">
+                <button class="faq-question">
+                    <span>Is my payment secure?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Absolutely. We use Paystack and Flutterwave — Nigeria's most trusted payment processors. All transactions are encrypted and secured. You'll receive an instant digital receipt.</p>
+                </div>
+            </div>
+            <div class="faq-item animate-fade-up">
+                <button class="faq-question">
+                    <span>Do you deliver to all states?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes, we deliver to all 36 states and the FCT. Express delivery is available in Lagos, Abuja, and Port Harcourt for same-day or next-day delivery.</p>
+                </div>
+            </div>
+            <div class="faq-item animate-fade-up">
+                <button class="faq-question">
+                    <span>What if my application is rejected?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>In the rare case of a rejection, we'll notify you immediately with the reason and guide you on next steps. If the issue is on our end, we'll reprocess at no extra cost.</p>
+                </div>
+            </div>
+            <div class="faq-item animate-fade-up">
+                <button class="faq-question">
+                    <span>Can I track my order?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes! Once you place an order, you can track its progress in real-time from your dashboard. You'll also receive email and SMS updates at each stage.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mobile App Mockup -->
+<section class="mobile-app-section">
+    <div class="container">
+        <div class="app-content">
+            <div class="app-text animate-fade-in">
+                <span class="section-badge">Mobile App</span>
+                <h2 class="section-title">Manage Your Documents On The Go</h2>
+                <p>Download the Vehdoc mobile app for an even better experience. Track orders, upload documents, make payments, and receive notifications — all from your phone.</p>
+                <div class="app-features">
+                    <div class="app-feature"><i class="fa-solid fa-check-circle"></i> Real-time tracking</div>
+                    <div class="app-feature"><i class="fa-solid fa-check-circle"></i> Push notifications</div>
+                    <div class="app-feature"><i class="fa-solid fa-check-circle"></i> Document scanner</div>
+                    <div class="app-feature"><i class="fa-solid fa-check-circle"></i> Instant payments</div>
+                </div>
+                <div class="app-buttons">
+                    <a href="#" class="app-store-btn">
+                        <i class="fa-brands fa-apple"></i>
+                        <div><span>Download on the</span><strong>App Store</strong></div>
+                    </a>
+                    <a href="#" class="app-store-btn">
+                        <i class="fa-brands fa-google-play"></i>
+                        <div><span>Get it on</span><strong>Google Play</strong></div>
+                    </a>
+                </div>
+            </div>
+            <div class="app-mockup animate-slide-right">
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <div class="mock-app-header">
+                            <?php vehdoc_render_logo('mock'); ?>
+                            <i class="fa-solid fa-bell"></i>
+                        </div>
+                        <div class="mock-app-greeting">
+                            <span>Welcome back,</span>
+                            <strong>Adebayo</strong>
+                        </div>
+                        <div class="mock-app-stats">
+                            <div class="mini-stat"><strong>3</strong><span>Vehicles</span></div>
+                            <div class="mini-stat"><strong>2</strong><span>Active</span></div>
+                            <div class="mini-stat"><strong>7</strong><span>Completed</span></div>
+                        </div>
+                        <div class="mock-app-card">
+                            <div class="mini-card-header"><strong>Recent Order</strong><span class="mini-badge">Processing</span></div>
+                            <div class="mini-card-body">Vehicle Licence Renewal<br><small>Toyota Camry — LAG-234-XY</small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section" id="contact">
+    <div class="container">
+        <div class="cta-content animate-fade-in">
+            <h2><?php echo esc_html(get_theme_mod('vehdoc_cta_text', 'Ready to get your vehicle documents processed?')); ?></h2>
+            <p>Join thousands of vehicle owners who trust Vehdoc for fast, secure, and hassle-free document processing.</p>
+            <div class="cta-buttons">
+                <a href="<?php echo home_url('/register/'); ?>" class="btn btn-white btn-lg">
+                    <i class="fa-solid fa-rocket"></i> Get Started Now
+                </a>
+                <a href="<?php echo home_url('/contact-us/'); ?>" class="btn btn-outline-white btn-lg">
+                    <i class="fa-solid fa-headset"></i> Contact Us
+                </a>
             </div>
         </div>
     </div>
