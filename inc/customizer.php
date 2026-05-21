@@ -261,6 +261,46 @@ function feyikemi_customize_register( $wp_customize ) {
         }
     }
 
+    // ─── Section: Training & Professional Development ───
+    $wp_customize->add_section( 'feyikemi_training', array(
+        'title' => __( 'Training & Professional Development', 'feyikemi-portfolio' ),
+        'panel' => 'feyikemi_panel',
+    ) );
+
+    $wp_customize->add_setting( 'feyikemi_training_title', array( 'default' => 'Training & Professional Development', 'sanitize_callback' => 'sanitize_text_field' ) );
+    $wp_customize->add_control( 'feyikemi_training_title', array( 'label' => 'Section Title', 'section' => 'feyikemi_training', 'type' => 'text' ) );
+
+    $wp_customize->add_setting( 'feyikemi_training_count', array( 'default' => 2, 'sanitize_callback' => 'absint' ) );
+    $wp_customize->add_control( 'feyikemi_training_count', array(
+        'label'       => 'Number of Training Items (1-6)',
+        'section'     => 'feyikemi_training',
+        'type'        => 'number',
+        'input_attrs' => array( 'min' => 1, 'max' => 6 ),
+    ) );
+
+    for ( $i = 1; $i <= 6; $i++ ) {
+        $defaults = array(
+            1 => array( 'ICPC ACTU Desk Officer Workshops', 'In-house workshops and stakeholder training sessions in collaboration with RoLAC (Rule of Law International) focused on transparency, accountability, and anti-corruption best practices.', '2025' ),
+            2 => array( 'Anti-Corruption & Governance Seminars', 'Public speaking, civic education programs, and specialized seminars on anti-corruption advocacy and good governance.', 'Ongoing' ),
+            3 => array( '', '', '' ),
+            4 => array( '', '', '' ),
+            5 => array( '', '', '' ),
+            6 => array( '', '', '' ),
+        );
+        foreach ( array(
+            "feyikemi_training_{$i}_title" => array( "Training {$i} Title", $defaults[ $i ][0] ),
+            "feyikemi_training_{$i}_desc"  => array( "Training {$i} Description", $defaults[ $i ][1] ),
+            "feyikemi_training_{$i}_year"  => array( "Training {$i} Year", $defaults[ $i ][2] ),
+        ) as $id => $data ) {
+            $wp_customize->add_setting( $id, array( 'default' => $data[1], 'sanitize_callback' => 'sanitize_text_field' ) );
+            $wp_customize->add_control( $id, array(
+                'label'   => $data[0],
+                'section' => 'feyikemi_training',
+                'type'    => strpos( $id, 'desc' ) !== false ? 'textarea' : 'text',
+            ) );
+        }
+    }
+
     // ─── Section: Footer ───
     $wp_customize->add_section( 'feyikemi_footer', array(
         'title' => __( 'Footer Settings', 'feyikemi-portfolio' ),

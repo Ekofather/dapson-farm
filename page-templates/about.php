@@ -100,20 +100,30 @@ get_header();
             <h2 class="section-title"><?php echo esc_html( get_theme_mod( 'feyikemi_training_title', 'Training & Professional Development' ) ); ?></h2>
         </div>
         <div class="training-grid">
-            <?php for ( $i = 1; $i <= 2; $i++ ) :
-                $defaults = array(
-                    1 => array( 'ICPC ACTU Desk Officer Workshops', 'In-house workshops and stakeholder training sessions in collaboration with RoLAC (Rule of Law International) focused on transparency, accountability, and anti-corruption best practices.', '2025' ),
-                    2 => array( 'Anti-Corruption & Governance Seminars', 'Public speaking, civic education programs, and specialized seminars on anti-corruption advocacy and good governance.', 'Ongoing' ),
-                );
-                $title = get_theme_mod( "feyikemi_training_{$i}_title", $defaults[ $i ][0] );
-                $desc  = get_theme_mod( "feyikemi_training_{$i}_desc", $defaults[ $i ][1] );
-                $year  = get_theme_mod( "feyikemi_training_{$i}_year", $defaults[ $i ][2] );
+            <?php
+            $training_count = get_theme_mod( 'feyikemi_training_count', 2 );
+            $training_count = max( 1, min( 6, intval( $training_count ) ) );
+            $training_defaults = array(
+                1 => array( 'ICPC ACTU Desk Officer Workshops', 'In-house workshops and stakeholder training sessions in collaboration with RoLAC (Rule of Law International) focused on transparency, accountability, and anti-corruption best practices.', '2025' ),
+                2 => array( 'Anti-Corruption & Governance Seminars', 'Public speaking, civic education programs, and specialized seminars on anti-corruption advocacy and good governance.', 'Ongoing' ),
+                3 => array( '', '', '' ),
+                4 => array( '', '', '' ),
+                5 => array( '', '', '' ),
+                6 => array( '', '', '' ),
+            );
+            for ( $i = 1; $i <= $training_count; $i++ ) :
+                $title = get_theme_mod( "feyikemi_training_{$i}_title", $training_defaults[ $i ][0] );
+                $desc  = get_theme_mod( "feyikemi_training_{$i}_desc", $training_defaults[ $i ][1] );
+                $year  = get_theme_mod( "feyikemi_training_{$i}_year", $training_defaults[ $i ][2] );
+                if ( empty( $title ) ) continue;
             ?>
             <div class="training-card" data-aos="fade-up" data-aos-delay="<?php echo ( $i - 1 ) * 150; ?>">
                 <div class="training-icon"><i class="fas fa-certificate"></i></div>
                 <h3><?php echo esc_html( $title ); ?></h3>
                 <p><?php echo esc_html( $desc ); ?></p>
-                <span class="training-year"><?php echo esc_html( $year ); ?></span>
+                <?php if ( ! empty( $year ) ) : ?>
+                    <span class="training-year"><?php echo esc_html( $year ); ?></span>
+                <?php endif; ?>
             </div>
             <?php endfor; ?>
         </div>
